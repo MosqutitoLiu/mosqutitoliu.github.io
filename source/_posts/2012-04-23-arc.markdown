@@ -1,0 +1,141 @@
+---
+layout: post
+title: "ARC"
+date: 2012-04-23 02:49
+comments: true
+categories: [Object-C ,Study]
+---
+
+#工作原理
+
+自动计数（ARC）是一个编译期间工作的能够帮你管理内存的技术。
+ARC在编译期间为每个Objective-C指针变量添加合适的retain, release, autorelease等函数，保存每个变量的生存周期控制在合理的范围内，以期实现代码上的自动内存管理。
+In order for the compiler to generate correct code, ARC imposes some restrictions on the methods you can use, and on how you use toll-free bridging (see “Toll-Free Bridged Types”); ARC also introduces new lifetime qualifiers for object references and declared properties.
+
+#功能
+ARC使得你不需要再思考何时使用retain,release,autorelease这样的函数来管理内存，它提供了自动评估内存生存期的功能，并且 在编译期间自动加入合适的管理内存的方法。编译器也会自动生成dealloc函数。
+
+<!--more-->
+#新规则
+
+* 不能直接调用dealloc方法，不能重载或直接调用retain, release, retainCount,或 autorelease等方法。但可以通过@selector(retain), @selector(release)这样的形式调用。
+
+* 用户自定义的dealloc方法，不能调用[super dealloc] ，编译器会自动帮你添加这个代码。
+
+* 对Core Foundation-style 的对象，仍可以使用CFRetain, CFRelease等方法。
+
+* 不能使用NSAllocateObject或NSDeallocateObject去创建对象，请使用alloc方法。
+
+* 在c语言中的结构体中，不能再使用对象指针。请放弃C结构体，使用Objective-C的类。
+
+* id和void*之间没有隐式的类型转换，请使用显式类型转换。
+
+* 不能使用NSAutoreleasePool *pool= ARC提供了@autoreleasepool语句块。
+
+#关于对象的生命周期
+
+设置成weak的属性，不会影响对象的生命周期，如果引用的对象已经被释放，引用会指向nil。 strong引用：设置成strong的属性，会影响对象的生命周期。 
+
+例如：
+
+{% codeblock %}
+@property(strong) MyClass *myObject;
+{% endcodeblock %}
+
+和
+
+{% codeblock %}
+@property(retain) MyClass *myObject;
+{% endcodeblock %}
+
+是等效的。
+
+又例如：
+
+{% codeblock %}
+@property(weak) MyClass *myObject;
+{% endcodeblock %}
+
+和
+
+{% codeblock %}
+@property(assign) MyClass *myObject;
+{% endcodeblock %}
+
+在多数情况下等效，但当instance被释放时，设置为weak的引用会指向nil。
+可用的限定词： strong， 默认的 weak __unsafe_unretained，和weak的区别是当对象被释放时，引用不指向nil。 __autoreleasing，当方法的参数是id*，且希望方法返回时对象被autoreleased，可以添加__autoreleasing限定词。 使用__weak时要特别小心，如果weak引用的对象在此次使用之前被使用过一次，那么它一直存在，直到autoreleasepool释放它，否则就是nil。
+
+例如
+
+{% codeblock %}
+NSString __weak *string = [[NSString alloc] initWithFormat:@"First Name: %@", [self firstName]];   
+string = NSLog(@"string: %@", string); //此时string为空，因为weak类型不影响对象的生命周期，对象刚创建就释放了。
+{% endcodeblock %}
+
+其他特性： 使用strong, weak, autoreleasing限定的变量会被隐式初始化为nil。
+
+例如：
+
+{% codeblock %}
+- (void)myMethod { NSString *name; NSLog(@"name: %@", name); //会输出null }
+{% endcodeblock %}
+
+weak与assign很像,不同在于如果指向的数据被释放了,那么这个指向nil
+unsafe_unretained
+相当于assign,指向的数据如果被释放,这个指向原来的地址。
+
+#禁用在Xcode中的特定文件的ARC
+
+选择项目->Build Phases->Compile Sources,，给需要禁止arc的文件添加 “-fno-objc-arc”（双击该文件）编译标志(Compiler Flags)。
+
+如下图
+
+<p style="text-align: center;"><a href="http://www.flickr.com/photos/mosquitoliu/6956821194/" title="Flickr 上 freefishdss 的 noarc"><img src="http://farm9.staticflickr.com/8013/6956821194_ae58ab56c6.jpg" width="500" height="117" alt="noarc"></a></p>
+
+
+#注意事项
+
+1. 不可以使用retain,retainCount,release,autorelease 用@select()这样的调用也不行.属性命名不能以new开头。
+2. 若重写一个类子类的dealloc,不应调用[super dealloc],当然也不用写什么release释放一些什么对象,只是处理一些你觉得必要处理的事情吧,比如中止一个还没有完成的网络请求.
+
+3. 不能使用NSAllocateObject和NSDeallocateObject
+
+4. 你不能在c结构中使用对象,更好的方式是使用Objective-c类来代替.
+
+5. 在id和void*之间不能隐士转换，必须指明相应转换的生命周期。
+
+6. 不能使用NSAutoreleasePool对象，ARC使用@autoreleasepool{}块代替。
+
+#Core Foundation 对象与Objective-c对象之间的赋值,函数调用参数相互转化时需要用到的关键字
+
+__bridge
+
+简单赋值,不会影响两边对象的retain count.
+
+__bridge_transfer
+
+赋值后释放右边的对象
+
+__bridge_retained
+
+赋值后也保留不释放右边的对象
+
+举例:
+
+{% codeblock %}
+-(void)test  
+{  
+    CFStringRef coreFoundationString = CFStringCreateWithCString(CFAllocatorGetDefault(),"C String", kCFStringEncodingUTF8);    // 创建 retainCount = 1
+    id unknownObjectType = (__bridge id)coreFoundationString; // 简单赋值,不变,retainCount = 1
+    CFStringRef anotherString = (__bridge_retained CFStringRef)unknownObjectType; // 保留赋值,加一,retainCount = 2
+    NSString *objCString = (__bridge_transfer NSString *)coreFoundationString; // 释放赋值,减一,retainCount =1;由于NSString*默认strong,加一,retainCount = 2
+    NSLog(@"String = %@", objCString);
+    objCString = nil;   // 不再指向原内存,原内存减一,retainCount = 1
+    CFRelease(anotherString);   // 释放,减一,retainCount = 0
+} 
+{% endcodeblock %}
+
+在c型的结构中使用objective-c对象
+
+使用void*代替id;或者使用__unsage_unretained 修饰objective-c对象
+

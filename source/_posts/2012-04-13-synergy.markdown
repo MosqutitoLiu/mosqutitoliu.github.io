@@ -1,0 +1,38 @@
+---
+layout: post
+title: "Synergy"
+date: 2011-09-19 02:18
+comments: true
+categories: 应用
+---
+Synergy 是一款能够让使用者仅用一套键盘鼠标，就同时操控多部计算机的免费工具软件。使用者能够在包括 Windows 、 Linux 、 Mac OS 等不同的系统上安装它，并且在设定好主从关系后，就能够透过一组键盘鼠标来进行多部计算机的操控。『官方网址：<a href="http://synergy-foss.org">http://synergy-foss.org</a>/』<!--more-->下载对应系统的客户端。我的是Window7和Mac OS。Windows 1.4.4beta 32-bit;Mac OS X Universal。
+
+安装好后，开始进行配置。（Windows7作为server，Mac OS作为Cliernt）
+
+Windows7下的配置（如下图）
+
+<a href="http://pic.mosquitoliu.com/wp-content/uploads/2011/09/3.png"><img class="aligncenter size-full wp-image-421" title="3" src="http://pic.mosquitoliu.com/wp-content/uploads/2011/09/3.png" alt="" width="517" height="375" /></a><a href="http://mosquitoliu.com/wp-content/uploads/2011/09/2.jpg"><img class="aligncenter size-full wp-image-422" title="2" src="http://mosquitoliu.com/wp-content/uploads/2011/09/2.jpg" alt="" width="517" height="371" /></a>
+
+要正确的填写计算机的名称。
+
+<a href="http://pic.mosquitoliu.com/wp-content/uploads/2011/09/1.jpg"><img class="aligncenter size-full wp-image-423" title="1" src="http://pic.mosquitoliu.com/wp-content/uploads/2011/09/1.jpg" alt="" width="520" height="372" /></a><a href="http://mosquitoliu.com/wp-content/uploads/2011/09/6.jpg"><img class="aligncenter size-full wp-image-424" title="6" src="http://pic.mosquitoliu.com/wp-content/uploads/2011/09/6.jpg" alt="" width="335" height="278" /></a>
+
+这样windows7的配置就完成了。点击Start，运行。
+
+Mac OS下的配置（如下图）
+
+<a href="http://pic.mosquitoliu.com/wp-content/uploads/2011/09/5.jpg"><img class="aligncenter size-full wp-image-425" title="5" src="http://pic.mosquitoliu.com/wp-content/uploads/2011/09/5.jpg" alt="" width="473" height="413" /></a>
+
+点击Start运行。
+
+这时Windows7下的图标变成了如图所示
+
+<img class="aligncenter size-full wp-image-426" title="4" src="http://pic.mosquitoliu.com/wp-content/uploads/2011/09/4.jpg" alt="" width="66" height="48" />
+
+这表示连接成功。滑动鼠标可以从Windows窗口滑到Mac OS的窗口了。
+
+&nbsp;
+
+PS：当Mac OS作为Server，Windows7作为Client时，没有设置成功。原因不详。
+
+&nbsp;
