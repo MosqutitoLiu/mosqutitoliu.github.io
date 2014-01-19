@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Object-C | MosquitoLiu's Blog]]></title>
+  <link href="http://blog.mosquitoliu.com/blog/categories/object-c/atom.xml" rel="self"/>
+  <link href="http://blog.mosquitoliu.com/"/>
+  <updated>2014-01-19T19:14:05+08:00</updated>
+  <id>http://blog.mosquitoliu.com/</id>
+  <author>
+    <name><![CDATA[小文]]></name>
+    <email><![CDATA[freefishdss@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[ARC]]></title>
+    <link href="http://blog.mosquitoliu.com/blog/2012/04/23/arc/"/>
+    <updated>2012-04-23T02:49:00+08:00</updated>
+    <id>http://blog.mosquitoliu.com/blog/2012/04/23/arc</id>
+    <content type="html"><![CDATA[<h1>工作原理</h1>
+
+<p>自动计数（ARC）是一个编译期间工作的能够帮你管理内存的技术。
+ARC在编译期间为每个Objective-C指针变量添加合适的retain, release, autorelease等函数，保存每个变量的生存周期控制在合理的范围内，以期实现代码上的自动内存管理。
+In order for the compiler to generate correct code, ARC imposes some restrictions on the methods you can use, and on how you use toll-free bridging (see “Toll-Free Bridged Types”); ARC also introduces new lifetime qualifiers for object references and declared properties.</p>
+
+<h1>功能</h1>
+
+<p>ARC使得你不需要再思考何时使用retain,release,autorelease这样的函数来管理内存，它提供了自动评估内存生存期的功能，并且 在编译期间自动加入合适的管理内存的方法。编译器也会自动生成dealloc函数。</p>
+
+<!--more-->
+
+
+<h1>新规则</h1>
+
+<ul>
+<li><p>不能直接调用dealloc方法，不能重载或直接调用retain, release, retainCount,或 autorelease等方法。但可以通过@selector(retain), @selector(release)这样的形式调用。</p></li>
+<li><p>用户自定义的dealloc方法，不能调用[super dealloc] ，编译器会自动帮你添加这个代码。</p></li>
+<li><p>对Core Foundation-style 的对象，仍可以使用CFRetain, CFRelease等方法。</p></li>
+<li><p>不能使用NSAllocateObject或NSDeallocateObject去创建对象，请使用alloc方法。</p></li>
+<li><p>在c语言中的结构体中，不能再使用对象指针。请放弃C结构体，使用Objective-C的类。</p></li>
+<li><p>id和void*之间没有隐式的类型转换，请使用显式类型转换。</p></li>
+<li><p>不能使用NSAutoreleasePool *pool= ARC提供了@autoreleasepool语句块。</p></li>
+</ul>
+
+
+<h1>关于对象的生命周期</h1>
+
+<p>设置成weak的属性，不会影响对象的生命周期，如果引用的对象已经被释放，引用会指向nil。 strong引用：设置成strong的属性，会影响对象的生命周期。</p>
+
+<p>例如：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>@property(strong) MyClass *myObject;</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>和</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>@property(retain) MyClass *myObject;</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>是等效的。</p>
+
+<p>又例如：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>@property(weak) MyClass *myObject;</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>和</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>@property(assign) MyClass *myObject;</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>在多数情况下等效，但当instance被释放时，设置为weak的引用会指向nil。
+可用的限定词： strong， 默认的 weak <strong>unsafe_unretained，和weak的区别是当对象被释放时，引用不指向nil。 </strong>autoreleasing，当方法的参数是id*，且希望方法返回时对象被autoreleased，可以添加<strong>autoreleasing限定词。 使用</strong>weak时要特别小心，如果weak引用的对象在此次使用之前被使用过一次，那么它一直存在，直到autoreleasepool释放它，否则就是nil。</p>
+
+<p>例如</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>NSString __weak *string = [[NSString alloc] initWithFormat:@&ldquo;First Name: %@&rdquo;, [self firstName]];   
+</span><span class='line'>string = NSLog(@&ldquo;string: %@&rdquo;, string); //此时string为空，因为weak类型不影响对象的生命周期，对象刚创建就释放了。</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>其他特性： 使用strong, weak, autoreleasing限定的变量会被隐式初始化为nil。</p>
+
+<p>例如：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>- (void)myMethod { NSString *name; NSLog(@&ldquo;name: %@&rdquo;, name); //会输出null }</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>weak与assign很像,不同在于如果指向的数据被释放了,那么这个指向nil
+unsafe_unretained
+相当于assign,指向的数据如果被释放,这个指向原来的地址。</p>
+
+<h1>禁用在Xcode中的特定文件的ARC</h1>
+
+<p>选择项目->Build Phases->Compile Sources,，给需要禁止arc的文件添加 “-fno-objc-arc”（双击该文件）编译标志(Compiler Flags)。</p>
+
+<p>如下图</p>
+
+<p style="text-align: center;"><a href="http://www.flickr.com/photos/mosquitoliu/6956821194/" title="Flickr 上 freefishdss 的 noarc"><img src="http://farm9.staticflickr.com/8013/6956821194_ae58ab56c6.jpg" width="500" height="117" alt="noarc"></a></p>
+
+
+<h1>注意事项</h1>
+
+<ol>
+<li>不可以使用retain,retainCount,release,autorelease 用@select()这样的调用也不行.属性命名不能以new开头。</li>
+<li><p>若重写一个类子类的dealloc,不应调用[super dealloc],当然也不用写什么release释放一些什么对象,只是处理一些你觉得必要处理的事情吧,比如中止一个还没有完成的网络请求.</p></li>
+<li><p>不能使用NSAllocateObject和NSDeallocateObject</p></li>
+<li><p>你不能在c结构中使用对象,更好的方式是使用Objective-c类来代替.</p></li>
+<li><p>在id和void*之间不能隐士转换，必须指明相应转换的生命周期。</p></li>
+<li><p>不能使用NSAutoreleasePool对象，ARC使用@autoreleasepool{}块代替。</p></li>
+</ol>
+
+
+<h1>Core Foundation 对象与Objective-c对象之间的赋值,函数调用参数相互转化时需要用到的关键字</h1>
+
+<p>__bridge</p>
+
+<p>简单赋值,不会影响两边对象的retain count.</p>
+
+<p>__bridge_transfer</p>
+
+<p>赋值后释放右边的对象</p>
+
+<p>__bridge_retained</p>
+
+<p>赋值后也保留不释放右边的对象</p>
+
+<p>举例:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&ndash;(void)test&lt;br/>
+</span><span class='line'>{&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code>CFStringRef coreFoundationString = CFStringCreateWithCString(CFAllocatorGetDefault(),"C String", kCFStringEncodingUTF8);    // 创建 retainCount = 1
+</span><span class='line'>id unknownObjectType = (__bridge id)coreFoundationString; // 简单赋值,不变,retainCount = 1
+</span><span class='line'>CFStringRef anotherString = (__bridge_retained CFStringRef)unknownObjectType; // 保留赋值,加一,retainCount = 2
+</span><span class='line'>NSString *objCString = (__bridge_transfer NSString *)coreFoundationString; // 释放赋值,减一,retainCount =1;由于NSString*默认strong,加一,retainCount = 2
+</span><span class='line'>NSLog(@"String = %@", objCString);
+</span><span class='line'>objCString = nil;   // 不再指向原内存,原内存减一,retainCount = 1
+</span><span class='line'>CFRelease(anotherString);   // 释放,减一,retainCount = 0
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;p>}</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>在c型的结构中使用objective-c对象</p>
+
+<p>使用void*代替id;或者使用__unsage_unretained 修饰objective-c对象</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[内存管理]]></title>
+    <link href="http://blog.mosquitoliu.com/blog/2012/04/16/nei-cun-guan-li/"/>
+    <updated>2012-04-16T15:58:00+08:00</updated>
+    <id>http://blog.mosquitoliu.com/blog/2012/04/16/nei-cun-guan-li</id>
+    <content type="html"><![CDATA[<p>Objective-C使用了一种叫做持有计数（Retain Count）的机制来管理内存中的对象。
+在Objective-C中每个对象都对应着他们自己的持有计数（Retain Count），持有计数可以理解为一个整数计数器，当使用alloc方法创建对象的时候，持有计数会自动设置为1。当你向一个对象发送retain消息时，持有计数数值会增加。相反，当你像一个对象发送release消息时，持有计数数值会减小。当对象的持有计数变为0的时候，对象会释放自己所占用的内存。</p>
+
+<!--more-->
+
+
+<h1>一、引用计数是实例对象的内存回收唯一参考</h1>
+
+<p>引用计数(retainCount)是Objective-C管理对象引用的唯一依据。调用实例的release方法后，此属性减一，减到为零时对象的dealloc方法被自动调用，进行内存回收操作，也就是说我们永不该手动调用对象的dealloc方法。</p>
+
+<p>下面就是它主要操作接口：</p>
+
+<ol>
+<li><p>alloc, allocWithZone,new(带初始化)</p>
+
+<p> 为对象分配内存，retainCount为“1”，并返回此实例</p></li>
+<li><p>release</p>
+
+<p> retainCount 减“1”，减到“0”时调用此对象的dealloc方法</p></li>
+<li><p>retain</p>
+
+<p> ratianCoutn 加“1”</p></li>
+<li><p>copy、mutableCopy</p>
+
+<p> 复制一个实例，retainCount数为“1”，返回此实例。所得到的对象是与其它上下文无关的，独立的对象</p></li>
+<li><p>autorelease</p>
+
+<p> 在当前上下文的AutoreleasePool栈顶的autoreleasePool实例添加此对象，由于它的引入使Objective-C由全手动内存管理上升到半自动化。</p></li>
+</ol>
+
+
+<h1>二、Object-C内存管理准则</h1>
+
+<p>我们可以把上面的接口按对retainCount的操作性质归为两类</p>
+
+<p>Ａ类是加一操作：1，3，4
+Ｂ类是减一操作：2，5（延时释放）内存管理准则如下：
+1. A与Ｂ类的调用次数保持一制
+2. 为了很好的保障准则一，以实例对象为单位，谁A了就谁Ｂ，没有第二者参与例：</p>
+
+<pre><code>NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    NSObject *o = [[NSObject alloc] init];    //retainCount为1
+    /[o retain];    //retainCount为2
+    //[o release]; //retainCount为1
+    //[o autorelease]; //retainCount为1
+    [pool release]; //retaincount为0，触发dealloc方法 
+</code></pre>
+
+<h1>三、AutoreleasePool使Objective-C成为内存管理半自动化语言</h1>
+
+<p>程序入口</p>
+
+<pre><code>NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    int retVal = UIApplicationMain(argc, argv, nil, nil);
+    [pool release];
+</code></pre>
+
+<p>在 声明pool后，release它之前的这段代码，所有段里的代码（先假设中间没有声明其它的AutoreleasePool实例），凡是调用了 autorelase方法的实例，都会把它的retainCount加1，并在此pool实例中添1次此实例要回收的记录以做备案。当此pool实例 dealloc时，首先会检查之前备案的所有实例，所有记录在案的实例都会依次调用它的release方法。</p>
+
+<pre><code>NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    NSObject *o = [[NSObject alloc] init];
+    [o autorelease];                                //在pool实例dealloc时，release     一次此实例，重要的是并不是在此行去release
+    NSLog(@"o retainCount:%d",[o retainCount]);    //此时还可以看到我们的o实例还是可用的，并且retainCount为1
+    [pool release];    //pool 的 retainCount为0，自动调用其dealloc方法，我们之前备案的小o也将在这里release一次（因为咱们之前仅仅autorelease一次）
+</code></pre>
+
+<p>真对同一个实例，同一个Pool是可以多次注册备案(autorelease)的。在一些很少的情况化可能会出现这种需求：</p>
+
+<pre><code>NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    NSObject *o = [[NSObject alloc] init];
+    [o retain];
+    [o autorelease];
+    [o autorelease];
+    [pool release];
+</code></pre>
+
+<p>我 们调用了两次A类(retainCount加1的方法)，使其retainCount为2，而接下来的两次autorelease方法调用，使其在 pool中注册备案了两次。这里的pool将会在回收时调用此实例的两次release方法。使其retainCount降为0，完成回收内存的操作，其 实这也是完全按照内存管理规则办事的好处.</p>
+
+<p>AutoreleasePool是被嵌套的！池是被嵌套的，嵌套的结果是个栈，同一线程只有当前栈顶pool实例是可用的：</p>
+
+<p>|  pool_3  |</p>
+
+<p>|  &mdash;&mdash;&mdash;&mdash;-      |</p>
+
+<p>|  pool_2      |</p>
+
+<p>|  &mdash;&mdash;&mdash;&mdash;-   |</p>
+
+<p>|  pool_1  |</p>
+
+<p>|_______|</p>
+
+<pre><code>NSAutoreleasePool *pool1 = [[NSAutoreleasePool alloc] init];
+    NSAutoreleasePool *pool2 = [[NSAutoreleasePool alloc] init];
+    NSAutoreleasePool *pool3 = [[NSAutoreleasePool alloc] init];
+
+NSObject *o = [[NSObject alloc] init] autorelease];
+    [pool3 release];
+    [pool2 release];
+    [pool1 release];
+</code></pre>
+
+<p>我们可以看到其栈顶是pool3，o的autorelease是把当前的release放在栈顶的pool实例管理。。。也就是pool3。
+在生命周期短，产生大量放在autoreleasePool中管理实例的情况下经常用此方法减少内存使用，达到内存及时回收的目的。
+autorelease pool不是天生的，需要手动创立。只不过在新建一个iphone项目时，xcode会自动帮你写好。autorelease pool的真名是NSAutoreleasePool。</p>
+
+<pre><code>NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];    NSAutoreleasePool内部包含一个数组（NSMutableArray），用来保存声明为autorelease的所有对象。如果一个对象声明为autorelease，系统所做的工作就是把这个对象加入到这个数组中去。
+
+
+ClassA *obj1 = [[[ClassA alloc] init] autorelease]; //retain count = 1，把此对象加入autorelease pool中
+</code></pre>
+
+<p>NSAutoreleasePool自身在销毁的时候，会遍历一遍这个数组，release数组中的每个成员。如果此时数组中成员的retain count为1，那么release之后，retain count为0，对象正式被销毁。如果此时数组中成员的retain count大于1，那么release之后，retain count大于0，此对象依然没有被销毁，内存泄露。</p>
+
+<p>所有标记为autorelease的对象都只有在这个pool销毁时才被销毁。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Obeject-C语法总结]]></title>
+    <link href="http://blog.mosquitoliu.com/blog/2012/03/11/obeject-cyu-fa-zong-jie/"/>
+    <updated>2012-03-11T17:50:00+08:00</updated>
+    <id>http://blog.mosquitoliu.com/blog/2012/03/11/obeject-cyu-fa-zong-jie</id>
+    <content type="html"><![CDATA[<p>Objective-C代码的文件扩展名<br />
+扩展名   内容类型<br />
+.h  头文件。头文件包含类，类型，函数和常数的声明。<br />
+.m  源代码文件。这是典型的源代码文件扩展名，可以包含Objective-C和C代码。<br />
+.mm 源代码文件。带有这种扩展名的源代码文件，除了可以包含Objective-C和C代码以外还可以包含C++代码。仅在你的Objective-C代码中确实需要使用C++类或者特性的时候才用这种扩展名。<br />
+#import选项和#include选项完全相同，＃import只是它可以确保相同的文件只会被包含一次。</p>
+
+
+<p>字符串<br />
+NSString*  myString = @"My String";<br />
+用双引号，助记符号  @<!--more--></p>
+
+
+<p>类<br />
+类是Objective-C用来封装数据，以及操作数据的行为的基础结构。对象就是类的运行期间实例，它包含了类声明的实例变量自己的内存拷贝，以及类成员的指针。Objective-C的类规格说明包含了两个部分：接口和实现。接口部分包含了类声明和实例变量的定义，以及类相关的方法。实现部分包含了类方法的实际代码<br />
+￼</p>
+
+
+<p>类声明总是由@interface编译选项开始，由@end编译选项结束。类名之后的（用冒号分隔的）是父类的名字。类的实例（或者成员）变量声明在被大括号包含的代码块中。实例变量块后面就是类声明的方法的列表。每个实例变量和方法声明都以分号结尾。<br />
+类实现<br />
+类实现总是由@implementation开始，由@end编译选项结束。<br />
++(MyClass *)createMyClassWithString: (NSString *) aName<br />
+类方法<br />
+-(id)initWithString:(NSString *) aName<br />
+实例方法<br />
+Objective-C中的类可以声明两种类型的方法：实例方法和类方法。实例方法就是一个方法，它在类的一个具体实例的范围内执行。也就是说，在你调用一个实例方法前，你必须首先创建类的一个实例。而类方法，比较起来，也就是说，不需要你创建一个实例。</p>
+
+
+<p>￼</p>
+
+
+<p>方法实际的名字包含了冒号，冒号表明了参数的出现。<br />
+[myArray insertObject:anObj atIndex:0];<br />
+接收消息的对象在左边，消息（包括消息需要的任何参数）在右边。<br />
+[[myAppObject getArray] insertObject:[myAppObject getObjectToInsert] atIndex:0];<br />
+消息的嵌套</p>
+
+
+<p>NSMutableArray*   myArray = nil;    // nil is essentially the same as NULL<br />
+// Create a new array and assign it to the myArray variable.<br />
+myArray = [NSMutableArray arrayWithCapacity:0];<br />
+类方法</p>
+
+
+<p>属性<br />
+属性是用来代替声明存取方法的便捷方式。属性不会在你的类声明中创建一个新的实例变量。他们仅仅是定义方法访问已有的实例变量的速记方式而已。<br />
+实际上可以说，属性节约了你必须要些的大量多余的代码。因为大多数存取方法都是用类似的方式实现的，你用属性声明指定你希望的行为，然后在编译期间合成基于声明的实际的getter和setter方法。<br />
+属性声明应该放在类接口的方法声明那里。基本的定义使用@property编译选项，紧跟着类型信息和属性的名字。你还可以用定制选项对属性进行配置，这决定了存取方法的行为。下面的例子展示了一些简单的属性声明：<br />
+@property BOOL flag;<br />
+@property (copy) NSString* nameObject;  // Copy the object during assignment.<br />
+@property (readonly) UIView* rootView;  // Create only a getter method.</p>
+
+
+<p>property是一种代码生成机制，能够生成不同类型的getter／setter函数，特别是如果你想要用点（.）操作符号来存取变量的话，你就能必须使用property。<br />
+@s</p>
+
+
+<p>用法如：@property (attribute1,attribute2) float value;</p>
+
+
+<p>这些attribute包括：<br />
+readonly－只读，只能读取而不能设定值（不能用setXXXX的函式）。<br />
+readwrite－可读可写（默认）。<br />
+assign－在设值时替换新旧变量（默认）。<br />
+retain－在设值时retain新的变量，release旧变量。<br />
+copy－在设值时copy一份新变量，release旧变量。<br />
+nonatomic－默认為atomic。<br />
+前两个只是简单的设定变量的可读写性。</p>
+
+
+<p>assign只是简单的替换变量，通常运用在标量类型上，例如：NSInterger和CGRect,<br />
+或者(在引用计数环境)为那些你不拥有的对象，例如：delegates。<br />
+在垃圾收集环境下retain 和 assign实际上是相同的。<br />
+它的产生的setter代码內容类似：<br />
+retain通常用在对象类型上</p>
+
+
+<p>使用retain会通知编译器对新的变量发送保留（retain）的信息，以确保变量在程序支行时不会从记忆体中被清除。</p>
+
+
+<p>copy也是通常用在必须是已经实现NSCopying协议的对象类型上，只是把刚刚retain的地方改成copy，在设定时不retain新的变量，而是copy一份給原变量成員。<br />
+通常在新变量為mutable而原变量為immutable时使用，使用copy可以确保原变量仍是immutable。</p>
+
+
+<p>变量和属性是不同的，属性是建立在变量的基础上的，但是实际上它是方法。<br />
+把slef.teststring_B = foo; 转化成[self setTeststring_B:foo]。</p>
+
+
+<p>property实现的指令有两个：@synthesize和@dynamic</p>
+
+
+<p>@synthesize 自动生成setter&gettter方法，但也是允许覆盖的.<br />
+当你想要让getter或setter做更多的事情或加入新的特性时，就要用@dynamic，这时再用原来的@synthesize覆盖的话，会有警告，然后运行时如果你想用到新加入的特性时，运行会出错<br />
+使用@dynamic关键字来告诉编译器，你将通过属性暗示或者直接用方法实现或在运行时使用诸如代码动态加载或其动态方法解析机制来履行此API的约定。<br />
+它会抑制编译器在不能找到合适的实现时生成的警告。当您知道该方法将在运行时可用时，就可以使用它。</p>
+
+
+<p>nonatomic，刚是与多线程有关。默认为atomic是在multi-thread的环境下才会用到。<br />
+在一般iPhone开发上，会设定为nonatomic来提高效率。<br />
+ atomic的意思就是setter/getter这个函数是一个原语操作。如果有多个线程同时调用setter的话，不会出现某一个线程执行setter全部语句之前，另一个线程开始执行setter情况，相当于函数头尾加了锁一样。<br />
+nonatomic不保证setter/getter的原语行，所以你可能会取到不完整的东西。</p>
+
+
+<p>比如setter函数里面改变两个成员变量，如果你用nonatomic的话，getter可能会取到只更改了其中一个变量时候的状态，这样取到的东西会有问题<br />
+还有一点非常要注意的就是，在使用property时一定要在前面带上self(如：self.xxx),如果你不这样做，容易造成内存<br />
+泄漏。</p>
+
+
+<p>协议和代理<br />
+协议声明了可以被任何类实现的方法。他们仅是定义一个接口，其他的对象去负责实现。你实现了协议里面的方法，就叫做符合协议。<br />
+在iPhone OS中协议常用来实现委托对象。委托对象就是一个对象以其他的对象的模式行事。<br />
+UIApplication类实现了一个程序需要的行为。<br />
+协议的声明跟类接口的声明很像，只是协议没有父类，而且他们不会定义任何实例变量。有一个方法的协议声明：<br />
+@protocol MyProtocol<br />
+- (void)myProtocolMethod;<br />
+@end</p>
+
+
+<p>数据类型</p>
+
+
+<p>1、 id：</p>
+
+
+<p>Objective-C有一种比较特殊的数据类型是id。你可以把它理解为“随便”。</p>
+
+
+<p>在Objective-C里，一切东西都是指针形式保存，你获取到的就是这个对象在内存的位置。那么id就是你知道这个位置，但是不知道里面是啥的时候的写法。</p>
+
+
+<p>2、 同一个数组可以保存不同的对象：<br />
+ 3、BOOL，YES，NO：<br />
+你可以认为YES表示C#里的true，NO表示false。而实际上YES是1，NO是0，BOOL本身就是个char</p>
+
+
+<p>4、IBOutlet、IBAction<br />
+IBOutlet就是一个显式的引用访问标记。<br />
+IBAction就是一个方法的显式引用标记。 IBOutlet声明插座变量，IBAction声明事件方法，其实可理解为void，只是告诉编译器这些变量和方法是和View上的东东打交道的<br />
+IBOutlet是控件的引用，比如我想在程序中对控件进行操作，那么就需要将控件声明为IBOutlet。IBAction是控件要执行的动作或事件</p>
+
+
+<p>官方对IBAction和IBOutlet的解释   </p>
+
+
+<p>Interface Builder Constants</p>
+
+
+<p>Type qualifiers used by Interface Builder to synchronize with Xcode.<br />
+#define IBAction void<br />
+#define IBOutlet</p>
+
+
+<p>Constants<br />
+IBActionType qualifier used by Interface Builder to synchronize actions. Use this type as the return type of any action methods defined in your project. For examples of how to use this identifier, see Xcode Integration.<br />
+Available in iPhone OS 2.0 and later.<br />
+Declared in UINibDeclarations.h.</p>
+
+
+<p>IBOutletIdentifier used to qualify an instance-variable declaration so that Interface Builder can synchronize the display and connection of outlets with Xcode. Insert this identifier immediately before the variable type in any variable declarations. For examples, including how to use it with the @property syntax, see Xcode Integration.<br />
+Available in iPhone OS 2.0 and later.<br />
+Declared in UINibDeclarations.h.<br />
+Discussion<br />
+For more information about how to use these constants, see Communicating With Objects. For information about defining and using actions and outlets in Interface Builder, see Interface Builder User Guide.</p>
+
+
+<p>5、nil。</p>
+
+
+<p>Objective-C里的NULL（空）就这么写，表示空指针。</p>
+
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[MosquitoLiu's Blog]]></title>
-  <link href="http://blog.mosquitoliu.com/atom.xml" rel="self"/>
+  <title><![CDATA[Category: Study | MosquitoLiu's Blog]]></title>
+  <link href="http://blog.mosquitoliu.com/blog/categories/study/atom.xml" rel="self"/>
   <link href="http://blog.mosquitoliu.com/"/>
   <updated>2014-01-19T19:14:05+08:00</updated>
   <id>http://blog.mosquitoliu.com/</id>
@@ -12,36 +12,6 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
-  
-  <entry>
-    <title type="html"><![CDATA[新的开始]]></title>
-    <link href="http://blog.mosquitoliu.com/blog/2013/07/28/newstart/"/>
-    <updated>2013-07-28T23:39:00+08:00</updated>
-    <id>http://blog.mosquitoliu.com/blog/2013/07/28/newstart</id>
-    <content type="html"><![CDATA[<p>很长时间没有更新Blog。主要是因为太懒了。</p>
-
-<p>新的开始，自己要好好的努力了。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[视频循环播放]]></title>
-    <link href="http://blog.mosquitoliu.com/blog/2012/04/24/shi-pin-xun-huan-bo-fang/"/>
-    <updated>2012-04-24T17:42:00+08:00</updated>
-    <id>http://blog.mosquitoliu.com/blog/2012/04/24/shi-pin-xun-huan-bo-fang</id>
-    <content type="html"><![CDATA[
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>moviePlayer = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
-</span><span class='line'>
-</span><span class='line'>moviePlayer.moviePlayer.repeatMode = MPMovieRepeatModeOne;//循环播放
-</span><span class='line'>……</span></code></pre></td></tr></table></div></figure>
-
-]]></content>
-  </entry>
   
   <entry>
     <title type="html"><![CDATA[ARC]]></title>
@@ -80,48 +50,42 @@ In order for the compiler to generate correct code, ARC imposes some restriction
 
 <p>例如：</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>@property(strong) MyClass *myObject;</span></code></pre></td></tr></table></div></figure>
-
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>@property(strong) MyClass *myObject;</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>和</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>@property(retain) MyClass *myObject;</span></code></pre></td></tr></table></div></figure>
-
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>@property(retain) MyClass *myObject;</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>是等效的。</p>
 
 <p>又例如：</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>@property(weak) MyClass *myObject;</span></code></pre></td></tr></table></div></figure>
-
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>@property(weak) MyClass *myObject;</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>和</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>@property(assign) MyClass *myObject;</span></code></pre></td></tr></table></div></figure>
-
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>@property(assign) MyClass *myObject;</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>在多数情况下等效，但当instance被释放时，设置为weak的引用会指向nil。
 可用的限定词： strong， 默认的 weak <strong>unsafe_unretained，和weak的区别是当对象被释放时，引用不指向nil。 </strong>autoreleasing，当方法的参数是id*，且希望方法返回时对象被autoreleased，可以添加<strong>autoreleasing限定词。 使用</strong>weak时要特别小心，如果weak引用的对象在此次使用之前被使用过一次，那么它一直存在，直到autoreleasepool释放它，否则就是nil。</p>
 
 <p>例如</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>NSString __weak *string = [[NSString alloc] initWithFormat:@"First Name: %@", [self firstName]];   
-</span><span class='line'>string = NSLog(@"string: %@", string); //此时string为空，因为weak类型不影响对象的生命周期，对象刚创建就释放了。</span></code></pre></td></tr></table></div></figure>
-
+</pre></td><td class='code'><pre><code class=''><span class='line'>NSString __weak *string = [[NSString alloc] initWithFormat:@&ldquo;First Name: %@&rdquo;, [self firstName]];   
+</span><span class='line'>string = NSLog(@&ldquo;string: %@&rdquo;, string); //此时string为空，因为weak类型不影响对象的生命周期，对象刚创建就释放了。</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>其他特性： 使用strong, weak, autoreleasing限定的变量会被隐式初始化为nil。</p>
 
 <p>例如：</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>- (void)myMethod { NSString *name; NSLog(@"name: %@", name); //会输出null }</span></code></pre></td></tr></table></div></figure>
-
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>- (void)myMethod { NSString *name; NSLog(@&ldquo;name: %@&rdquo;, name); //会输出null }</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>weak与assign很像,不同在于如果指向的数据被释放了,那么这个指向nil
 unsafe_unretained
@@ -164,7 +128,7 @@ unsafe_unretained
 
 <p>举例:</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -174,32 +138,26 @@ unsafe_unretained
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
 <span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>-(void)test  
-</span><span class='line'>{  
-</span><span class='line'>    CFStringRef coreFoundationString = CFStringCreateWithCString(CFAllocatorGetDefault(),"C String", kCFStringEncodingUTF8);    // 创建 retainCount = 1
-</span><span class='line'>    id unknownObjectType = (__bridge id)coreFoundationString; // 简单赋值,不变,retainCount = 1
-</span><span class='line'>    CFStringRef anotherString = (__bridge_retained CFStringRef)unknownObjectType; // 保留赋值,加一,retainCount = 2
-</span><span class='line'>    NSString *objCString = (__bridge_transfer NSString *)coreFoundationString; // 释放赋值,减一,retainCount =1;由于NSString*默认strong,加一,retainCount = 2
-</span><span class='line'>    NSLog(@"String = %@", objCString);
-</span><span class='line'>    objCString = nil;   // 不再指向原内存,原内存减一,retainCount = 1
-</span><span class='line'>    CFRelease(anotherString);   // 释放,减一,retainCount = 0
-</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
-
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&ndash;(void)test&lt;br/>
+</span><span class='line'>{&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code>CFStringRef coreFoundationString = CFStringCreateWithCString(CFAllocatorGetDefault(),"C String", kCFStringEncodingUTF8);    // 创建 retainCount = 1
+</span><span class='line'>id unknownObjectType = (__bridge id)coreFoundationString; // 简单赋值,不变,retainCount = 1
+</span><span class='line'>CFStringRef anotherString = (__bridge_retained CFStringRef)unknownObjectType; // 保留赋值,加一,retainCount = 2
+</span><span class='line'>NSString *objCString = (__bridge_transfer NSString *)coreFoundationString; // 释放赋值,减一,retainCount =1;由于NSString*默认strong,加一,retainCount = 2
+</span><span class='line'>NSLog(@"String = %@", objCString);
+</span><span class='line'>objCString = nil;   // 不再指向原内存,原内存减一,retainCount = 1
+</span><span class='line'>CFRelease(anotherString);   // 释放,减一,retainCount = 0
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;p>}</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>在c型的结构中使用objective-c对象</p>
 
 <p>使用void*代替id;或者使用__unsage_unretained 修饰objective-c对象</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[腾讯微博iOS SDK使用说明]]></title>
-    <link href="http://blog.mosquitoliu.com/blog/2012/04/20/teng-xun-wei-bo-ios-sdkshi-yong-shuo-ming/"/>
-    <updated>2012-04-20T18:09:00+08:00</updated>
-    <id>http://blog.mosquitoliu.com/blog/2012/04/20/teng-xun-wei-bo-ios-sdkshi-yong-shuo-ming</id>
-    <content type="html"><![CDATA[<p>腾序微博开放平台提供了两个iOS的SDK，一个是官方的，一个是第三方提供的。</p>
-
-<p>按照官方的SDK的使用说明操作后，运行程序会报错。在程序中应该将AppDelegate.m的后缀名改成.mm。这样在模拟器中就可以运行。当真机调试的时候，需要加入CoreTelephony.framework。</p>
 ]]></content>
   </entry>
   
@@ -327,16 +285,6 @@ ClassA *obj1 = [[[ClassA alloc] init] autorelease]; //retain count = 1，把此�
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Hello World]]></title>
-    <link href="http://blog.mosquitoliu.com/blog/2012/04/11/hello-world/"/>
-    <updated>2012-04-11T22:13:00+08:00</updated>
-    <id>http://blog.mosquitoliu.com/blog/2012/04/11/hello-world</id>
-    <content type="html"><![CDATA[<p>Hello Octopress !</p>
-
-]]></content>
-  </entry>
-  
-  <entry>
     <title type="html"><![CDATA[Obeject-C语法总结]]></title>
     <link href="http://blog.mosquitoliu.com/blog/2012/03/11/obeject-cyu-fa-zong-jie/"/>
     <updated>2012-03-11T17:50:00+08:00</updated>
@@ -350,7 +298,7 @@ ClassA *obj1 = [[[ClassA alloc] init] autorelease]; //retain count = 1，把此�
 
 
 <p>字符串<br />
-NSString*  myString = @&#8221;My String&#8221;;<br />
+NSString*  myString = @"My String";<br />
 用双引号，助记符号  @<!--more--></p>
 
 
@@ -543,7 +491,7 @@ For more information about how to use these constants, see Communicating With O
 工作的软件是首要进度度量标准。<br />
 敏捷过程提可持续的开发速度。责任人、开发者和用户应该能够保持一个长期的、恒定的开发速度。<br />
 不断地关注优秀的技能和好的设计会增强敏捷能力。<br />
-简单&#8212;-使未完成的工作最大化的艺术&#8212;-是根本的。<br />
+简单----使未完成的工作最大化的艺术----是根本的。<br />
 最好的构架、需求和设计出自与自组织的团队。<br />
 每隔一定时间，团队会在如何才能更有效地工作方面进行反省，然后相应地对自己的行为进行调整。</p>
 
@@ -655,7 +603,7 @@ Produc Owner会组织这阶段的会议并且邀请相关的利益相关者参�
 <p>9.如何写故事</p>
 
 
-<p>一般按照轻量级的故事来进行描述需求。用户故事是最基本的设计单元，它是 从系统用户或者客户的角度出发对功能的一段简要描述。用户故事的形式很自由，没有什么强制性的语法。但是，按照大致符合这样一个形式来考虑 用户故事是比较有益的：“作为【用户的类型】，我希望可以【先这样做，然后那样做，就应该得到&#8230;的结果】以便【业务价值】。”以这样的模作为例子，可 以得到一个用户故事说：“作为购书者，我希望可以根据 ISBN 来找到一本书，以便能更快的找到正确的书。”在做用户故事时，需要注意每个用户故事用的是用户的语言，它只描述一个功能（feature），而且每个用户故事的开发周期不要太长（1<br />
+<p>一般按照轻量级的故事来进行描述需求。用户故事是最基本的设计单元，它是 从系统用户或者客户的角度出发对功能的一段简要描述。用户故事的形式很自由，没有什么强制性的语法。但是，按照大致符合这样一个形式来考虑 用户故事是比较有益的：“作为【用户的类型】，我希望可以【先这样做，然后那样做，就应该得到...的结果】以便【业务价值】。”以这样的模作为例子，可 以得到一个用户故事说：“作为购书者，我希望可以根据 ISBN 来找到一本书，以便能更快的找到正确的书。”在做用户故事时，需要注意每个用户故事用的是用户的语言，它只描述一个功能（feature），而且每个用户故事的开发周期不要太长（1<br />
 －5 天）我们不需要一开始对所有的故事都进行详细的描述，但计划放在下一个<br />
 sprint 中的故事应该比较清楚。</p>
 
@@ -710,213 +658,12 @@ sprint 中的故事应该比较清楚。</p>
 
 <p>目标原则：大到职业规划、小到每件事情的目标，对于目标的制定和管理，都需要我们不断的去制定和执行<br />
 学习能力：学历代表过去，经验代表现在，而学习能力代表未来，一个人的学习能力决定了他将来的成绩<br />
-心态：一个人的态度决定一个人的&#8221;高度&#8221;，激情而投入地做事与麻木而呆滞地做事会导致完全不同的两种结果<br />
+心态：一个人的态度决定一个人的"高度"，激情而投入地做事与麻木而呆滞地做事会导致完全不同的两种结果<br />
 要事第一：工作分轻重缓急，不能对事情没有安排和计划，应该对要事需要优先安排<br />
 执行力：有目标是方向，没有执行也不会有结果，执行力是事情快速有效完成的保障</p>
 
 
 <p>这些原则并不是孤立的，其实都是关联的，有目标才知道学习什么，有正确心态才能更好的学习，执行力加上认清要事才能更高效的出更好结果。</p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[花开荼蘼]]></title>
-    <link href="http://blog.mosquitoliu.com/blog/2011/11/01/hua-kai-tu-mi/"/>
-    <updated>2011-11-01T21:23:00+08:00</updated>
-    <id>http://blog.mosquitoliu.com/blog/2011/11/01/hua-kai-tu-mi</id>
-    <content type="html"><![CDATA[<p style="text-align: center;"><a href="http://www.flickr.com/photos/mosquitoliu/6962567062/" title="Flickr 上 freefishdss 的 荼蘼花"><img src="http://farm9.staticflickr.com/8141/6962567062_8878a9b42f.jpg" width="480" height="360" alt="荼蘼花"></a></p>
-
-
-
-
-<p> 荼靡花开，花事荼靡，一株佛家经典里孤独寂寞的彼岸花，居然，是花中十友排行第十的韵友。想来谁也不信，荼靡的寂寞，是所有花中最持久，最深厚，也是最独特的。茶蘼是花季最后盛放的鲜花，茶蘼花开过之后，人间再无芬芳。只剩下开在遗忘前生的彼岸的花。</p>
-
-
-<!--more-->
-
-
-<p> 今年好是折腾。从三月分开始就没有消停过。<br />
-    三月。爸妈来学校陪我住了一个月。<br />
-    七月。回家一个星期。<br />
-    九月。老爸重返成都给我的牙整容。<br />
-    十月。回家两个星期，参加婚礼、干儿子的白天、调整。</p>
-
-
-<p> 很是不顺，开始找到了实习的地方。导师不让去。被导师不停的忽悠。最近继续找成都附近的实习，都没有回应。又开始失眠，睡不着了。</p>
-
-
-<p> 老爸继续在生我的气。无话。<br />
-    暂定过年不回家了。</p>
-
-
-<p> 一切有为法,尽是因缘合和,缘起时起，缘尽还无，不外如是。只是那伤痕却永不痊愈了，一一成为胎记，在往生的路上，如莲花开落，使你可以辨认。荼蘼是花季最后盛放的花，开到荼蘼花事了，只剩下开在遗忘前生的彼岸的花。</p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Synergy]]></title>
-    <link href="http://blog.mosquitoliu.com/blog/2011/09/19/synergy/"/>
-    <updated>2011-09-19T02:18:00+08:00</updated>
-    <id>http://blog.mosquitoliu.com/blog/2011/09/19/synergy</id>
-    <content type="html"><![CDATA[<p>Synergy 是一款能够让使用者仅用一套键盘鼠标，就同时操控多部计算机的免费工具软件。使用者能够在包括 Windows 、 Linux 、 Mac OS 等不同的系统上安装它，并且在设定好主从关系后，就能够透过一组键盘鼠标来进行多部计算机的操控。『官方网址：<a href="http://synergy-foss.org"><a href="http://synergy-foss.org">http://synergy-foss.org</a></a>/』<!--more-->下载对应系统的客户端。我的是Window7和Mac OS。Windows 1.4.4beta 32-bit;Mac OS X Universal。</p>
-
-<p>安装好后，开始进行配置。（Windows7作为server，Mac OS作为Cliernt）</p>
-
-<p>Windows7下的配置（如下图）</p>
-
-<p><a href="http://pic.mosquitoliu.com/wp-content/uploads/2011/09/3.png"><img class="aligncenter size-full wp-image-421" title="3" src="http://pic.mosquitoliu.com/wp-content/uploads/2011/09/3.png" alt="" width="517" height="375" /></a><a href="http://mosquitoliu.com/wp-content/uploads/2011/09/2.jpg"><img class="aligncenter size-full wp-image-422" title="2" src="http://mosquitoliu.com/wp-content/uploads/2011/09/2.jpg" alt="" width="517" height="371" /></a></p>
-
-<p>要正确的填写计算机的名称。</p>
-
-<p><a href="http://pic.mosquitoliu.com/wp-content/uploads/2011/09/1.jpg"><img class="aligncenter size-full wp-image-423" title="1" src="http://pic.mosquitoliu.com/wp-content/uploads/2011/09/1.jpg" alt="" width="520" height="372" /></a><a href="http://mosquitoliu.com/wp-content/uploads/2011/09/6.jpg"><img class="aligncenter size-full wp-image-424" title="6" src="http://pic.mosquitoliu.com/wp-content/uploads/2011/09/6.jpg" alt="" width="335" height="278" /></a></p>
-
-<p>这样windows7的配置就完成了。点击Start，运行。</p>
-
-<p>Mac OS下的配置（如下图）</p>
-
-<p><a href="http://pic.mosquitoliu.com/wp-content/uploads/2011/09/5.jpg"><img class="aligncenter size-full wp-image-425" title="5" src="http://pic.mosquitoliu.com/wp-content/uploads/2011/09/5.jpg" alt="" width="473" height="413" /></a></p>
-
-<p>点击Start运行。</p>
-
-<p>这时Windows7下的图标变成了如图所示</p>
-
-<p><img class="aligncenter size-full wp-image-426" title="4" src="http://pic.mosquitoliu.com/wp-content/uploads/2011/09/4.jpg" alt="" width="66" height="48" /></p>
-
-<p>这表示连接成功。滑动鼠标可以从Windows窗口滑到Mac OS的窗口了。</p>
-
-<p>&nbsp;</p>
-
-<p>PS：当Mac OS作为Server，Windows7作为Client时，没有设置成功。原因不详。</p>
-
-<p>&nbsp;</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Pet Diary six]]></title>
-    <link href="http://blog.mosquitoliu.com/blog/2011/08/16/pet-diary-six/"/>
-    <updated>2011-08-16T12:55:00+08:00</updated>
-    <id>http://blog.mosquitoliu.com/blog/2011/08/16/pet-diary-six</id>
-    <content type="html"><![CDATA[<p><embed type="application/x-shockwave-flash" width="480" height="400" src="http://player.youku.com/player.php/sid/XMjk1MTM4ODY0/v.swf" allowfullscreen="true" quality="high" align="middle" allowscriptaccess="always"></embed></p>
-
-
-<p>狗狗发情了！！</p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[诞生]]></title>
-    <link href="http://blog.mosquitoliu.com/blog/2011/07/05/dan-sheng/"/>
-    <updated>2011-07-05T02:23:00+08:00</updated>
-    <id>http://blog.mosquitoliu.com/blog/2011/07/05/dan-sheng</id>
-    <content type="html"><![CDATA[<p>二零一一年七月四日，二十二点零七分，我发小儿的宝宝来到了这个世上，七斤四。不算胖，但个子还蛮大的。替他们感到非常的高兴。我也当干爹了。</p>
-
-
-<div>很想能自己也有一个自己的宝宝。想结婚，想要孩子。。。。。。。。</div>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Pet Diary five]]></title>
-    <link href="http://blog.mosquitoliu.com/blog/2011/05/28/pet-diary-five/"/>
-    <updated>2011-05-28T21:49:00+08:00</updated>
-    <id>http://blog.mosquitoliu.com/blog/2011/05/28/pet-diary-five</id>
-    <content type="html"><![CDATA[<p>我都不好意思把狗狗的照片传上来了。昨天给狗狗的胎毛都给剃了，还净了脸，现在是太丑太丑了，我都不忍心看下去了，现在好悔不该全剃掉，这该肿么办啊？</p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[不幸的夜]]></title>
-    <link href="http://blog.mosquitoliu.com/blog/2011/05/24/bu-xing-de-ye/"/>
-    <updated>2011-05-24T22:07:00+08:00</updated>
-    <id>http://blog.mosquitoliu.com/blog/2011/05/24/bu-xing-de-ye</id>
-    <content type="html"><![CDATA[<p>五月十七日晚上，九点左右接到光光打来的电话，说，他们很快就到科大了，叫我去门口接他们，他们从川大骑自行车过来。<!--more--></p>
-
-
-<div>见到他们之后，请他们几个去吃东西，喝了点酒，喝的晕！@o@&#8221;了。吃好之后他们骑自行车又回去了，真的佩服他们的体力。我一个人骑车回寝室，不幸就这样发生了，在快到寝室的路上装上了自行车，我急刹车，然后整个人飞了出去，和大地进行了一次轻微的较量，结果我输了。三颗门牙被磨齐了，也开始松动了，我在地上躺了五分多钟才爬起来，自己回到寝室吃了止痛片，胳膊扭到了，现在还肿着，这两天可能是阴天的关系，一直很疼，身上都是擦伤，还好我还活着，难受的是吃东西，现在太费劲了。现在的我出门都带口罩~</div>
-
-
-<div>我要抓时间赶紧去烧香拜佛了，去去厄运~~~</div>
-
-
-<p>&nbsp;</p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Pet Diary four]]></title>
-    <link href="http://blog.mosquitoliu.com/blog/2011/05/24/pet-diary-four/"/>
-    <updated>2011-05-24T20:58:00+08:00</updated>
-    <id>http://blog.mosquitoliu.com/blog/2011/05/24/pet-diary-four</id>
-    <content type="html"><![CDATA[<p style="text-align: center;"><embed type="application/x-shockwave-flash" width="480" height="400" src="http://player.youku.com/player.php/sid/XMjY5Nzc3MTU2/v.swf" quality="high" align="middle" allowscriptaccess="sameDomain"></embed><br />
-
-
-到今天为止狗狗和我一起生活了一个月零六天了，在这一个月的时间里，狗狗给我带来了很多的快乐。狗狗越来越离不开我了。</p>
-
-
-<p>今天第二次给狗狗洗澡，狗狗很乖，貌似很是享受，但是给他用吹风机吹毛的时候，他貌似不是很舒服，趴在窝里，头埋的很低，废了很大的劲才给他吹干毛。<!--more--></p>
-
-
-<p>昨天我去洗澡，把狗狗放在同学那里叫同学帮我看一下，没想到，狗狗跑到浴室来找我了，确实还是有点小小的的感动咯～～○|￣|_ =3</p>
-
-
-<p>前些天带狗狗出去溜，发现狗狗在外边的胆子好小啊，和我是寸步不离。</p>
-
-
-<p>狗狗长的很快，现在一顿饭要吃70颗狗粮了（╮(￣▽￣&#8221;)╭ 每次都要给他数，严格控制食量），隔一天还要给他一个鸡蛋黄吃，隔三差五还要给他酸奶喝，╮(╯▽╰)╭生活条件好的哇(PД`q。)·。&#8217;゜现在狗狗的伸长已经有39cm了。</p>
-
-
-<p>这两天在我的寝室拉了两次便便了，不去阳台拉了，ε=怒ε=怒ε=怒ε=怒ε=( o｀ω′)ノ，恶狠狠的教训了狗狗，教训完之后看到狗狗可怜巴巴的样子儿，心里又于心不忍在打他了。</p>
-
-
-<p>狗狗是越来越聪明了，为了想出去，他平时都趴在我的书包上睡觉（我出去要背书包），只有晚上才去自己的窝里睡。总想跟着我一起出去……</p>
-
-
-<p>PS：失踪将近一个月的小乌龟，找到了，不幸的是，他已经去世了，眼珠都没有了，样子很是恐怖哎，都是我的罪过，阿弥陀佛。改天天气好的时候，找个地方给他埋了……</p>
-
-
-<p>&nbsp;</p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[母亲节]]></title>
-    <link href="http://blog.mosquitoliu.com/blog/2011/05/08/mu-qin-jie/"/>
-    <updated>2011-05-08T21:02:00+08:00</updated>
-    <id>http://blog.mosquitoliu.com/blog/2011/05/08/mu-qin-jie</id>
-    <content type="html"><![CDATA[<p>老妈，节日快乐！这辈子做您的儿子是我的福分，下辈子我还要做您的儿子。下辈子您看到您儿子两个咪咪不一样大，毛毛从小腿一直长到屎眼的，不听话，能花钱的，那没错准是我！哈哈～</p>
-
-
-<p>祝妈妈，仙福永享，寿与天齐。永远健康快乐！！</p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Pet Diary three]]></title>
-    <link href="http://blog.mosquitoliu.com/blog/2011/05/07/pet-diary-three/"/>
-    <updated>2011-05-07T01:36:00+08:00</updated>
-    <id>http://blog.mosquitoliu.com/blog/2011/05/07/pet-diary-three</id>
-    <content type="html"><![CDATA[<p>狗狗，和我在一起一共有18天了。在这些日子里，狗狗长大了 ，毛长了，长胖了，更加听话了。</p>
-
-
-<p>现在我每次出门的时候，狗狗都会紧紧的跟着我，我要和狗狗比赛赛跑，不然的话它就会跟着我跑出去了，O__O”…我出去后，他就开始叫，估计是他自己也不想单独的呆在寝室……<!--more--></p>
-
-
-<p>昨天晚上把我吓坏了，狗狗[吐]( &gt;ρ &lt; “)了，令我吃惊的是，狗狗又把自己吐的东西吃回去了，有点小恶。估计是他吃好饭我就带他在楼道里跑步的原因吧，下次要注意了，吃好饭不能叫他剧烈的运动了。还好，今天没有出现异常的状况，和往常一样生龙活狗了~</p>
-
-
-<p>撒娇的本领有增长了，他闷了就曾我的腿，然后自己就躺在地上，肚子朝上，叫我去抚摸他，现在狗狗越长越耐人儿可爱了，嘎嘎\(^o^)/~</p>
-
-
-<p>&nbsp;</p>
 
 ]]></content>
   </entry>
@@ -942,58 +689,6 @@ sprint 中的故事应该比较清楚。</p>
 罗里罗嗦的说了这么多，耽误了您的宝贵时间，深表歉意。</p>
 
 <p>最后祝您和您的家人：      身体健康，工作顺利！</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[想你]]></title>
-    <link href="http://blog.mosquitoliu.com/blog/2011/05/03/xiang-ni/"/>
-    <updated>2011-05-03T12:56:00+08:00</updated>
-    <id>http://blog.mosquitoliu.com/blog/2011/05/03/xiang-ni</id>
-    <content type="html"><![CDATA[<p>只是这样的想着你，拿不起，放不下，沉甸甸的悬在胸口憋得我难受。你的行囊里装下了些什么，为什么沉甸甸的让我舍不得。我只知道我的心永远不会离开你，因为你的手里紧紧攥着我心房的线。我能听到你的脚步，感受你的呼吸，甚至常常闭上眼睛能清晰的看到你的脸庞。如果这些鲜活的事物，能放在冰箱里一直保存下去，是多么好的一件事情。<!--more--></p>
-
-<p>风吹过的时候，我托它捎去我的祝福，不知道你是否能听到；雨过的时候，我托它捎去一件寒衣，却不知道那件衣在何处？</p>
-
-<p>沉沦的灵魂总有耐人寻味的故事。时光飞逝，想回到从前，现在匆匆的脚步叩响了我门扉，我开始恐慌，不安，只有不断的努力，不断的加油。在冲往幸福的终点的途中我左脚和右脚都是油门，在这个征途中我无怨无悔的奋力的奔跑。</p>
-
-<p>曾想抬头能望见晴空，但是不想乌云何时已遮住太阳，心中多了几分焦灼，更加平添了几分思念，是对你深深的思念。心里不由自主的涌现出几句词：我爱你，真的很爱很爱你，宝贝儿！这是怎样的风景呢，一而再，再而三，桃花依旧。</p>
-
-<p>想你的时候，总会期待你站在我的身边，用温暖的眼神望着我的存在，我们彼此相拥，甜蜜的吻着对方。时间点点滴滴的过去，希望伴随着我们的幸福一起变的灿烂。</p>
-
-<p>想你，深深的想你！</p>
-
-<p>&nbsp;</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Pet Diary two]]></title>
-    <link href="http://blog.mosquitoliu.com/blog/2011/04/25/pet-diary-two/"/>
-    <updated>2011-04-25T15:24:00+08:00</updated>
-    <id>http://blog.mosquitoliu.com/blog/2011/04/25/pet-diary-two</id>
-    <content type="html"><![CDATA[<p><a href="http://pic.mosquitoliu.com/wp-content/uploads/2011/04/large_dog2.jpg"><img class="size-full wp-image-316 alignnone" title="large_dog2" src="http://pic.mosquitoliu.com/wp-content/uploads/2011/04/large_dog2.jpg" alt="" width="550" height="365" /></a></p>
-
-<p>狗狗和我一起渡过了一个星期了，我们相处的很融洽。狗狗很乖，很乖。现在敢出寝室的门了，每天我都要带着狗狗在寝室外面溜溜。等狗狗打三针后就可以带出去玩了，O(∩_∩)O哈哈~<!--more--></p>
-
-<p>狗狗现在喜欢出去了，每次我出门他都会跟在我的后边，想跟着我一起出去，估计是喜欢在外边玩吧。在外边又很多人哄他，逗o((⊙﹏⊙))o. [逗]他。在外边狗狗有点不听话的，我说话他都不听，和在寝室完全是两个样子，随便一个同学就能把他带走，唉╮(￣▽￣”)╭ 伤心啊，白眼狼，不对应该说是白眼狗，%&gt;_&lt;%</p>
-
-<p>这几天我和U·ェ·U [狗狗]有几次一起同步厕所尿尿，太哏儿了。狗狗不太爱叫，一般都不叫的。昨天我同学来玩寝室，他不小心把狗狗把狗狗摔在地上了，狗狗ε=怒ε=怒ε=怒ε=怒ε=( o｀ω′)ノ了，然后开始一直叫，好心疼狗狗。</p>
-
-<p>狗狗很迷恋我的脚丫，喜欢舔我的脚，舔在我的脚上痒痒的~~~</p>
-
-<p>中午给狗狗打了第二针，狗狗打针的时候我都有点不敢看，估计狗狗也很痛苦吧~打完针后，唐超给狗狗拍了写真~ヾ(<em>′▽｀</em>)ノ彡☆ノヽノヽノヽ</p>
-
-<p>天气变热了，中午狗狗睡觉没有睡在窝里，直接在地上就睡着了。我出寝室，狗狗就开始叫，想让我带他出去，现在他在外边玩野了咯。</p>
-
-<p>希望狗狗健康的快些长大！</p>
-
-<p>&nbsp;</p>
-
-<p>&nbsp;</p>
-
-<p>PS：光光给狗狗起名字叫爱迪生（Edison）冠希 胖子说狗狗要是母的就叫玛丽莲柏芝</p>
-
-<p>&nbsp;</p>
 ]]></content>
   </entry>
   

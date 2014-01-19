@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: iOS | MosquitoLiu's Blog]]></title>
+  <link href="http://blog.mosquitoliu.com/blog/categories/ios/atom.xml" rel="self"/>
+  <link href="http://blog.mosquitoliu.com/"/>
+  <updated>2014-01-19T19:14:05+08:00</updated>
+  <id>http://blog.mosquitoliu.com/</id>
+  <author>
+    <name><![CDATA[小文]]></name>
+    <email><![CDATA[freefishdss@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[视频循环播放]]></title>
+    <link href="http://blog.mosquitoliu.com/blog/2012/04/24/shi-pin-xun-huan-bo-fang/"/>
+    <updated>2012-04-24T17:42:00+08:00</updated>
+    <id>http://blog.mosquitoliu.com/blog/2012/04/24/shi-pin-xun-huan-bo-fang</id>
+    <content type="html"><![CDATA[<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>moviePlayer = [[MPMoviePlayerViewController alloc] initWithContentURL:url];&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>moviePlayer.moviePlayer.repeatMode = MPMovieRepeatModeOne;//循环播放
+</span><span class='line'>……</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[腾讯微博iOS SDK使用说明]]></title>
+    <link href="http://blog.mosquitoliu.com/blog/2012/04/20/teng-xun-wei-bo-ios-sdkshi-yong-shuo-ming/"/>
+    <updated>2012-04-20T18:09:00+08:00</updated>
+    <id>http://blog.mosquitoliu.com/blog/2012/04/20/teng-xun-wei-bo-ios-sdkshi-yong-shuo-ming</id>
+    <content type="html"><![CDATA[<p>腾序微博开放平台提供了两个iOS的SDK，一个是官方的，一个是第三方提供的。</p>
+
+<p>按照官方的SDK的使用说明操作后，运行程序会报错。在程序中应该将AppDelegate.m的后缀名改成.mm。这样在模拟器中就可以运行。当真机调试的时候，需要加入CoreTelephony.framework。</p>
+]]></content>
+  </entry>
+  
+</feed>
