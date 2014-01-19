@@ -4,7 +4,7 @@
   <title><![CDATA[MosquitoLiu's Blog]]></title>
   <link href="http://blog.mosquitoliu.com/atom.xml" rel="self"/>
   <link href="http://blog.mosquitoliu.com/"/>
-  <updated>2014-01-19T18:41:53+08:00</updated>
+  <updated>2014-01-19T19:02:15+08:00</updated>
   <id>http://blog.mosquitoliu.com/</id>
   <author>
     <name><![CDATA[小文]]></name>
@@ -12,5 +12,27 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[test]]></title>
+    <link href="http://blog.mosquitoliu.com/blog/2014/01/19/test/"/>
+    <updated>2014-01-19T18:59:33+08:00</updated>
+    <id>http://blog.mosquitoliu.com/blog/2014/01/19/test</id>
+    <content type="html"><![CDATA[<p>test</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">dealloc</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'><span class="p">[</span><span class="n">super</span> <span class="n">release</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+]]></content>
+  </entry>
   
 </feed>
