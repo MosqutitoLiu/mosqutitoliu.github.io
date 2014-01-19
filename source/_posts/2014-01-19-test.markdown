@@ -1,0 +1,17 @@
+---
+layout: post
+title: "test"
+date: 2014-01-19 18:59:33 +0800
+comments: true
+categories: 
+---
+
+test
+
+```objc
+- (void)dealloc
+{
+[super release];
+}
+```
+
