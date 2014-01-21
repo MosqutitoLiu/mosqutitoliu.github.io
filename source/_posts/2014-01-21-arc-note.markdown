@@ -1,0 +1,80 @@
+---
+layout: post
+title: "ARC_笔记"
+date: 2014-01-21 17:53:07 +0800
+comments: true
+categories: [Object-C ,Study]
+---
+   * dealloc
+      * 释放一些不在ARC控制下的资源。如Core Foundation对象中调用CFRelease()，对那些通过malloc()分配的内存调用free(),注销通知，停止Timer。
+   * 归零弱引用
+      * 归零弱引用指针，当他指向的对象被销毁时，系统会自动设置为nil
+   * 混合支持ARC与不支持ARC
+      * -fno-objc-arc
+      * -fobjc-arc
+   * 编译时支持ARC而文件的代码不支持ARC
+
+```objc
+#if !__has__feature(objc_arc)
+//这里是不支持ARC的代码
+- (void)dealloc
+{
+//在这里释放
+}
+#endif
+```
+<!--more-->
+
+   * 框架中使用ARC代码
+      * 使用宏提示
+
+```objc
+#if ! __has__feature(objc_arc)
+#error This file is ARC only
+#endif
+```
+
+
+   * __unsafe_unretained
+      * 当你没有指针但想要保存指向某物的引用时，可以是使用__unsafe_unretained
+   * __weak
+      * 与__unsafe_unretained修饰符非常相似。只是当指针指向的内容被销毁后，弱指针便会成为空值（nil）
+      * 仅支持iOS5及以上的系统
+      * 声明weak之后，无需在viewDidUnload中将其置为nil
+   * __auto_releasing
+      * 从方法返回一个自动释放变量时使用
+      * 无法用在属性上
+   * 所有权修饰符与常量修饰符不同，它是位置无关的
+      * __weak NSObject *myObject;和NSObject __weak *myObject;意义是一样的。因为ARC的所有权修饰符是对指针起作用的而不是指向的值。
+   * __bridge
+      * 普通的转换，它告诉ARC不要增加他的引用计数的值，也不改变所有权
+   * __bridge_retained
+      * 转换C指针类型并增加引用计数的值
+   * __bridge_transfer
+      * 将Core Foundation指针类型转换成为Object-C指针并为引用计数加一
+   * 强行忽略警告
+
+```objc
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored “-Warc-perfprmSelector-leaks”
+     [self performSelector:self.mySelector];
+#pragma clang diagnostic pop
+```
+
+
+   * 避免循环保留
+
+```objc
+__weak typeof(*self) *this = self; //iOS 5+
+__unsafe_unretained typeof(*self) *this = self;// iOS 4+
+
+self.myBlock = ^(NSString *returnedString){
+this.labelControl.text = returnedString;
+}
+```
+
+
+   * CFSTR()从一个制定的字符串中创建一个CFStringRef对象。
+   * @autoreleasepool{}
+      * 当一段代码加入了大量的autorelease变量时
+      * 如果在主线程外使用cocoa调用，例如foundation应用，或者detach一个线程，需要创建自动释放池
