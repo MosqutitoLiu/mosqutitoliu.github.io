@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Study | MosquitoLiu's Blog]]></title>
   <link href="http://blog.mosquitoliu.com/blog/categories/study/atom.xml" rel="self"/>
   <link href="http://blog.mosquitoliu.com/"/>
-  <updated>2014-01-20T00:19:20+08:00</updated>
+  <updated>2014-01-21T18:18:45+08:00</updated>
   <id>http://blog.mosquitoliu.com/</id>
   <author>
     <name><![CDATA[小文]]></name>
@@ -12,6 +12,163 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[ARC_笔记]]></title>
+    <link href="http://blog.mosquitoliu.com/blog/2014/01/21/arc-note/"/>
+    <updated>2014-01-21T17:53:07+08:00</updated>
+    <id>http://blog.mosquitoliu.com/blog/2014/01/21/arc-note</id>
+    <content type="html"><![CDATA[<ul>
+<li> dealloc
+
+<ul>
+<li>释放一些不在ARC控制下的资源。如Core Foundation对象中调用CFRelease()，对那些通过malloc()分配的内存调用free(),注销通知，停止Timer。</li>
+</ul>
+</li>
+<li> 归零弱引用
+
+<ul>
+<li>归零弱引用指针，当他指向的对象被销毁时，系统会自动设置为nil</li>
+</ul>
+</li>
+<li> 混合支持ARC与不支持ARC
+
+<ul>
+<li>-fno-objc-arc</li>
+<li>-fobjc-arc</li>
+</ul>
+</li>
+<li> 编译时支持ARC而文件的代码不支持ARC</li>
+</ul>
+
+
+<p>```objc</p>
+
+<h1>if !<strong>has</strong>feature(objc_arc)</h1>
+
+<p>//这里是不支持ARC的代码
+&ndash; (void)dealloc
+{
+//在这里释放
+}</p>
+
+<h1>endif</h1>
+
+<p>```</p>
+
+<!--more-->
+
+
+<ul>
+<li> 框架中使用ARC代码
+
+<ul>
+<li>使用宏提示</li>
+</ul>
+</li>
+</ul>
+
+
+<p>```objc</p>
+
+<h1>if ! <strong>has</strong>feature(objc_arc)</h1>
+
+<h1>error This file is ARC only</h1>
+
+<h1>endif</h1>
+
+<p>```</p>
+
+<ul>
+<li> __unsafe_unretained
+
+<ul>
+<li>当你没有指针但想要保存指向某物的引用时，可以是使用__unsafe_unretained</li>
+</ul>
+</li>
+<li> __weak
+
+<ul>
+<li>与__unsafe_unretained修饰符非常相似。只是当指针指向的内容被销毁后，弱指针便会成为空值（nil）</li>
+<li>仅支持iOS5及以上的系统</li>
+<li>声明weak之后，无需在viewDidUnload中将其置为nil</li>
+</ul>
+</li>
+<li> __auto_releasing
+
+<ul>
+<li>从方法返回一个自动释放变量时使用</li>
+<li>无法用在属性上</li>
+</ul>
+</li>
+<li> 所有权修饰符与常量修饰符不同，它是位置无关的
+
+<ul>
+<li><strong>weak NSObject *myObject;和NSObject </strong>weak *myObject;意义是一样的。因为ARC的所有权修饰符是对指针起作用的而不是指向的值。</li>
+</ul>
+</li>
+<li> __bridge
+
+<ul>
+<li>普通的转换，它告诉ARC不要增加他的引用计数的值，也不改变所有权</li>
+</ul>
+</li>
+<li> __bridge_retained
+
+<ul>
+<li>转换C指针类型并增加引用计数的值</li>
+</ul>
+</li>
+<li> __bridge_transfer
+
+<ul>
+<li>将Core Foundation指针类型转换成为Object-C指针并为引用计数加一</li>
+</ul>
+</li>
+<li> 强行忽略警告</li>
+</ul>
+
+
+<p>```objc</p>
+
+<h1>pragma clang diagnostic push</h1>
+
+<h1>pragma clang diagnostic ignored “-Warc-perfprmSelector-leaks”</h1>
+
+<pre><code> [self performSelector:self.mySelector];
+</code></pre>
+
+<h1>pragma clang diagnostic pop</h1>
+
+<p>```</p>
+
+<ul>
+<li> 避免循环保留</li>
+</ul>
+
+
+<p>```objc
+<strong>weak typeof(<em>self) </em>this = self; //iOS 5+
+</strong>unsafe_unretained typeof(<em>self) </em>this = self;// iOS 4+</p>
+
+<p>self.myBlock = ^(NSString *returnedString){
+this.labelControl.text = returnedString;
+}
+```</p>
+
+<ul>
+<li> CFSTR()从一个制定的字符串中创建一个CFStringRef对象。</li>
+<li> @autoreleasepool{}
+
+<ul>
+<li>当一段代码加入了大量的autorelease变量时</li>
+<li>如果在主线程外使用cocoa调用，例如foundation应用，或者detach一个线程，需要创建自动释放池</li>
+</ul>
+</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[ARC]]></title>
@@ -665,30 +822,6 @@ sprint 中的故事应该比较清楚。</p>
 
 <p>这些原则并不是孤立的，其实都是关联的，有目标才知道学习什么，有正确心态才能更好的学习，执行力加上认清要事才能更高效的出更好结果。</p>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[给老师的Email]]></title>
-    <link href="http://blog.mosquitoliu.com/blog/2011/05/05/gei-lao-shi-de-email/"/>
-    <updated>2011-05-05T08:36:00+08:00</updated>
-    <id>http://blog.mosquitoliu.com/blog/2011/05/05/gei-lao-shi-de-email</id>
-    <content type="html"><![CDATA[<p>朱老师：</p>
-
-<p>您好。</p>
-
-<p>首先感谢您在这学期给我们含辛茹苦的授课，在您的课上我收获颇多。使我开阔了视野，在您的闲谈当中使我知道了许多之前我并不知道的事情，扩宽了我那小的思维想法。在您的最后一堂课上，你最后赠给我们两句话，在我看来真的是不夸张的说是金玉良言，我会牢牢的记住。<!--more--></p>
-
-<p>淡泊名利。是啊，人活在这个世界上，是多么的不容易。“天下熙熙皆为利来，天下攘攘皆为利往”，“亲朋道义因财失，父子情怀为利休”。利和名，在当今的社会中有多少人在面对他们的时候，能做到笑而过之，不贪之名，不图其利。我自己也在深深思考这个问题，当他们摆在我的面前时，我能做到处之泰然吗？回答是否定的，也许是因为我的阅历尚浅看不透世间的沉浮，总是幻想着自己能赚到大钱，我知道这样的想法很庸俗；也许是因为自己年轻浮躁，摆不正自己的位置，求学到底是为了什么？那些求学是为了报效祖国这类的话，我听过无数遍，但是总是感觉和自己是那么远，不亲近。但是当您说到生命的本质是好好的活着的时候，使我为之而动容。感觉自己一下子明白了什么，但是又是那么的模糊，也许随着年龄的增长，阅历的增加会有更深的体会吧。就像老师所说的那样生命的本身本就是没有意义的，其产生也是一系列的偶然事件交错的发生而形成的。</p>
-
-<p>人活着就是为了活着。眼前的得与失，祸与福，只是暂时的云烟，一缕浮云而已。不要计较的太多，为了活着而活着。三十年河东三十年河西，塞翁失马安知祸福。谁又能准确的预测出将来是个怎样的状况。所以不要计较得与失好好的活着，不是为了别的，只是单纯的为了活着，淡泊名利。</p>
-
-<p>把握当前。这使我想到马尔可夫理论，未来只与现在有关，和过去无关。不要为了空想的未来而放弃现在的努力，没有现在的努力，再怎么想也只是空想而已到头来换的还是一场空。</p>
-
-<p>老舍在《茶馆中》中写的一段台词：“年轻时有牙没有花生豆，老了有花生豆没有牙”。珍惜现在所拥有的一切，通过努力来使自己有牙的时候也有花生豆吃，不会到了老了以后回想起自己以前的碌碌无为而悔恨终生。我们现在的年轻就是资本，认真的走好眼前的每一步，踏踏实实的走向明天，把握当前。
-罗里罗嗦的说了这么多，耽误了您的宝贵时间，深表歉意。</p>
-
-<p>最后祝您和您的家人：      身体健康，工作顺利！</p>
 ]]></content>
   </entry>
   
