@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Study | MosquitoLiu's Blog]]></title>
   <link href="http://blog.mosquitoliu.com/blog/categories/study/atom.xml" rel="self"/>
   <link href="http://blog.mosquitoliu.com/"/>
-  <updated>2014-02-09T11:29:54+08:00</updated>
+  <updated>2014-03-03T15:27:06+08:00</updated>
   <id>http://blog.mosquitoliu.com/</id>
   <author>
     <name><![CDATA[小文]]></name>
@@ -12,6 +12,50 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[UILabel设置text显示不同颜色不同字体]]></title>
+    <link href="http://blog.mosquitoliu.com/blog/2014/03/03/label-different-color-and-font/"/>
+    <updated>2014-03-03T14:43:10+08:00</updated>
+    <id>http://blog.mosquitoliu.com/blog/2014/03/03/label-different-color-and-font</id>
+    <content type="html"><![CDATA[<p>```objc</p>
+
+<p>……</p>
+
+<p>UILabel *countLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 150, 14)];</p>
+
+<p>NSString *text =[NSString stringWithFormat:@&ldquo;共有%d条评论&rdquo;,self.datasource.total];</p>
+
+<p>countLabel.attributedText = [self setCmtHeaderViewLabel:text];</p>
+
+<p>……</p>
+
+<p>/<em><em>
+ * 设置label.text中的数字和文字的颜色
+ * 数字-RGB(51, 51, 51)
+ * 文字-RGB(102, 102, 102)
+ </em>/
+&ndash; (NSAttributedString </em>)setCmtHeaderViewLabel:(NSString *)text
+{</p>
+
+<pre><code>/** 转为可变属性的字符串 */
+NSMutableAttributedString *attrText = [[[NSMutableAttributedString alloc] initWithString:text] autorelease];
+[attrText addAttribute:(NSString *)NSFontAttributeName
+                 value:(id)[[UIFont systemFontOfSize:15] CTFonter]
+                 range:NSMakeRange(0, text.length)];
+[attrText addAttribute:(NSString *)NSForegroundColorAttributeName
+                 value:(id)RGB(102, 102, 102).CGColor
+                 range:NSMakeRange(0, text.length)];
+[attrText addAttribute:(NSString *)NSForegroundColorAttributeName
+                 value:(id)RGB(51, 51, 51).CGColor
+                 range:NSMakeRange(2, text.length - 5)];
+return attrText;
+</code></pre>
+
+<p>}
+```</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[instancetype关键字]]></title>
@@ -449,184 +493,6 @@ ClassA *obj1 = [[[ClassA alloc] init] autorelease]; //retain count = 1，把此�
 <p>NSAutoreleasePool自身在销毁的时候，会遍历一遍这个数组，release数组中的每个成员。如果此时数组中成员的retain count为1，那么release之后，retain count为0，对象正式被销毁。如果此时数组中成员的retain count大于1，那么release之后，retain count大于0，此对象依然没有被销毁，内存泄露。</p>
 
 <p>所有标记为autorelease的对象都只有在这个pool销毁时才被销毁。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Obeject-C语法总结]]></title>
-    <link href="http://blog.mosquitoliu.com/blog/2012/03/11/obeject-cyu-fa-zong-jie/"/>
-    <updated>2012-03-11T17:50:00+08:00</updated>
-    <id>http://blog.mosquitoliu.com/blog/2012/03/11/obeject-cyu-fa-zong-jie</id>
-    <content type="html"><![CDATA[<p>Objective-C代码的文件扩展名<br />
-扩展名   内容类型<br />
-.h  头文件。头文件包含类，类型，函数和常数的声明。<br />
-.m  源代码文件。这是典型的源代码文件扩展名，可以包含Objective-C和C代码。<br />
-.mm 源代码文件。带有这种扩展名的源代码文件，除了可以包含Objective-C和C代码以外还可以包含C++代码。仅在你的Objective-C代码中确实需要使用C++类或者特性的时候才用这种扩展名。<br />
-#import选项和#include选项完全相同，＃import只是它可以确保相同的文件只会被包含一次。</p>
-
-
-<p>字符串<br />
-NSString*  myString = @"My String";<br />
-用双引号，助记符号  @<!--more--></p>
-
-
-<p>类<br />
-类是Objective-C用来封装数据，以及操作数据的行为的基础结构。对象就是类的运行期间实例，它包含了类声明的实例变量自己的内存拷贝，以及类成员的指针。Objective-C的类规格说明包含了两个部分：接口和实现。接口部分包含了类声明和实例变量的定义，以及类相关的方法。实现部分包含了类方法的实际代码<br />
-￼</p>
-
-
-<p>类声明总是由@interface编译选项开始，由@end编译选项结束。类名之后的（用冒号分隔的）是父类的名字。类的实例（或者成员）变量声明在被大括号包含的代码块中。实例变量块后面就是类声明的方法的列表。每个实例变量和方法声明都以分号结尾。<br />
-类实现<br />
-类实现总是由@implementation开始，由@end编译选项结束。<br />
-+(MyClass *)createMyClassWithString: (NSString *) aName<br />
-类方法<br />
--(id)initWithString:(NSString *) aName<br />
-实例方法<br />
-Objective-C中的类可以声明两种类型的方法：实例方法和类方法。实例方法就是一个方法，它在类的一个具体实例的范围内执行。也就是说，在你调用一个实例方法前，你必须首先创建类的一个实例。而类方法，比较起来，也就是说，不需要你创建一个实例。</p>
-
-
-<p>￼</p>
-
-
-<p>方法实际的名字包含了冒号，冒号表明了参数的出现。<br />
-[myArray insertObject:anObj atIndex:0];<br />
-接收消息的对象在左边，消息（包括消息需要的任何参数）在右边。<br />
-[[myAppObject getArray] insertObject:[myAppObject getObjectToInsert] atIndex:0];<br />
-消息的嵌套</p>
-
-
-<p>NSMutableArray*   myArray = nil;    // nil is essentially the same as NULL<br />
-// Create a new array and assign it to the myArray variable.<br />
-myArray = [NSMutableArray arrayWithCapacity:0];<br />
-类方法</p>
-
-
-<p>属性<br />
-属性是用来代替声明存取方法的便捷方式。属性不会在你的类声明中创建一个新的实例变量。他们仅仅是定义方法访问已有的实例变量的速记方式而已。<br />
-实际上可以说，属性节约了你必须要些的大量多余的代码。因为大多数存取方法都是用类似的方式实现的，你用属性声明指定你希望的行为，然后在编译期间合成基于声明的实际的getter和setter方法。<br />
-属性声明应该放在类接口的方法声明那里。基本的定义使用@property编译选项，紧跟着类型信息和属性的名字。你还可以用定制选项对属性进行配置，这决定了存取方法的行为。下面的例子展示了一些简单的属性声明：<br />
-@property BOOL flag;<br />
-@property (copy) NSString* nameObject;  // Copy the object during assignment.<br />
-@property (readonly) UIView* rootView;  // Create only a getter method.</p>
-
-
-<p>property是一种代码生成机制，能够生成不同类型的getter／setter函数，特别是如果你想要用点（.）操作符号来存取变量的话，你就能必须使用property。<br />
-@s</p>
-
-
-<p>用法如：@property (attribute1,attribute2) float value;</p>
-
-
-<p>这些attribute包括：<br />
-readonly－只读，只能读取而不能设定值（不能用setXXXX的函式）。<br />
-readwrite－可读可写（默认）。<br />
-assign－在设值时替换新旧变量（默认）。<br />
-retain－在设值时retain新的变量，release旧变量。<br />
-copy－在设值时copy一份新变量，release旧变量。<br />
-nonatomic－默认為atomic。<br />
-前两个只是简单的设定变量的可读写性。</p>
-
-
-<p>assign只是简单的替换变量，通常运用在标量类型上，例如：NSInterger和CGRect,<br />
-或者(在引用计数环境)为那些你不拥有的对象，例如：delegates。<br />
-在垃圾收集环境下retain 和 assign实际上是相同的。<br />
-它的产生的setter代码內容类似：<br />
-retain通常用在对象类型上</p>
-
-
-<p>使用retain会通知编译器对新的变量发送保留（retain）的信息，以确保变量在程序支行时不会从记忆体中被清除。</p>
-
-
-<p>copy也是通常用在必须是已经实现NSCopying协议的对象类型上，只是把刚刚retain的地方改成copy，在设定时不retain新的变量，而是copy一份給原变量成員。<br />
-通常在新变量為mutable而原变量為immutable时使用，使用copy可以确保原变量仍是immutable。</p>
-
-
-<p>变量和属性是不同的，属性是建立在变量的基础上的，但是实际上它是方法。<br />
-把slef.teststring_B = foo; 转化成[self setTeststring_B:foo]。</p>
-
-
-<p>property实现的指令有两个：@synthesize和@dynamic</p>
-
-
-<p>@synthesize 自动生成setter&gettter方法，但也是允许覆盖的.<br />
-当你想要让getter或setter做更多的事情或加入新的特性时，就要用@dynamic，这时再用原来的@synthesize覆盖的话，会有警告，然后运行时如果你想用到新加入的特性时，运行会出错<br />
-使用@dynamic关键字来告诉编译器，你将通过属性暗示或者直接用方法实现或在运行时使用诸如代码动态加载或其动态方法解析机制来履行此API的约定。<br />
-它会抑制编译器在不能找到合适的实现时生成的警告。当您知道该方法将在运行时可用时，就可以使用它。</p>
-
-
-<p>nonatomic，刚是与多线程有关。默认为atomic是在multi-thread的环境下才会用到。<br />
-在一般iPhone开发上，会设定为nonatomic来提高效率。<br />
- atomic的意思就是setter/getter这个函数是一个原语操作。如果有多个线程同时调用setter的话，不会出现某一个线程执行setter全部语句之前，另一个线程开始执行setter情况，相当于函数头尾加了锁一样。<br />
-nonatomic不保证setter/getter的原语行，所以你可能会取到不完整的东西。</p>
-
-
-<p>比如setter函数里面改变两个成员变量，如果你用nonatomic的话，getter可能会取到只更改了其中一个变量时候的状态，这样取到的东西会有问题<br />
-还有一点非常要注意的就是，在使用property时一定要在前面带上self(如：self.xxx),如果你不这样做，容易造成内存<br />
-泄漏。</p>
-
-
-<p>协议和代理<br />
-协议声明了可以被任何类实现的方法。他们仅是定义一个接口，其他的对象去负责实现。你实现了协议里面的方法，就叫做符合协议。<br />
-在iPhone OS中协议常用来实现委托对象。委托对象就是一个对象以其他的对象的模式行事。<br />
-UIApplication类实现了一个程序需要的行为。<br />
-协议的声明跟类接口的声明很像，只是协议没有父类，而且他们不会定义任何实例变量。有一个方法的协议声明：<br />
-@protocol MyProtocol<br />
-- (void)myProtocolMethod;<br />
-@end</p>
-
-
-<p>数据类型</p>
-
-
-<p>1、 id：</p>
-
-
-<p>Objective-C有一种比较特殊的数据类型是id。你可以把它理解为“随便”。</p>
-
-
-<p>在Objective-C里，一切东西都是指针形式保存，你获取到的就是这个对象在内存的位置。那么id就是你知道这个位置，但是不知道里面是啥的时候的写法。</p>
-
-
-<p>2、 同一个数组可以保存不同的对象：<br />
- 3、BOOL，YES，NO：<br />
-你可以认为YES表示C#里的true，NO表示false。而实际上YES是1，NO是0，BOOL本身就是个char</p>
-
-
-<p>4、IBOutlet、IBAction<br />
-IBOutlet就是一个显式的引用访问标记。<br />
-IBAction就是一个方法的显式引用标记。 IBOutlet声明插座变量，IBAction声明事件方法，其实可理解为void，只是告诉编译器这些变量和方法是和View上的东东打交道的<br />
-IBOutlet是控件的引用，比如我想在程序中对控件进行操作，那么就需要将控件声明为IBOutlet。IBAction是控件要执行的动作或事件</p>
-
-
-<p>官方对IBAction和IBOutlet的解释   </p>
-
-
-<p>Interface Builder Constants</p>
-
-
-<p>Type qualifiers used by Interface Builder to synchronize with Xcode.<br />
-#define IBAction void<br />
-#define IBOutlet</p>
-
-
-<p>Constants<br />
-IBActionType qualifier used by Interface Builder to synchronize actions. Use this type as the return type of any action methods defined in your project. For examples of how to use this identifier, see Xcode Integration.<br />
-Available in iPhone OS 2.0 and later.<br />
-Declared in UINibDeclarations.h.</p>
-
-
-<p>IBOutletIdentifier used to qualify an instance-variable declaration so that Interface Builder can synchronize the display and connection of outlets with Xcode. Insert this identifier immediately before the variable type in any variable declarations. For examples, including how to use it with the @property syntax, see Xcode Integration.<br />
-Available in iPhone OS 2.0 and later.<br />
-Declared in UINibDeclarations.h.<br />
-Discussion<br />
-For more information about how to use these constants, see Communicating With Objects. For information about defining and using actions and outlets in Interface Builder, see Interface Builder User Guide.</p>
-
-
-<p>5、nil。</p>
-
-
-<p>Objective-C里的NULL（空）就这么写，表示空指针。</p>
-
 ]]></content>
   </entry>
   

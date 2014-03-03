@@ -3,7 +3,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>MosquitoLiu's Blog</title>
+	<title>UILabel设置text显示不同颜色不同字体 - MosquitoLiu's Blog</title>
 	<meta name="author" content="小文">
 
 	
@@ -127,18 +127,9 @@
 </script>
 
 	
-	<div id="content" class="inner">
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2014/03/03/label-different-color-and-font/">
-		
-			UILabel设置text显示不同颜色不同字体</a>
-	</h2>
-	<div class="entry-content">
-		<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">UILabel设置text显示不同颜色不同字体</h2>
+	<div class="entry-content"><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -200,10 +191,7 @@
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
-
-		
-		
-	</div>
+</div>
 
 
 <div class="meta">
@@ -228,473 +216,35 @@
 
 </div>
 	
-	<div class="comments"><a href="/blog/2014/03/03/label-different-color-and-font/#disqus_thread">Comments</a></div>
+	<div class="comments"><a href="#disqus_thread">Comments</a></div>
 	
 </div>
 </article>
 
-
-    <article class="post">
-	<h2 class="title">
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
 		
-		<a href="/blog/2014/02/09/instancetype-keyword/">
+		<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
 		
-			Instancetype关键字</a>
-	</h2>
-	<div class="entry-content">
-		<p>instancetype关键字，保证了编译器能够正确推断方法的返回的类型。</p>
-
-<p><a href="http://clang.llvm.org/docs/LanguageExtensions.html#objective-c-features">Clang</a>的文档里提到 &ldquo;instancetype is a contextual keyword that is only permitted in the result type of an Object-C method&rdquo; 也就是说,instancetype只能作为返回值，不能像id那样作为参数。</p>
-
+		
+		<a class="addthis_button_tweet"></a>
+		
+		
+		<a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
 		
 		
 	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-02-09T11:14:55+08:00" pubdate data-updated="true">Feb 9<span>th</span>, 2014</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/object-c/'>Object-C</a>, <a class='category' href='/blog/categories/study/'>Study</a>
-
-
-</div>
-	
-	<div class="comments"><a href="/blog/2014/02/09/instancetype-keyword/#disqus_thread">Comments</a></div>
 	
 </div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2014/02/07/target/">
-		
-			2014年「目标」</a>
-	</h2>
-	<div class="entry-content">
-		<p>节后上班第一天，迎来了入冬以来的第一场雪。</p>
-
-<p>在春节假期间，我和小娴的事情终于有了眉目。双方父母终于点了头，同意了。对于我俩来说真的是莫大的欣慰。接下来要考虑的就是领证结婚，希望一切能进展的顺利……</p>
-
-<p>2014年-目标：攒钱。尽可能多的攒钱！！！</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
 
 
 
-
-
-
-
-
-  
-
-
-<time datetime="2014-02-07T23:23:04+08:00" pubdate data-updated="true">Feb 7<span>th</span>, 2014</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/life/'>Life</a>
-
-
+<section id="comment">
+    <h2 class="title">Comments</h2>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </div>
-	
-	<div class="comments"><a href="/blog/2014/02/07/target/#disqus_thread">Comments</a></div>
-	
+</section>
 </div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2014/01/21/arc-note/">
-		
-			ARC_笔记</a>
-	</h2>
-	<div class="entry-content">
-		<ul>
-<li> dealloc
-
-<ul>
-<li>释放一些不在ARC控制下的资源。如Core Foundation对象中调用CFRelease()，对那些通过malloc()分配的内存调用free(),注销通知，停止Timer。</li>
-</ul>
-</li>
-<li> 归零弱引用
-
-<ul>
-<li>归零弱引用指针，当他指向的对象被销毁时，系统会自动设置为nil</li>
-</ul>
-</li>
-<li> 混合支持ARC与不支持ARC
-
-<ul>
-<li>-fno-objc-arc</li>
-<li>-fobjc-arc</li>
-</ul>
-</li>
-<li> 编译时支持ARC而文件的代码不支持ARC</li>
-</ul>
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="cp">#if !__has__feature(objc_arc)</span>
-</span><span class='line'><span class="c1">//这里是不支持ARC的代码</span>
-</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">dealloc</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'><span class="c1">//在这里释放</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="cp">#endif</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-		
-		<a href="/blog/2014/01/21/arc-note/" class="more-link">Read on &rarr;</a>
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-21T17:53:07+08:00" pubdate data-updated="true">Jan 21<span>st</span>, 2014</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/object-c/'>Object-C</a>, <a class='category' href='/blog/categories/study/'>Study</a>
-
-
-</div>
-	
-	<div class="comments"><a href="/blog/2014/01/21/arc-note/#disqus_thread">Comments</a></div>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2013/07/28/newstart/">
-		
-			新的开始</a>
-	</h2>
-	<div class="entry-content">
-		<p>很长时间没有更新Blog。主要是因为太懒了。</p>
-
-<p>新的开始，自己要好好的努力了。</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-28T23:39:00+08:00" pubdate data-updated="true">Jul 28<span>th</span>, 2013</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/life/'>Life</a>
-
-
-</div>
-	
-	<div class="comments"><a href="/blog/2013/07/28/newstart/#disqus_thread">Comments</a></div>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2012/04/24/shi-pin-xun-huan-bo-fang/">
-		
-			视频循环播放</a>
-	</h2>
-	<div class="entry-content">
-		
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>moviePlayer = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
-</span><span class='line'>
-</span><span class='line'>moviePlayer.moviePlayer.repeatMode = MPMovieRepeatModeOne;//循环播放
-</span><span class='line'>……</span></code></pre></td></tr></table></div></figure>
-
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-04-24T17:42:00+08:00" pubdate data-updated="true">Apr 24<span>th</span>, 2012</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/mpmovieplayerviewcontroller/'>MPMoviePlayerViewController</a>, <a class='category' href='/blog/categories/ios/'>iOS</a>
-
-
-</div>
-	
-	<div class="comments"><a href="/blog/2012/04/24/shi-pin-xun-huan-bo-fang/#disqus_thread">Comments</a></div>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2012/04/23/arc/">
-		
-			ARC</a>
-	</h2>
-	<div class="entry-content">
-		<h1>工作原理</h1>
-
-<p>自动计数（ARC）是一个编译期间工作的能够帮你管理内存的技术。
-ARC在编译期间为每个Objective-C指针变量添加合适的retain, release, autorelease等函数，保存每个变量的生存周期控制在合理的范围内，以期实现代码上的自动内存管理。
-In order for the compiler to generate correct code, ARC imposes some restrictions on the methods you can use, and on how you use toll-free bridging (see “Toll-Free Bridged Types”); ARC also introduces new lifetime qualifiers for object references and declared properties.</p>
-
-<h1>功能</h1>
-
-<p>ARC使得你不需要再思考何时使用retain,release,autorelease这样的函数来管理内存，它提供了自动评估内存生存期的功能，并且 在编译期间自动加入合适的管理内存的方法。编译器也会自动生成dealloc函数。</p>
-
-
-		
-		<a href="/blog/2012/04/23/arc/" class="more-link">Read on &rarr;</a>
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-04-23T02:49:00+08:00" pubdate data-updated="true">Apr 23<span>rd</span>, 2012</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/object-c/'>Object-C</a>, <a class='category' href='/blog/categories/study/'>Study</a>
-
-
-</div>
-	
-	<div class="comments"><a href="/blog/2012/04/23/arc/#disqus_thread">Comments</a></div>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2012/04/20/teng-xun-wei-bo-ios-sdkshi-yong-shuo-ming/">
-		
-			腾讯微博iOS SDK使用说明</a>
-	</h2>
-	<div class="entry-content">
-		<p>腾序微博开放平台提供了两个iOS的SDK，一个是官方的，一个是第三方提供的。</p>
-
-<p>按照官方的SDK的使用说明操作后，运行程序会报错。在程序中应该将AppDelegate.m的后缀名改成.mm。这样在模拟器中就可以运行。当真机调试的时候，需要加入CoreTelephony.framework。</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-04-20T18:09:00+08:00" pubdate data-updated="true">Apr 20<span>th</span>, 2012</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/ios/'>iOS</a>, <a class='category' href='/blog/categories/teng-xun-wei-bo-ios-sdk/'>腾讯微博iOS SDK</a>
-
-
-</div>
-	
-	<div class="comments"><a href="/blog/2012/04/20/teng-xun-wei-bo-ios-sdkshi-yong-shuo-ming/#disqus_thread">Comments</a></div>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2012/04/16/nei-cun-guan-li/">
-		
-			内存管理</a>
-	</h2>
-	<div class="entry-content">
-		<p>Objective-C使用了一种叫做持有计数（Retain Count）的机制来管理内存中的对象。
-在Objective-C中每个对象都对应着他们自己的持有计数（Retain Count），持有计数可以理解为一个整数计数器，当使用alloc方法创建对象的时候，持有计数会自动设置为1。当你向一个对象发送retain消息时，持有计数数值会增加。相反，当你像一个对象发送release消息时，持有计数数值会减小。当对象的持有计数变为0的时候，对象会释放自己所占用的内存。</p>
-
-
-		
-		<a href="/blog/2012/04/16/nei-cun-guan-li/" class="more-link">Read on &rarr;</a>
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-04-16T15:58:00+08:00" pubdate data-updated="true">Apr 16<span>th</span>, 2012</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/object-c/'>Object-C</a>, <a class='category' href='/blog/categories/study/'>Study</a>
-
-
-</div>
-	
-	<div class="comments"><a href="/blog/2012/04/16/nei-cun-guan-li/#disqus_thread">Comments</a></div>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2012/04/11/hello-world/">
-		
-			Hello World</a>
-	</h2>
-	<div class="entry-content">
-		<p>Hello Octopress !</p>
-
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-04-11T22:13:00+08:00" pubdate data-updated="true">Apr 11<span>th</span>, 2012</time></div>
-	<div class="tags">
-
-</div>
-	
-	<div class="comments"><a href="/blog/2012/04/11/hello-world/#disqus_thread">Comments</a></div>
-	
-</div>
-</article>
-
-<nav id="pagenavi">
-    
-    
-        <a href="/blog/page/2/" class="next">Next</a>
-    
-    <div class="center"><a href="/blog/archives">Blog Archives</a></div>
-</nav></div>
 	<footer id="footer" class="inner">Copyright &copy; 2014
 
     小文
@@ -713,7 +263,10 @@ In order for the compiler to generate correct code, ARC imposes some restriction
       var disqus_shortname = 'mosquitoliu';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://blog.mosquitoliu.com/blog/2014/03/03/label-different-color-and-font/';
+        var disqus_url = 'http://blog.mosquitoliu.com/blog/2014/03/03/label-different-color-and-font/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
