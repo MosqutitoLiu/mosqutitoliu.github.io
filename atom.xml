@@ -4,7 +4,7 @@
   <title><![CDATA[MosquitoLiu's Blog]]></title>
   <link href="http://blog.mosquitoliu.com/atom.xml" rel="self"/>
   <link href="http://blog.mosquitoliu.com/"/>
-  <updated>2014-03-03T23:08:05+08:00</updated>
+  <updated>2014-03-03T23:30:13+08:00</updated>
   <id>http://blog.mosquitoliu.com/</id>
   <author>
     <name><![CDATA[小文]]></name>
@@ -62,6 +62,59 @@
 <p>效果如下所示：</p>
 
 <iframe src="https://www.flickr.com/photos/mosquitoliu/12905989023/player/1d4e627ca6" height="48" width="120"  frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+
+
+
+
+<!--more-->
+
+
+<p>PS:</p>
+
+<ul>
+<li>默认，当按钮高亮的情况下，图像的颜色会被画深一点儿，取消设置如下：</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">button</span><span class="p">.</span><span class="n">adjustsImageWhenHighlighted</span> <span class="o">=</span> <span class="n">NO</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>默认，当按钮禁用的时候，图像会被画的深一点儿，取消设置如下:</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">button</span><span class="p">.</span><span class="n">adjustImageWhenDisabled</span> <span class="o">=</span> <span class="n">NO</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>按钮按下发光效果，设置如下</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">button</span><span class="p">.</span><span class="n">showsTouchWhenHighlighted</span> <span class="o">=</span> <span class="n">YES</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>取消按钮已经添加的所有事件</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">[</span><span class="n">button</span> <span class="nl">removeTarget:</span><span class="nb">nil</span>
+</span><span class='line'>              <span class="nl">action:</span><span class="nb">nil</span>
+</span><span class='line'>    <span class="nl">forControlEvents:</span><span class="n">UIControlEventTouchUpInside</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
 
 ]]></content>
   </entry>

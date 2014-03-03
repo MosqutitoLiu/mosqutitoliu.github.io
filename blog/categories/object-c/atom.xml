@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Object-C | MosquitoLiu's Blog]]></title>
   <link href="http://blog.mosquitoliu.com/blog/categories/object-c/atom.xml" rel="self"/>
   <link href="http://blog.mosquitoliu.com/"/>
-  <updated>2014-03-03T23:08:05+08:00</updated>
+  <updated>2014-03-03T23:30:13+08:00</updated>
   <id>http://blog.mosquitoliu.com/</id>
   <author>
     <name><![CDATA[小文]]></name>
@@ -49,6 +49,54 @@ self.subscriptionButton.contentHorizontalAlignment = UIControlContentHorizontalA
 
 <iframe src="https://www.flickr.com/photos/mosquitoliu/12905989023/player/1d4e627ca6" height="48" width="120"  frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
 
+
+
+
+<!--more-->
+
+
+<p>PS:</p>
+
+<ul>
+<li>默认，当按钮高亮的情况下，图像的颜色会被画深一点儿，取消设置如下：</li>
+</ul>
+
+
+<p><code>objc
+button.adjustsImageWhenHighlighted = NO;
+</code></p>
+
+<ul>
+<li>默认，当按钮禁用的时候，图像会被画的深一点儿，取消设置如下:</li>
+</ul>
+
+
+<p><code>objc
+button.adjustImageWhenDisabled = NO;
+</code></p>
+
+<ul>
+<li>按钮按下发光效果，设置如下</li>
+</ul>
+
+
+<p><code>objc
+button.showsTouchWhenHighlighted = YES;
+</code></p>
+
+<ul>
+<li>取消按钮已经添加的所有事件</li>
+</ul>
+
+
+<p>```objc
+[button removeTarget:nil</p>
+
+<pre><code>          action:nil
+forControlEvents:UIControlEventTouchUpInside];
+</code></pre>
+
+<p>```</p>
 ]]></content>
   </entry>
   
