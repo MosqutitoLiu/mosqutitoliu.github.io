@@ -29,3 +29,36 @@ UIImage *isSubscriptionImage = [UIImage imageWithNameOnly:kIsSubscriptionImageNa
 ```
 效果如下所示：
 <iframe src="https://www.flickr.com/photos/mosquitoliu/12905989023/player/1d4e627ca6" height="48" width="120"  frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+
+<!--more-->
+PS:
+
+- 默认，当按钮高亮的情况下，图像的颜色会被画深一点儿，取消设置如下：
+
+```objc
+button.adjustsImageWhenHighlighted = NO;
+```
+
+- 默认，当按钮禁用的时候，图像会被画的深一点儿，取消设置如下:
+
+```objc
+button.adjustImageWhenDisabled = NO;
+```
+
+- 按钮按下发光效果，设置如下
+
+```objc
+button.showsTouchWhenHighlighted = YES;
+```
+
+- 取消按钮已经添加的所有事件
+
+```objc
+[button removeTarget:nil
+              action:nil
+    forControlEvents:UIControlEventTouchUpInside];
+```
+
+
+
+
