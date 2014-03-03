@@ -4,7 +4,7 @@
   <title><![CDATA[MosquitoLiu's Blog]]></title>
   <link href="http://blog.mosquitoliu.com/atom.xml" rel="self"/>
   <link href="http://blog.mosquitoliu.com/"/>
-  <updated>2014-03-03T15:27:06+08:00</updated>
+  <updated>2014-03-03T23:08:05+08:00</updated>
   <id>http://blog.mosquitoliu.com/</id>
   <author>
     <name><![CDATA[小文]]></name>
@@ -12,6 +12,59 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[UIButton-Image和Title共显]]></title>
+    <link href="http://blog.mosquitoliu.com/blog/2014/03/03/button-displayed-simultaneously-image-and-title/"/>
+    <updated>2014-03-03T16:45:22+08:00</updated>
+    <id>http://blog.mosquitoliu.com/blog/2014/03/03/button-displayed-simultaneously-image-and-title</id>
+    <content type="html"><![CDATA[<p>一般情况下设置button的setBackgroundImage，然后setTitle,这样button的image和title都能显示正常。
+有时候需要设置button的setImage，在这种情况下再设置setTitle会发现没有共同显示，只是看到image看不到title。其原因是title的位置出现了错误，title的坐标是相对image的坐标。</p>
+
+<p>如：image为下图所示</p>
+
+<iframe src="https://www.flickr.com/photos/mosquitoliu/12905710443/player/30106a7a12" height="48" width="120"  frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+
+
+<p>添加显示title</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="err">……</span>
+</span><span class='line'><span class="n">UIImage</span> <span class="o">*</span><span class="n">isSubscriptionImage</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIImage</span> <span class="nl">imageWithNameOnly:</span><span class="n">kIsSubscriptionImageName</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">subscriptionButton</span> <span class="nl">setTitle:</span><span class="n">kIsSubscriptionTitleNSString</span>
+</span><span class='line'>                             <span class="nl">forState:</span><span class="n">UIControlStateNormal</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">subscriptionButton</span> <span class="nl">setImage:</span><span class="n">isSubscriptionImage</span>
+</span><span class='line'>                             <span class="nl">forState:</span><span class="n">UIControlStateNormal</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">subscriptionButton</span> <span class="nl">setTitleColor:</span><span class="n">RGB</span><span class="p">(</span><span class="mi">84</span><span class="p">,</span> <span class="mi">185</span><span class="p">,</span> <span class="mi">252</span><span class="p">)</span>
+</span><span class='line'>                            <span class="nl">forState:</span><span class="n">UIControlStateNormal</span><span class="p">];</span>
+</span><span class='line'>                          
+</span><span class='line'>    <span class="n">self</span><span class="p">.</span><span class="n">subscriptionButton</span><span class="p">.</span><span class="n">contentHorizontalAlignment</span> <span class="o">=</span> <span class="n">UIControlContentHorizontalAlignmentRight</span><span class="p">;</span>
+</span><span class='line'>    <span class="cm">/** 设置title的坐标 */</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">subscriptionButton</span> <span class="nl">setTitleEdgeInsets:</span><span class="n">UIEdgeInsetsMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">isSubscriptionImage</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span> <span class="o">-</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)];</span>
+</span><span class='line'>    <span class="err">……</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>效果如下所示：</p>
+
+<iframe src="https://www.flickr.com/photos/mosquitoliu/12905989023/player/1d4e627ca6" height="48" width="120"  frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[UILabel设置text显示不同颜色不同字体]]></title>
@@ -1139,19 +1192,6 @@ sprint 中的故事应该比较清楚。</p>
 
 
 <p>&nbsp;</p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[母亲节]]></title>
-    <link href="http://blog.mosquitoliu.com/blog/2011/05/08/mu-qin-jie/"/>
-    <updated>2011-05-08T21:02:00+08:00</updated>
-    <id>http://blog.mosquitoliu.com/blog/2011/05/08/mu-qin-jie</id>
-    <content type="html"><![CDATA[<p>老妈，节日快乐！这辈子做您的儿子是我的福分，下辈子我还要做您的儿子。下辈子您看到您儿子两个咪咪不一样大，毛毛从小腿一直长到屎眼的，不听话，能花钱的，那没错准是我！哈哈～</p>
-
-
-<p>祝妈妈，仙福永享，寿与天齐。永远健康快乐！！</p>
 
 ]]></content>
   </entry>

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Object-C | MosquitoLiu's Blog]]></title>
   <link href="http://blog.mosquitoliu.com/blog/categories/object-c/atom.xml" rel="self"/>
   <link href="http://blog.mosquitoliu.com/"/>
-  <updated>2014-03-03T15:27:06+08:00</updated>
+  <updated>2014-03-03T23:08:05+08:00</updated>
   <id>http://blog.mosquitoliu.com/</id>
   <author>
     <name><![CDATA[小文]]></name>
@@ -12,6 +12,45 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[UIButton-Image和Title共显]]></title>
+    <link href="http://blog.mosquitoliu.com/blog/2014/03/03/button-displayed-simultaneously-image-and-title/"/>
+    <updated>2014-03-03T16:45:22+08:00</updated>
+    <id>http://blog.mosquitoliu.com/blog/2014/03/03/button-displayed-simultaneously-image-and-title</id>
+    <content type="html"><![CDATA[<p>一般情况下设置button的setBackgroundImage，然后setTitle,这样button的image和title都能显示正常。
+有时候需要设置button的setImage，在这种情况下再设置setTitle会发现没有共同显示，只是看到image看不到title。其原因是title的位置出现了错误，title的坐标是相对image的坐标。</p>
+
+<p>如：image为下图所示</p>
+
+<iframe src="https://www.flickr.com/photos/mosquitoliu/12905710443/player/30106a7a12" height="48" width="120"  frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+
+
+<p>添加显示title
+```objc
+……
+UIImage *isSubscriptionImage = [UIImage imageWithNameOnly:kIsSubscriptionImageName];</p>
+
+<pre><code>[self.subscriptionButton setTitle:kIsSubscriptionTitleNSString
+                         forState:UIControlStateNormal];
+[self.subscriptionButton setImage:isSubscriptionImage
+                         forState:UIControlStateNormal];
+[self.subscriptionButton setTitleColor:RGB(84, 185, 252)                                 
+                          forState:UIControlStateNormal];
+
+self.subscriptionButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+/** 设置title的坐标 */
+[self.subscriptionButton setTitleEdgeInsets:UIEdgeInsetsMake(0, -isSubscriptionImage.size.width - 10, 0, 10)];
+……
+</code></pre>
+
+<p>```
+效果如下所示：</p>
+
+<iframe src="https://www.flickr.com/photos/mosquitoliu/12905989023/player/1d4e627ca6" height="48" width="120"  frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[UILabel设置text显示不同颜色不同字体]]></title>
@@ -370,129 +409,6 @@ unsafe_unretained
 <p>在c型的结构中使用objective-c对象</p>
 
 <p>使用void*代替id;或者使用__unsage_unretained 修饰objective-c对象</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[内存管理]]></title>
-    <link href="http://blog.mosquitoliu.com/blog/2012/04/16/nei-cun-guan-li/"/>
-    <updated>2012-04-16T15:58:00+08:00</updated>
-    <id>http://blog.mosquitoliu.com/blog/2012/04/16/nei-cun-guan-li</id>
-    <content type="html"><![CDATA[<p>Objective-C使用了一种叫做持有计数（Retain Count）的机制来管理内存中的对象。
-在Objective-C中每个对象都对应着他们自己的持有计数（Retain Count），持有计数可以理解为一个整数计数器，当使用alloc方法创建对象的时候，持有计数会自动设置为1。当你向一个对象发送retain消息时，持有计数数值会增加。相反，当你像一个对象发送release消息时，持有计数数值会减小。当对象的持有计数变为0的时候，对象会释放自己所占用的内存。</p>
-
-<!--more-->
-
-
-<h1>一、引用计数是实例对象的内存回收唯一参考</h1>
-
-<p>引用计数(retainCount)是Objective-C管理对象引用的唯一依据。调用实例的release方法后，此属性减一，减到为零时对象的dealloc方法被自动调用，进行内存回收操作，也就是说我们永不该手动调用对象的dealloc方法。</p>
-
-<p>下面就是它主要操作接口：</p>
-
-<ol>
-<li><p>alloc, allocWithZone,new(带初始化)</p>
-
-<p> 为对象分配内存，retainCount为“1”，并返回此实例</p></li>
-<li><p>release</p>
-
-<p> retainCount 减“1”，减到“0”时调用此对象的dealloc方法</p></li>
-<li><p>retain</p>
-
-<p> ratianCoutn 加“1”</p></li>
-<li><p>copy、mutableCopy</p>
-
-<p> 复制一个实例，retainCount数为“1”，返回此实例。所得到的对象是与其它上下文无关的，独立的对象</p></li>
-<li><p>autorelease</p>
-
-<p> 在当前上下文的AutoreleasePool栈顶的autoreleasePool实例添加此对象，由于它的引入使Objective-C由全手动内存管理上升到半自动化。</p></li>
-</ol>
-
-
-<h1>二、Object-C内存管理准则</h1>
-
-<p>我们可以把上面的接口按对retainCount的操作性质归为两类</p>
-
-<p>Ａ类是加一操作：1，3，4
-Ｂ类是减一操作：2，5（延时释放）内存管理准则如下：
-1. A与Ｂ类的调用次数保持一制
-2. 为了很好的保障准则一，以实例对象为单位，谁A了就谁Ｂ，没有第二者参与例：</p>
-
-<pre><code>NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    NSObject *o = [[NSObject alloc] init];    //retainCount为1
-    /[o retain];    //retainCount为2
-    //[o release]; //retainCount为1
-    //[o autorelease]; //retainCount为1
-    [pool release]; //retaincount为0，触发dealloc方法 
-</code></pre>
-
-<h1>三、AutoreleasePool使Objective-C成为内存管理半自动化语言</h1>
-
-<p>程序入口</p>
-
-<pre><code>NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    int retVal = UIApplicationMain(argc, argv, nil, nil);
-    [pool release];
-</code></pre>
-
-<p>在 声明pool后，release它之前的这段代码，所有段里的代码（先假设中间没有声明其它的AutoreleasePool实例），凡是调用了 autorelase方法的实例，都会把它的retainCount加1，并在此pool实例中添1次此实例要回收的记录以做备案。当此pool实例 dealloc时，首先会检查之前备案的所有实例，所有记录在案的实例都会依次调用它的release方法。</p>
-
-<pre><code>NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    NSObject *o = [[NSObject alloc] init];
-    [o autorelease];                                //在pool实例dealloc时，release     一次此实例，重要的是并不是在此行去release
-    NSLog(@"o retainCount:%d",[o retainCount]);    //此时还可以看到我们的o实例还是可用的，并且retainCount为1
-    [pool release];    //pool 的 retainCount为0，自动调用其dealloc方法，我们之前备案的小o也将在这里release一次（因为咱们之前仅仅autorelease一次）
-</code></pre>
-
-<p>真对同一个实例，同一个Pool是可以多次注册备案(autorelease)的。在一些很少的情况化可能会出现这种需求：</p>
-
-<pre><code>NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    NSObject *o = [[NSObject alloc] init];
-    [o retain];
-    [o autorelease];
-    [o autorelease];
-    [pool release];
-</code></pre>
-
-<p>我 们调用了两次A类(retainCount加1的方法)，使其retainCount为2，而接下来的两次autorelease方法调用，使其在 pool中注册备案了两次。这里的pool将会在回收时调用此实例的两次release方法。使其retainCount降为0，完成回收内存的操作，其 实这也是完全按照内存管理规则办事的好处.</p>
-
-<p>AutoreleasePool是被嵌套的！池是被嵌套的，嵌套的结果是个栈，同一线程只有当前栈顶pool实例是可用的：</p>
-
-<p>|  pool_3  |</p>
-
-<p>|  &mdash;&mdash;&mdash;&mdash;-      |</p>
-
-<p>|  pool_2      |</p>
-
-<p>|  &mdash;&mdash;&mdash;&mdash;-   |</p>
-
-<p>|  pool_1  |</p>
-
-<p>|_______|</p>
-
-<pre><code>NSAutoreleasePool *pool1 = [[NSAutoreleasePool alloc] init];
-    NSAutoreleasePool *pool2 = [[NSAutoreleasePool alloc] init];
-    NSAutoreleasePool *pool3 = [[NSAutoreleasePool alloc] init];
-
-NSObject *o = [[NSObject alloc] init] autorelease];
-    [pool3 release];
-    [pool2 release];
-    [pool1 release];
-</code></pre>
-
-<p>我们可以看到其栈顶是pool3，o的autorelease是把当前的release放在栈顶的pool实例管理。。。也就是pool3。
-在生命周期短，产生大量放在autoreleasePool中管理实例的情况下经常用此方法减少内存使用，达到内存及时回收的目的。
-autorelease pool不是天生的，需要手动创立。只不过在新建一个iphone项目时，xcode会自动帮你写好。autorelease pool的真名是NSAutoreleasePool。</p>
-
-<pre><code>NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];    NSAutoreleasePool内部包含一个数组（NSMutableArray），用来保存声明为autorelease的所有对象。如果一个对象声明为autorelease，系统所做的工作就是把这个对象加入到这个数组中去。
-
-
-ClassA *obj1 = [[[ClassA alloc] init] autorelease]; //retain count = 1，把此对象加入autorelease pool中
-</code></pre>
-
-<p>NSAutoreleasePool自身在销毁的时候，会遍历一遍这个数组，release数组中的每个成员。如果此时数组中成员的retain count为1，那么release之后，retain count为0，对象正式被销毁。如果此时数组中成员的retain count大于1，那么release之后，retain count大于0，此对象依然没有被销毁，内存泄露。</p>
-
-<p>所有标记为autorelease的对象都只有在这个pool销毁时才被销毁。</p>
 ]]></content>
   </entry>
   
