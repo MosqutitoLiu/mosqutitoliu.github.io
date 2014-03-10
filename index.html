@@ -7,8 +7,12 @@
 	<meta name="author" content="小文">
 
 	
-	<meta name="description" content="一般情况下设置button的setBackgroundImage，然后setTitle,这样button的image和title都能显示正常。
-有时候需要设置button的setImage，在这种情况下再设置setTitle会发现没有共同显示，只是看到image看不到title。 &hellip;">
+	<meta name="description" content="performSelector 主线程执行，否则无效
+非阻塞的执行方法
+不能取消执行 1
+2
+3
+[self performSelector:@selector(showNextMessage) withObject:nil afterDelay: &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -99,6 +103,108 @@
 
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2014/03/10/delay-operation/">
+		
+			延迟操作</a>
+	</h2>
+	<div class="entry-content">
+		<ul>
+<li>performSelector
+
+<ul>
+<li>主线程执行，否则无效</li>
+<li>非阻塞的执行方法</li>
+<li>不能取消执行</li>
+</ul>
+</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">[</span><span class="n">self</span> <span class="nl">performSelector:</span><span class="k">@selector</span><span class="p">(</span><span class="n">showNextMessage</span><span class="p">)</span>
+</span><span class='line'>                   <span class="nl">withObject:</span><span class="nb">nil</span>
+</span><span class='line'>                   <span class="nl">afterDelay:</span><span class="n">kMinimumMessageVisibleTime</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>NSTimer 定时器
+
+<ul>
+<li>主线程执行，否则无效</li>
+<li>非阻塞执行方法</li>
+<li>invalidate 可取消执行</li>
+</ul>
+</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'> <span class="n">self</span><span class="p">.</span><span class="n">cancelSubscriotionTimer</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSTimer</span> <span class="nl">scheduledTimerWithTimeInterval:</span><span class="mi">3</span>
+</span><span class='line'>                                                                 <span class="nl">target:</span><span class="n">self</span>
+</span><span class='line'>                                                               <span class="nl">selector:</span><span class="k">@selector</span><span class="p">(</span><span class="n">backIsSubcribe</span><span class="p">)</span>
+</span><span class='line'>                                                               <span class="nl">userInfo:</span><span class="nb">nil</span>
+</span><span class='line'>                                                                <span class="nl">repeats:</span><span class="n">NO</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'> <span class="cm">/** 取消 */</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">([</span><span class="n">self</span><span class="p">.</span><span class="n">cancelSubscriotionTimer</span> <span class="n">isValid</span><span class="p">])</span> <span class="p">{</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">cancelSubscriotionTimer</span> <span class="n">invalidate</span><span class="p">];</span>
+</span><span class='line'>        <span class="n">self</span><span class="p">.</span><span class="n">cancelSubscriotionTimer</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+
+		
+		<a href="/blog/2014/03/10/delay-operation/" class="more-link">Read on &rarr;</a>
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-03-10T11:15:00+08:00" pubdate data-updated="true">Mar 10<span>th</span>, 2014</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/object-c/'>Object-C</a>, <a class='category' href='/blog/categories/study/'>Study</a>
+
+
+</div>
+	
+	<div class="comments"><a href="/blog/2014/03/10/delay-operation/#disqus_thread">Comments</a></div>
+	
+</div>
+</article>
 
 
     <article class="post">
@@ -660,51 +766,6 @@ In order for the compiler to generate correct code, ARC imposes some restriction
 </div>
 	
 	<div class="comments"><a href="/blog/2012/04/20/teng-xun-wei-bo-ios-sdkshi-yong-shuo-ming/#disqus_thread">Comments</a></div>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2012/04/16/nei-cun-guan-li/">
-		
-			内存管理</a>
-	</h2>
-	<div class="entry-content">
-		<p>Objective-C使用了一种叫做持有计数（Retain Count）的机制来管理内存中的对象。
-在Objective-C中每个对象都对应着他们自己的持有计数（Retain Count），持有计数可以理解为一个整数计数器，当使用alloc方法创建对象的时候，持有计数会自动设置为1。当你向一个对象发送retain消息时，持有计数数值会增加。相反，当你像一个对象发送release消息时，持有计数数值会减小。当对象的持有计数变为0的时候，对象会释放自己所占用的内存。</p>
-
-
-		
-		<a href="/blog/2012/04/16/nei-cun-guan-li/" class="more-link">Read on &rarr;</a>
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-04-16T15:58:00+08:00" pubdate data-updated="true">Apr 16<span>th</span>, 2012</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/object-c/'>Object-C</a>, <a class='category' href='/blog/categories/study/'>Study</a>
-
-
-</div>
-	
-	<div class="comments"><a href="/blog/2012/04/16/nei-cun-guan-li/#disqus_thread">Comments</a></div>
 	
 </div>
 </article>

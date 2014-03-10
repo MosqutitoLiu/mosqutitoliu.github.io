@@ -4,7 +4,7 @@
   <title><![CDATA[MosquitoLiu's Blog]]></title>
   <link href="http://blog.mosquitoliu.com/atom.xml" rel="self"/>
   <link href="http://blog.mosquitoliu.com/"/>
-  <updated>2014-03-03T23:30:13+08:00</updated>
+  <updated>2014-03-10T12:23:46+08:00</updated>
   <id>http://blog.mosquitoliu.com/</id>
   <author>
     <name><![CDATA[小文]]></name>
@@ -12,6 +12,102 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[延迟操作]]></title>
+    <link href="http://blog.mosquitoliu.com/blog/2014/03/10/delay-operation/"/>
+    <updated>2014-03-10T11:15:00+08:00</updated>
+    <id>http://blog.mosquitoliu.com/blog/2014/03/10/delay-operation</id>
+    <content type="html"><![CDATA[<ul>
+<li>performSelector
+
+<ul>
+<li>主线程执行，否则无效</li>
+<li>非阻塞的执行方法</li>
+<li>不能取消执行</li>
+</ul>
+</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">[</span><span class="n">self</span> <span class="nl">performSelector:</span><span class="k">@selector</span><span class="p">(</span><span class="n">showNextMessage</span><span class="p">)</span>
+</span><span class='line'>                   <span class="nl">withObject:</span><span class="nb">nil</span>
+</span><span class='line'>                   <span class="nl">afterDelay:</span><span class="n">kMinimumMessageVisibleTime</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>NSTimer 定时器
+
+<ul>
+<li>主线程执行，否则无效</li>
+<li>非阻塞执行方法</li>
+<li>invalidate 可取消执行</li>
+</ul>
+</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'> <span class="n">self</span><span class="p">.</span><span class="n">cancelSubscriotionTimer</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSTimer</span> <span class="nl">scheduledTimerWithTimeInterval:</span><span class="mi">3</span>
+</span><span class='line'>                                                                 <span class="nl">target:</span><span class="n">self</span>
+</span><span class='line'>                                                               <span class="nl">selector:</span><span class="k">@selector</span><span class="p">(</span><span class="n">backIsSubcribe</span><span class="p">)</span>
+</span><span class='line'>                                                               <span class="nl">userInfo:</span><span class="nb">nil</span>
+</span><span class='line'>                                                                <span class="nl">repeats:</span><span class="n">NO</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'> <span class="cm">/** 取消 */</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">([</span><span class="n">self</span><span class="p">.</span><span class="n">cancelSubscriotionTimer</span> <span class="n">isValid</span><span class="p">])</span> <span class="p">{</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">cancelSubscriotionTimer</span> <span class="n">invalidate</span><span class="p">];</span>
+</span><span class='line'>        <span class="n">self</span><span class="p">.</span><span class="n">cancelSubscriotionTimer</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<!--more-->
+
+
+<ul>
+<li>GCD方式
+
+<ul>
+<li>非阻塞执行方法</li>
+<li>github上有取消执行的方法，待测试</li>
+</ul>
+</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">dispatch_time_t</span> <span class="n">time</span> <span class="o">=</span> <span class="n">dispatch_time</span><span class="p">(</span><span class="n">DISPATCH_TIME_NOW</span><span class="p">,</span> <span class="mf">0.3</span> <span class="o">*</span> <span class="n">NSEC_PER_SEC</span><span class="p">);</span>
+</span><span class='line'>                <span class="n">dispatch_after</span><span class="p">(</span><span class="n">time</span><span class="p">,</span><span class="n">dispatch_get_main_queue</span><span class="p">(),</span> <span class="o">^</span><span class="p">(</span><span class="kt">void</span><span class="p">){</span>
+</span><span class='line'>                    <span class="n">self</span><span class="p">.</span><span class="n">subscribeBlock</span><span class="p">(</span><span class="n">self</span><span class="p">);</span>
+</span><span class='line'>                    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">activityView</span> <span class="n">stopAnimating</span><span class="p">];</span>
+</span><span class='line'>                    <span class="n">self</span><span class="p">.</span><span class="n">subscriptionButton</span><span class="p">.</span><span class="n">userInteractionEnabled</span> <span class="o">=</span> <span class="n">YES</span><span class="p">;</span>
+</span><span class='line'>                <span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[UIButton-Image和Title共显]]></title>
@@ -1205,43 +1301,6 @@ sprint 中的故事应该比较清楚。</p>
 
 
 <div>我要抓时间赶紧去烧香拜佛了，去去厄运~~~</div>
-
-
-<p>&nbsp;</p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Pet Diary four]]></title>
-    <link href="http://blog.mosquitoliu.com/blog/2011/05/24/pet-diary-four/"/>
-    <updated>2011-05-24T20:58:00+08:00</updated>
-    <id>http://blog.mosquitoliu.com/blog/2011/05/24/pet-diary-four</id>
-    <content type="html"><![CDATA[<p style="text-align: center;"><embed type="application/x-shockwave-flash" width="480" height="400" src="http://player.youku.com/player.php/sid/XMjY5Nzc3MTU2/v.swf" quality="high" align="middle" allowscriptaccess="sameDomain"></embed><br />
-
-
-到今天为止狗狗和我一起生活了一个月零六天了，在这一个月的时间里，狗狗给我带来了很多的快乐。狗狗越来越离不开我了。</p>
-
-
-<p>今天第二次给狗狗洗澡，狗狗很乖，貌似很是享受，但是给他用吹风机吹毛的时候，他貌似不是很舒服，趴在窝里，头埋的很低，废了很大的劲才给他吹干毛。<!--more--></p>
-
-
-<p>昨天我去洗澡，把狗狗放在同学那里叫同学帮我看一下，没想到，狗狗跑到浴室来找我了，确实还是有点小小的的感动咯～～○|￣|_ =3</p>
-
-
-<p>前些天带狗狗出去溜，发现狗狗在外边的胆子好小啊，和我是寸步不离。</p>
-
-
-<p>狗狗长的很快，现在一顿饭要吃70颗狗粮了（╮(￣▽￣&#8221;)╭ 每次都要给他数，严格控制食量），隔一天还要给他一个鸡蛋黄吃，隔三差五还要给他酸奶喝，╮(╯▽╰)╭生活条件好的哇(PД`q。)·。&#8217;゜现在狗狗的伸长已经有39cm了。</p>
-
-
-<p>这两天在我的寝室拉了两次便便了，不去阳台拉了，ε=怒ε=怒ε=怒ε=怒ε=( o｀ω′)ノ，恶狠狠的教训了狗狗，教训完之后看到狗狗可怜巴巴的样子儿，心里又于心不忍在打他了。</p>
-
-
-<p>狗狗是越来越聪明了，为了想出去，他平时都趴在我的书包上睡觉（我出去要背书包），只有晚上才去自己的窝里睡。总想跟着我一起出去……</p>
-
-
-<p>PS：失踪将近一个月的小乌龟，找到了，不幸的是，他已经去世了，眼珠都没有了，样子很是恐怖哎，都是我的罪过，阿弥陀佛。改天天气好的时候，找个地方给他埋了……</p>
 
 
 <p>&nbsp;</p>

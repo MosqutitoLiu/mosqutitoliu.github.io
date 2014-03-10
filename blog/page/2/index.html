@@ -7,7 +7,8 @@
 	<meta name="author" content="小文">
 
 	
-	<meta name="description" content=" Hello Octopress ! Apr 11th, 2012 Comments ">
+	<meta name="description" content="Objective-C使用了一种叫做持有计数（Retain Count）的机制来管理内存中的对象。
+在Objective-C中每个对象都对应着他们自己的持有计数（Retain Count），持有计数可以理解为一个整数计数器，当使用alloc方法创建对象的时候，持有计数会自动设置为1。 &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -98,6 +99,51 @@
 
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2012/04/16/nei-cun-guan-li/">
+		
+			内存管理</a>
+	</h2>
+	<div class="entry-content">
+		<p>Objective-C使用了一种叫做持有计数（Retain Count）的机制来管理内存中的对象。
+在Objective-C中每个对象都对应着他们自己的持有计数（Retain Count），持有计数可以理解为一个整数计数器，当使用alloc方法创建对象的时候，持有计数会自动设置为1。当你向一个对象发送retain消息时，持有计数数值会增加。相反，当你像一个对象发送release消息时，持有计数数值会减小。当对象的持有计数变为0的时候，对象会释放自己所占用的内存。</p>
+
+
+		
+		<a href="/blog/2012/04/16/nei-cun-guan-li/" class="more-link">Read on &rarr;</a>
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-16T15:58:00+08:00" pubdate data-updated="true">Apr 16<span>th</span>, 2012</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/object-c/'>Object-C</a>, <a class='category' href='/blog/categories/study/'>Study</a>
+
+
+</div>
+	
+	<div class="comments"><a href="/blog/2012/04/16/nei-cun-guan-li/#disqus_thread">Comments</a></div>
+	
+</div>
+</article>
 
 
     <article class="post">
@@ -512,54 +558,6 @@ NSString*  myString = @&#8221;My String&#8221;;<br />
 </div>
 	
 	<div class="comments"><a href="/blog/2011/05/24/bu-xing-de-ye/#disqus_thread">Comments</a></div>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2011/05/24/pet-diary-four/">
-		
-			Pet Diary Four</a>
-	</h2>
-	<div class="entry-content">
-		<p style="text-align: center;"><embed type="application/x-shockwave-flash" width="480" height="400" src="http://player.youku.com/player.php/sid/XMjY5Nzc3MTU2/v.swf" quality="high" align="middle" allowscriptaccess="sameDomain"></embed><br />
-
-
-到今天为止狗狗和我一起生活了一个月零六天了，在这一个月的时间里，狗狗给我带来了很多的快乐。狗狗越来越离不开我了。</p>
-
-
-<p>今天第二次给狗狗洗澡，狗狗很乖，貌似很是享受，但是给他用吹风机吹毛的时候，他貌似不是很舒服，趴在窝里，头埋的很低，废了很大的劲才给他吹干毛。
-		
-		<a href="/blog/2011/05/24/pet-diary-four/" class="more-link">Read on &rarr;</a>
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-05-24T20:58:00+08:00" pubdate data-updated="true">May 24<span>th</span>, 2011</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/life/'>Life</a>, <a class='category' href='/blog/categories/chong-wu-ri-ji/'>宠物日记</a>
-
-
-</div>
-	
-	<div class="comments"><a href="/blog/2011/05/24/pet-diary-four/#disqus_thread">Comments</a></div>
 	
 </div>
 </article>

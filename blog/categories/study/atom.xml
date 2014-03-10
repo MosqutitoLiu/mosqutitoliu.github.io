@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Study | MosquitoLiu's Blog]]></title>
   <link href="http://blog.mosquitoliu.com/blog/categories/study/atom.xml" rel="self"/>
   <link href="http://blog.mosquitoliu.com/"/>
-  <updated>2014-03-03T23:30:13+08:00</updated>
+  <updated>2014-03-10T12:23:46+08:00</updated>
   <id>http://blog.mosquitoliu.com/</id>
   <author>
     <name><![CDATA[小文]]></name>
@@ -12,6 +12,91 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[延迟操作]]></title>
+    <link href="http://blog.mosquitoliu.com/blog/2014/03/10/delay-operation/"/>
+    <updated>2014-03-10T11:15:00+08:00</updated>
+    <id>http://blog.mosquitoliu.com/blog/2014/03/10/delay-operation</id>
+    <content type="html"><![CDATA[<ul>
+<li>performSelector
+
+<ul>
+<li>主线程执行，否则无效</li>
+<li>非阻塞的执行方法</li>
+<li>不能取消执行</li>
+</ul>
+</li>
+</ul>
+
+
+<p>```objc
+[self performSelector:@selector(showNextMessage)</p>
+
+<pre><code>               withObject:nil
+               afterDelay:kMinimumMessageVisibleTime];
+</code></pre>
+
+<p>```</p>
+
+<ul>
+<li>NSTimer 定时器
+
+<ul>
+<li>主线程执行，否则无效</li>
+<li>非阻塞执行方法</li>
+<li>invalidate 可取消执行</li>
+</ul>
+</li>
+</ul>
+
+
+<p>```objc
+ self.cancelSubscriotionTimer = [NSTimer scheduledTimerWithTimeInterval:3</p>
+
+<pre><code>                                                             target:self
+                                                           selector:@selector(backIsSubcribe)
+                                                           userInfo:nil
+                                                            repeats:NO];
+</code></pre>
+
+<p> /<em>* 取消 </em>/
+  if ([self.cancelSubscriotionTimer isValid]) {</p>
+
+<pre><code>    [self.cancelSubscriotionTimer invalidate];
+    self.cancelSubscriotionTimer = nil;
+}
+</code></pre>
+
+<p>```</p>
+
+<!--more-->
+
+
+<ul>
+<li>GCD方式
+
+<ul>
+<li>非阻塞执行方法</li>
+<li>github上有取消执行的方法，待测试</li>
+</ul>
+</li>
+</ul>
+
+
+<p>``` objc
+dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, 0.3 * NSEC_PER_SEC);</p>
+
+<pre><code>            dispatch_after(time,dispatch_get_main_queue(), ^(void){
+                self.subscribeBlock(self);
+                [self.activityView stopAnimating];
+                self.subscriptionButton.userInteractionEnabled = YES;
+            });
+</code></pre>
+
+<p>```</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[UIButton-Image和Title共显]]></title>
@@ -309,154 +394,6 @@ this.labelControl.text = returnedString;
 </li>
 </ul>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[ARC]]></title>
-    <link href="http://blog.mosquitoliu.com/blog/2012/04/23/arc/"/>
-    <updated>2012-04-23T02:49:00+08:00</updated>
-    <id>http://blog.mosquitoliu.com/blog/2012/04/23/arc</id>
-    <content type="html"><![CDATA[<h1>工作原理</h1>
-
-<p>自动计数（ARC）是一个编译期间工作的能够帮你管理内存的技术。
-ARC在编译期间为每个Objective-C指针变量添加合适的retain, release, autorelease等函数，保存每个变量的生存周期控制在合理的范围内，以期实现代码上的自动内存管理。
-In order for the compiler to generate correct code, ARC imposes some restrictions on the methods you can use, and on how you use toll-free bridging (see “Toll-Free Bridged Types”); ARC also introduces new lifetime qualifiers for object references and declared properties.</p>
-
-<h1>功能</h1>
-
-<p>ARC使得你不需要再思考何时使用retain,release,autorelease这样的函数来管理内存，它提供了自动评估内存生存期的功能，并且 在编译期间自动加入合适的管理内存的方法。编译器也会自动生成dealloc函数。</p>
-
-<!--more-->
-
-
-<h1>新规则</h1>
-
-<ul>
-<li><p>不能直接调用dealloc方法，不能重载或直接调用retain, release, retainCount,或 autorelease等方法。但可以通过@selector(retain), @selector(release)这样的形式调用。</p></li>
-<li><p>用户自定义的dealloc方法，不能调用[super dealloc] ，编译器会自动帮你添加这个代码。</p></li>
-<li><p>对Core Foundation-style 的对象，仍可以使用CFRetain, CFRelease等方法。</p></li>
-<li><p>不能使用NSAllocateObject或NSDeallocateObject去创建对象，请使用alloc方法。</p></li>
-<li><p>在c语言中的结构体中，不能再使用对象指针。请放弃C结构体，使用Objective-C的类。</p></li>
-<li><p>id和void*之间没有隐式的类型转换，请使用显式类型转换。</p></li>
-<li><p>不能使用NSAutoreleasePool *pool= ARC提供了@autoreleasepool语句块。</p></li>
-</ul>
-
-
-<h1>关于对象的生命周期</h1>
-
-<p>设置成weak的属性，不会影响对象的生命周期，如果引用的对象已经被释放，引用会指向nil。 strong引用：设置成strong的属性，会影响对象的生命周期。</p>
-
-<p>例如：</p>
-
-<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>@property(strong) MyClass *myObject;</span></code></pre></td></tr></table></div></figure></notextile></div></p>
-
-<p>和</p>
-
-<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>@property(retain) MyClass *myObject;</span></code></pre></td></tr></table></div></figure></notextile></div></p>
-
-<p>是等效的。</p>
-
-<p>又例如：</p>
-
-<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>@property(weak) MyClass *myObject;</span></code></pre></td></tr></table></div></figure></notextile></div></p>
-
-<p>和</p>
-
-<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>@property(assign) MyClass *myObject;</span></code></pre></td></tr></table></div></figure></notextile></div></p>
-
-<p>在多数情况下等效，但当instance被释放时，设置为weak的引用会指向nil。
-可用的限定词： strong， 默认的 weak <strong>unsafe_unretained，和weak的区别是当对象被释放时，引用不指向nil。 </strong>autoreleasing，当方法的参数是id*，且希望方法返回时对象被autoreleased，可以添加<strong>autoreleasing限定词。 使用</strong>weak时要特别小心，如果weak引用的对象在此次使用之前被使用过一次，那么它一直存在，直到autoreleasepool释放它，否则就是nil。</p>
-
-<p>例如</p>
-
-<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>NSString __weak *string = [[NSString alloc] initWithFormat:@&ldquo;First Name: %@&rdquo;, [self firstName]];   
-</span><span class='line'>string = NSLog(@&ldquo;string: %@&rdquo;, string); //此时string为空，因为weak类型不影响对象的生命周期，对象刚创建就释放了。</span></code></pre></td></tr></table></div></figure></notextile></div></p>
-
-<p>其他特性： 使用strong, weak, autoreleasing限定的变量会被隐式初始化为nil。</p>
-
-<p>例如：</p>
-
-<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>- (void)myMethod { NSString *name; NSLog(@&ldquo;name: %@&rdquo;, name); //会输出null }</span></code></pre></td></tr></table></div></figure></notextile></div></p>
-
-<p>weak与assign很像,不同在于如果指向的数据被释放了,那么这个指向nil
-unsafe_unretained
-相当于assign,指向的数据如果被释放,这个指向原来的地址。</p>
-
-<h1>禁用在Xcode中的特定文件的ARC</h1>
-
-<p>选择项目->Build Phases->Compile Sources,，给需要禁止arc的文件添加 “-fno-objc-arc”（双击该文件）编译标志(Compiler Flags)。</p>
-
-<p>如下图</p>
-
-<p style="text-align: center;"><a href="http://www.flickr.com/photos/mosquitoliu/6956821194/" title="Flickr 上 freefishdss 的 noarc"><img src="http://farm9.staticflickr.com/8013/6956821194_ae58ab56c6.jpg" width="500" height="117" alt="noarc"></a></p>
-
-
-<h1>注意事项</h1>
-
-<ol>
-<li>不可以使用retain,retainCount,release,autorelease 用@select()这样的调用也不行.属性命名不能以new开头。</li>
-<li><p>若重写一个类子类的dealloc,不应调用[super dealloc],当然也不用写什么release释放一些什么对象,只是处理一些你觉得必要处理的事情吧,比如中止一个还没有完成的网络请求.</p></li>
-<li><p>不能使用NSAllocateObject和NSDeallocateObject</p></li>
-<li><p>你不能在c结构中使用对象,更好的方式是使用Objective-c类来代替.</p></li>
-<li><p>在id和void*之间不能隐士转换，必须指明相应转换的生命周期。</p></li>
-<li><p>不能使用NSAutoreleasePool对象，ARC使用@autoreleasepool{}块代替。</p></li>
-</ol>
-
-
-<h1>Core Foundation 对象与Objective-c对象之间的赋值,函数调用参数相互转化时需要用到的关键字</h1>
-
-<p>__bridge</p>
-
-<p>简单赋值,不会影响两边对象的retain count.</p>
-
-<p>__bridge_transfer</p>
-
-<p>赋值后释放右边的对象</p>
-
-<p>__bridge_retained</p>
-
-<p>赋值后也保留不释放右边的对象</p>
-
-<p>举例:</p>
-
-<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>&ndash;(void)test&lt;br/>
-</span><span class='line'>{&lt;/p>
-</span><span class='line'>
-</span><span class='line'>&lt;pre>&lt;code>CFStringRef coreFoundationString = CFStringCreateWithCString(CFAllocatorGetDefault(),"C String", kCFStringEncodingUTF8);    // 创建 retainCount = 1
-</span><span class='line'>id unknownObjectType = (__bridge id)coreFoundationString; // 简单赋值,不变,retainCount = 1
-</span><span class='line'>CFStringRef anotherString = (__bridge_retained CFStringRef)unknownObjectType; // 保留赋值,加一,retainCount = 2
-</span><span class='line'>NSString *objCString = (__bridge_transfer NSString *)coreFoundationString; // 释放赋值,减一,retainCount =1;由于NSString*默认strong,加一,retainCount = 2
-</span><span class='line'>NSLog(@"String = %@", objCString);
-</span><span class='line'>objCString = nil;   // 不再指向原内存,原内存减一,retainCount = 1
-</span><span class='line'>CFRelease(anotherString);   // 释放,减一,retainCount = 0
-</span><span class='line'>&lt;/code>&lt;/pre>
-</span><span class='line'>
-</span><span class='line'>&lt;p>}</span></code></pre></td></tr></table></div></figure></notextile></div></p>
-
-<p>在c型的结构中使用objective-c对象</p>
-
-<p>使用void*代替id;或者使用__unsage_unretained 修饰objective-c对象</p>
 ]]></content>
   </entry>
   

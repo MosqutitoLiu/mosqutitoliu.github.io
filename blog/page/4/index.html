@@ -7,7 +7,7 @@
 	<meta name="author" content="小文">
 
 	
-	<meta name="description" content="云计算概念是由Google提出的。狭义云计算是指IT基础设施的交付和使用模式，指通过网络以按需、易扩展的方式获得所需的资源；广义云计算是指服务的交付和使用模式，指通过网络以按需、易扩展的方式获得所需的服务。这种服务可以是IT和软件、互联网相关的，也可以是任意其他的服务，它具有超大规模、虚拟化、 &hellip;">
+	<meta name="description" content="Xen 是一个开放源代码的para-virtualizing虚拟机（VMM）。 基于Xen的操作系统，有多个层，最底层和最高特权层是 Xen程序本身。Xen 可以管理多个客户操作系统，每个操作系统都能在一个安全的虚拟机中实现。在Xen的术语中，Domain由Xen控制， &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -98,6 +98,51 @@
 
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2010/11/03/xenan-zhuang/">
+		
+			Xen安装</a>
+	</h2>
+	<div class="entry-content">
+		<blockquote>Xen 是一个开放源代码的para-virtualizing虚拟机（VMM）。</blockquote>
+
+
+<p>基于Xen的操作系统，有多个层，最底层和最高特权层是 Xen程序本身。Xen 可以管理多个客户操作系统，每个操作系统都能在一个安全的虚拟机中实现。在Xen的术语中，Domain由Xen控制，以高效的利用CPU的物理资源。每个客户操作系统可以管理它自身的应用。这种管理包括每个程序在规定时间内的响应到执行，是通过Xen调度到虚拟机中实现。当Xen启动运行后，第一个虚拟的操作系统，就是Xen本身，我们通过xm list，会发现有一个Domain 0的虚拟机。Domain 0 是其它虚拟主机的管理者和控制者，Domain 0 可以构建其它的更多的Domain ，并管理虚拟设备。它还能执行管理任务，比如虚拟机的体眠、唤醒和迁移其它虚拟机。一个被称为xend的服务器进程通过domain 0来管理系统，Xend 负责管理众多的虚拟主机，并且提供进入这些系统的控制台。命令经一个命令行的工具通过一个HTTP的接口被传送到xend。
+		
+		<a href="/blog/2010/11/03/xenan-zhuang/" class="more-link">Read on &rarr;</a>
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-11-03T16:11:00+08:00" pubdate data-updated="true">Nov 3<span>rd</span>, 2010</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/study/'>Study</a>
+
+
+</div>
+	
+	<div class="comments"><a href="/blog/2010/11/03/xenan-zhuang/#disqus_thread">Comments</a></div>
+	
+</div>
+</article>
 
 
     <article class="post">
@@ -553,53 +598,6 @@
 </div>
 	
 	<div class="comments"><a href="/blog/2010/05/16/dropboxdeng-lu-wen-ti-he-shi-yong-xiao-ji-qiao/#disqus_thread">Comments</a></div>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2010/05/10/mei-mei-xie-gei-wo-de-%5B%3F%5D%5B%3F%5D/">
-		
-			妹妹写给我的⋯⋯</a>
-	</h2>
-	<div class="entry-content">
-		<p style="text-align: left;">大哥，你要相信，这个世界上，我们永远是最亲的人，逝去的是岁月，不变的是沉淀下来的亲情。</p>
-
-
-<p>最近，你说你很不顺，我只是想鼓励你，给你勇气，因为人最脆弱的时候，需要有人扶一把，我不想扶你一把，只是想告诉你，别倒下</p>
-
-
-<p>有句话说，能屈能伸大丈夫，所以低下头也是大丈夫一种生存处世的准则，一个能伸能屈的人，临时受了委屈</p>
-
-
-<p>是为了日后更一步的前进，这就是委屈求全。我们的生活就
-		
-		<a href="/blog/2010/05/10/mei-mei-xie-gei-wo-de-%5B%3F%5D%5B%3F%5D/" class="more-link">Read on &rarr;</a>
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-05-10T21:40:00+08:00" pubdate data-updated="true">May 10<span>th</span>, 2010</time></div>
-	<div class="tags">
-
-</div>
-	
-	<div class="comments"><a href="/blog/2010/05/10/mei-mei-xie-gei-wo-de-%5B%3F%5D%5B%3F%5D/#disqus_thread">Comments</a></div>
 	
 </div>
 </article>
