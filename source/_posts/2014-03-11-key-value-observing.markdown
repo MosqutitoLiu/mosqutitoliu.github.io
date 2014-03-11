@@ -21,8 +21,7 @@ Key-Value-Observing（简称KVO）：当指定的属性被修改，允许对象�
                forKeyPath:@"edit"
                   options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld
                   context:NULL];     
-```
-        
+```        
        - self : 被观察者
        - observer ：观察者             
        - foreKeyPath ：property的name
