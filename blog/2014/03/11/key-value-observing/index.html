@@ -117,14 +117,12 @@
 <li>注册成为观察者</li>
 <li><p>实现addObserver:forKeyPath:option:context:方法</p>
 
-<p>  &#8220;`objc</p>
-
-<p>   [self addObserver:observer
-          forKeyPath:@&ldquo;edit&rdquo;
-             options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld
-             context:NULL];</p>
-
-<p>  &#8220;`</p>
+<p>  <code>objc
+  [self addObserver:observer
+         forKeyPath:@"edit"
+            options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld
+            context:NULL];     
+ </code></p>
 
 <ul>
 <li>self : 被观察者</li>
