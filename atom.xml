@@ -4,7 +4,7 @@
   <title><![CDATA[MosquitoLiu's Blog]]></title>
   <link href="http://blog.mosquitoliu.com/atom.xml" rel="self"/>
   <link href="http://blog.mosquitoliu.com/"/>
-  <updated>2014-03-11T16:05:23+08:00</updated>
+  <updated>2014-03-11T16:08:52+08:00</updated>
   <id>http://blog.mosquitoliu.com/</id>
   <author>
     <name><![CDATA[小文]]></name>
@@ -35,12 +35,14 @@
 <li>注册成为观察者</li>
 <li><p>实现addObserver:forKeyPath:option:context:方法</p>
 
-<p>  <code>objc
-   [self addObserver:observer
-          forKeyPath:@"edit"
+<p>  &#8220;`objc</p>
+
+<p>   [self addObserver:observer
+          forKeyPath:@&ldquo;edit&rdquo;
              options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld
-             context:NULL];
- </code></p>
+             context:NULL];</p>
+
+<p>  &#8220;`</p>
 
 <ul>
 <li>self : 被观察者</li>
