@@ -8,9 +8,9 @@ categories: [Object-C ,Study]
 
 ```objc
 _activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-		 /** 设置中心 */
+		  /** 设置中心 */
         _activityView.center = CGPointMake(30, 12);
-		 /** 设置菊花大小 */
+		  /** 设置菊花大小 */
         [_activityView.layer setValue:[NSNumber numberWithFloat:0.6f]
                            forKeyPath:@"transform.scale"];
         /** 当旋转结束时隐藏 */
