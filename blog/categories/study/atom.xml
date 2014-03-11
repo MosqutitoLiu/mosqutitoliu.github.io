@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Study | MosquitoLiu's Blog]]></title>
   <link href="http://blog.mosquitoliu.com/blog/categories/study/atom.xml" rel="self"/>
   <link href="http://blog.mosquitoliu.com/"/>
-  <updated>2014-03-11T16:03:20+08:00</updated>
+  <updated>2014-03-11T16:05:23+08:00</updated>
   <id>http://blog.mosquitoliu.com/</id>
   <author>
     <name><![CDATA[小文]]></name>
@@ -33,8 +33,9 @@
 <ul>
 <li>是否有必要实现KVO</li>
 <li>注册成为观察者</li>
-<li><p>实现addObserver:forKeyPath:option:context:方法
-  <code>objc
+<li><p>实现addObserver:forKeyPath:option:context:方法</p>
+
+<p>  <code>objc
    [self addObserver:observer
           forKeyPath:@"edit"
              options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld
