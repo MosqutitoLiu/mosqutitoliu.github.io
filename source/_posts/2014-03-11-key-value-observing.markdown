@@ -21,10 +21,14 @@ Key-Value-Observing（简称KVO）：当指定的属性被修改，允许对象�
                forKeyPath:@"edit"
                   options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld
                   context:NULL];     
-```        
-       - self : 被观察者
-       - observer ：观察者             
-       - foreKeyPath ：property的name
-       - NSKeyValueObservingOptionNew 更改之前的值提供给处理方法；NSKeyValueObservingOptionOld 更改之后的值提供给处理方法；NSKeyValueObservingOptionInitial 把初始化的值提供给处理方法，一旦注册就会调用一次；NSKeyValueObservingOptionPrior 分两次调用，在值改变之前和改变之后
-       - context ：可以带一些参数
+``` 
+
+
+-               
+	- 
+		- self : 被观察者
+		- observer ：观察者             
+		- foreKeyPath ：property的name
+		- NSKeyValueObservingOptionNew 更改之前的值提供给处理方法；NSKeyValueObservingOptionOld 更改之后的值提供给处理方法；NSKeyValueObservingOptionInitial 把初始化的值提供给处理方法，一旦注册就会调用一次；NSKeyValueObservingOptionPrior 分两次调用，在值改变之前和改变之后
+		- context ：可以带一些参数
 	- 当观察者的属性变化的时候方法observeValueForKeyPath:ofObject:change:context:会自动调用
