@@ -7,7 +7,9 @@
 	<meta name="author" content="小文">
 
 	
-	<meta name="description" content="腾序微博开放平台提供了两个iOS的SDK，一个是官方的，一个是第三方提供的。 按照官方的SDK的使用说明操作后，运行程序会报错。在程序中应该将AppDelegate.m的后缀名改成.mm。这样在模拟器中就可以运行。当真机调试的时候，需要加入CoreTelephony.framework。 Apr &hellip;">
+	<meta name="description" content="工作原理 自动计数（ARC）是一个编译期间工作的能够帮你管理内存的技术。
+ARC在编译期间为每个Objective-C指针变量添加合适的retain, release, autorelease等函数，保存每个变量的生存周期控制在合理的范围内，以期实现代码上的自动内存管理。
+In order &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -98,6 +100,58 @@
 
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2012/04/23/arc/">
+		
+			ARC</a>
+	</h2>
+	<div class="entry-content">
+		<h1>工作原理</h1>
+
+<p>自动计数（ARC）是一个编译期间工作的能够帮你管理内存的技术。
+ARC在编译期间为每个Objective-C指针变量添加合适的retain, release, autorelease等函数，保存每个变量的生存周期控制在合理的范围内，以期实现代码上的自动内存管理。
+In order for the compiler to generate correct code, ARC imposes some restrictions on the methods you can use, and on how you use toll-free bridging (see “Toll-Free Bridged Types”); ARC also introduces new lifetime qualifiers for object references and declared properties.</p>
+
+<h1>功能</h1>
+
+<p>ARC使得你不需要再思考何时使用retain,release,autorelease这样的函数来管理内存，它提供了自动评估内存生存期的功能，并且 在编译期间自动加入合适的管理内存的方法。编译器也会自动生成dealloc函数。</p>
+
+
+		
+		<a href="/blog/2012/04/23/arc/" class="more-link">Read on &rarr;</a>
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-23T02:49:00+08:00" pubdate data-updated="true">Apr 23<span>rd</span>, 2012</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/object-c/'>Object-C</a>, <a class='category' href='/blog/categories/study/'>Study</a>
+
+
+</div>
+	
+	<div class="comments"><a href="/blog/2012/04/23/arc/#disqus_thread">Comments</a></div>
+	
+</div>
+</article>
 
 
     <article class="post">
@@ -516,50 +570,6 @@ NSString*  myString = @&#8221;My String&#8221;;<br />
 </div>
 	
 	<div class="comments"><a href="/blog/2011/07/05/dan-sheng/#disqus_thread">Comments</a></div>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2011/05/28/pet-diary-five/">
-		
-			Pet Diary Five</a>
-	</h2>
-	<div class="entry-content">
-		<p>我都不好意思把狗狗的照片传上来了。昨天给狗狗的胎毛都给剃了，还净了脸，现在是太丑太丑了，我都不忍心看下去了，现在好悔不该全剃掉，这该肿么办啊？</p>
-
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-05-28T21:49:00+08:00" pubdate data-updated="true">May 28<span>th</span>, 2011</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/life/'>Life</a>, <a class='category' href='/blog/categories/chong-wu-ri-ji/'>宠物日记</a>
-
-
-</div>
-	
-	<div class="comments"><a href="/blog/2011/05/28/pet-diary-five/#disqus_thread">Comments</a></div>
 	
 </div>
 </article>

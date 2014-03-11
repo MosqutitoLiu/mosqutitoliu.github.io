@@ -4,7 +4,7 @@
   <title><![CDATA[MosquitoLiu's Blog]]></title>
   <link href="http://blog.mosquitoliu.com/atom.xml" rel="self"/>
   <link href="http://blog.mosquitoliu.com/"/>
-  <updated>2014-03-11T16:20:12+08:00</updated>
+  <updated>2014-03-11T18:49:35+08:00</updated>
   <id>http://blog.mosquitoliu.com/</id>
   <author>
     <name><![CDATA[小文]]></name>
@@ -12,6 +12,38 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[设置菊花（UIActivityIndicatorView）大小]]></title>
+    <link href="http://blog.mosquitoliu.com/blog/2014/03/11/set-uiactivityindicatorview-size/"/>
+    <updated>2014-03-11T18:37:10+08:00</updated>
+    <id>http://blog.mosquitoliu.com/blog/2014/03/11/set-uiactivityindicatorview-size</id>
+    <content type="html"><![CDATA[<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">_activityView</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UIActivityIndicatorView</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithActivityIndicatorStyle:</span><span class="n">UIActivityIndicatorViewStyleWhite</span><span class="p">];</span>
+</span><span class='line'>      <span class="cm">/** 设置中心 */</span>
+</span><span class='line'>        <span class="n">_activityView</span><span class="p">.</span><span class="n">center</span> <span class="o">=</span> <span class="n">CGPointMake</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">12</span><span class="p">);</span>
+</span><span class='line'>      <span class="cm">/** 设置菊花大小 */</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">_activityView</span><span class="p">.</span><span class="n">layer</span> <span class="nl">setValue:</span><span class="p">[</span><span class="n">NSNumber</span> <span class="nl">numberWithFloat:</span><span class="mf">0.6f</span><span class="p">]</span>
+</span><span class='line'>                           <span class="nl">forKeyPath:</span><span class="s">@&quot;transform.scale&quot;</span><span class="p">];</span>
+</span><span class='line'>        <span class="cm">/** 当旋转结束隐藏 */</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">_activityView</span> <span class="nl">setHidesWhenStopped:</span><span class="n">YES</span><span class="p">];</span>
+</span><span class='line'>        <span class="n">_activityView</span><span class="p">.</span><span class="n">userInteractionEnabled</span> <span class="o">=</span> <span class="n">NO</span><span class="p">;</span>
+</span><span class='line'>        <span class="n">_activityView</span><span class="p">.</span><span class="n">hidden</span> <span class="o">=</span> <span class="n">YES</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">_subscriptionButton</span> <span class="nl">addSubview:</span><span class="n">_activityView</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Key-Value-Observing]]></title>
@@ -1332,16 +1364,6 @@ sprint 中的故事应该比较清楚。</p>
 
 
 <div>很想能自己也有一个自己的宝宝。想结婚，想要孩子。。。。。。。。</div>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Pet Diary five]]></title>
-    <link href="http://blog.mosquitoliu.com/blog/2011/05/28/pet-diary-five/"/>
-    <updated>2011-05-28T21:49:00+08:00</updated>
-    <id>http://blog.mosquitoliu.com/blog/2011/05/28/pet-diary-five</id>
-    <content type="html"><![CDATA[<p>我都不好意思把狗狗的照片传上来了。昨天给狗狗的胎毛都给剃了，还净了脸，现在是太丑太丑了，我都不忍心看下去了，现在好悔不该全剃掉，这该肿么办啊？</p>
 
 ]]></content>
   </entry>
