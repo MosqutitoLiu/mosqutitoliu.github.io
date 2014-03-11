@@ -4,7 +4,7 @@
   <title><![CDATA[MosquitoLiu's Blog]]></title>
   <link href="http://blog.mosquitoliu.com/atom.xml" rel="self"/>
   <link href="http://blog.mosquitoliu.com/"/>
-  <updated>2014-03-11T16:12:39+08:00</updated>
+  <updated>2014-03-11T16:13:58+08:00</updated>
   <id>http://blog.mosquitoliu.com/</id>
   <author>
     <name><![CDATA[小文]]></name>
@@ -49,6 +49,8 @@
 </span><span class='line'>              <span class="nl">context:</span><span class="nb">NULL</span><span class="p">];</span>
 </span></code></pre></td></tr></table></div></figure>
 
+
+<p></p>
 
 <pre><code>   - self : 被观察者
    - observer ：观察者             
