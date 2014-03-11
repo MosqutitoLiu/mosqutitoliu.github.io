@@ -16,12 +16,12 @@ Key-Value-Observing（简称KVO）：当指定的属性被修改，允许对象�
 	- 注册成为观察者
 	- 实现addObserver:forKeyPath:option:context:方法
 	
-		```objc
+```objc
 		[self addObserver:observer
                forKeyPath:@"edit"
                   options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld
                   context:NULL];     
-        ```
+```
         
        - self : 被观察者
        - observer ：观察者             
