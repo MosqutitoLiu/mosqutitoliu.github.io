@@ -4,7 +4,7 @@
   <title><![CDATA[MosquitoLiu's Blog]]></title>
   <link href="http://blog.mosquitoliu.com/atom.xml" rel="self"/>
   <link href="http://blog.mosquitoliu.com/"/>
-  <updated>2014-03-11T16:11:20+08:00</updated>
+  <updated>2014-03-11T16:12:39+08:00</updated>
   <id>http://blog.mosquitoliu.com/</id>
   <author>
     <name><![CDATA[小文]]></name>
@@ -33,28 +33,30 @@
 <ul>
 <li>是否有必要实现KVO</li>
 <li>注册成为观察者</li>
-<li><p>实现addObserver:forKeyPath:option:context:方法</p>
-
-<p>  <code>objc
-  [self addObserver:observer
-         forKeyPath:@"edit"
-            options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld
-            context:NULL];     
- </code></p>
-
-<ul>
-<li>self : 被观察者</li>
-<li>observer ：观察者</li>
-<li>foreKeyPath ：property的name</li>
-<li>NSKeyValueObservingOptionNew 更改之前的值提供给处理方法；NSKeyValueObservingOptionOld 更改之后的值提供给处理方法；NSKeyValueObservingOptionInitial 把初始化的值提供给处理方法，一旦注册就会调用一次；NSKeyValueObservingOptionPrior 分两次调用，在值改变之前和改变之后</li>
-<li>context ：可以带一些参数</li>
-</ul>
-</li>
-<li>当观察者的属性变化的时候方法observeValueForKeyPath:ofObject:change:context:会自动调用</li>
+<li>实现addObserver:forKeyPath:option:context:方法</li>
 </ul>
 </li>
 </ul>
 
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'> <span class="p">[</span><span class="n">self</span> <span class="nl">addObserver:</span><span class="n">observer</span>
+</span><span class='line'>           <span class="nl">forKeyPath:</span><span class="s">@&quot;edit&quot;</span>
+</span><span class='line'>              <span class="nl">options:</span><span class="n">NSKeyValueObservingOptionNew</span><span class="o">|</span><span class="n">NSKeyValueObservingOptionOld</span>
+</span><span class='line'>              <span class="nl">context:</span><span class="nb">NULL</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<pre><code>   - self : 被观察者
+   - observer ：观察者             
+   - foreKeyPath ：property的name
+   - NSKeyValueObservingOptionNew 更改之前的值提供给处理方法；NSKeyValueObservingOptionOld 更改之后的值提供给处理方法；NSKeyValueObservingOptionInitial 把初始化的值提供给处理方法，一旦注册就会调用一次；NSKeyValueObservingOptionPrior 分两次调用，在值改变之前和改变之后
+   - context ：可以带一些参数
+- 当观察者的属性变化的时候方法observeValueForKeyPath:ofObject:change:context:会自动调用
+</code></pre>
 ]]></content>
   </entry>
   
