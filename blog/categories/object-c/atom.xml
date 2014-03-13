@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Object-C | MosquitoLiu's Blog]]></title>
   <link href="http://blog.mosquitoliu.com/blog/categories/object-c/atom.xml" rel="self"/>
   <link href="http://blog.mosquitoliu.com/"/>
-  <updated>2014-03-11T18:54:50+08:00</updated>
+  <updated>2014-03-13T16:39:49+08:00</updated>
   <id>http://blog.mosquitoliu.com/</id>
   <author>
     <name><![CDATA[小文]]></name>
@@ -12,6 +12,63 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[setNeedsLayout VS setNeedsDisplay]]></title>
+    <link href="http://blog.mosquitoliu.com/blog/2014/03/12/setneedslayout-vs-setneedsdisplay/"/>
+    <updated>2014-03-12T14:38:33+08:00</updated>
+    <id>http://blog.mosquitoliu.com/blog/2014/03/12/setneedslayout-vs-setneedsdisplay</id>
+    <content type="html"><![CDATA[<ul>
+<li>setNeedsLayout
+
+<ul>
+<li>异步执行</li>
+<li>不立即刷新布局</li>
+<li>自动调用layoutSubViews（重新定义子元素的位置和大小）
+
+<ul>
+<li>layoutSubViews方法优先于drawRect</li>
+<li>layoutSubViews被调用的情况：
+
+<ul>
+<li>init初始化不会调用layoutSubViews，但是当initWithFrame进行初始化的时候，rect的值不为CGRectZero，会触发调用layoutSubViews</li>
+<li>addSubView会触发layoutSubViews</li>
+<li>设置view的frame（frame的值设置前后发生了变化）会触发 layoutSubViews</li>
+<li>滚动UIScrollView触发layoutSubViews</li>
+<li>旋转Screen触发UIView上的layoutSubViews</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>layoutIfNeeded 立即刷新布局</li>
+</ul>
+</li>
+<li>setNeedsDisplay
+
+<ul>
+<li>异步执行</li>
+<li>重新绘制</li>
+<li>自动调用drawRect
+
+<ul>
+<li>drawRect被调用的情况
+
+<ul>
+<li>UIView初始化没有设置rect大小，导致drawRect不被调用</li>
+<li>UIViewController中的loadView、viewDidLoad两方法之后调用（可以设置一些值给View）</li>
+<li>sizeToFit之后触发drawRect</li>
+<li>设置contentMode属性值为UIViewContentModeRedraw，设置或更改frame时自动调用drawRect</li>
+<li>若要用CALayer绘图，只能在drawInContext中绘制，或是在delegate中的相应的方法中绘制，同样调用setNeedsDisplay触发</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[设置菊花（UIActivityIndicatorView）大小]]></title>
@@ -260,50 +317,6 @@ forControlEvents:UIControlEventTouchUpInside];
 </code></pre>
 
 <p>```</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[UILabel设置text显示不同颜色不同字体]]></title>
-    <link href="http://blog.mosquitoliu.com/blog/2014/03/03/label-different-color-and-font/"/>
-    <updated>2014-03-03T14:43:10+08:00</updated>
-    <id>http://blog.mosquitoliu.com/blog/2014/03/03/label-different-color-and-font</id>
-    <content type="html"><![CDATA[<p>```objc</p>
-
-<p>……</p>
-
-<p>UILabel *countLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 150, 14)];</p>
-
-<p>NSString *text =[NSString stringWithFormat:@&ldquo;共有%d条评论&rdquo;,self.datasource.total];</p>
-
-<p>countLabel.attributedText = [self setCmtHeaderViewLabel:text];</p>
-
-<p>……</p>
-
-<p>/<em><em>
- * 设置label.text中的数字和文字的颜色
- * 数字-RGB(51, 51, 51)
- * 文字-RGB(102, 102, 102)
- </em>/
-&ndash; (NSAttributedString </em>)setCmtHeaderViewLabel:(NSString *)text
-{</p>
-
-<pre><code>/** 转为可变属性的字符串 */
-NSMutableAttributedString *attrText = [[[NSMutableAttributedString alloc] initWithString:text] autorelease];
-[attrText addAttribute:(NSString *)NSFontAttributeName
-                 value:(id)[[UIFont systemFontOfSize:15] CTFonter]
-                 range:NSMakeRange(0, text.length)];
-[attrText addAttribute:(NSString *)NSForegroundColorAttributeName
-                 value:(id)RGB(102, 102, 102).CGColor
-                 range:NSMakeRange(0, text.length)];
-[attrText addAttribute:(NSString *)NSForegroundColorAttributeName
-                 value:(id)RGB(51, 51, 51).CGColor
-                 range:NSMakeRange(2, text.length - 5)];
-return attrText;
-</code></pre>
-
-<p>}
-```</p>
 ]]></content>
   </entry>
   

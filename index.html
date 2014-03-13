@@ -7,18 +7,10 @@
 	<meta name="author" content="小文">
 
 	
-	<meta name="description" content="1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-_activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite]; /** 设置中心 &hellip;">
+	<meta name="description" content="setNeedsLayout 异步执行
+不立即刷新布局
+自动调用layoutSubViews（重新定义子元素的位置和大小） layoutSubViews方法优先于drawRect
+layoutSubViews被调用的情况： init初始化不会调用layoutSubViews， &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -109,6 +101,97 @@ _activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:
 
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2014/03/12/setneedslayout-vs-setneedsdisplay/">
+		
+			setNeedsLayout vs setNeedsDisplay</a>
+	</h2>
+	<div class="entry-content">
+		<ul>
+<li>setNeedsLayout
+
+<ul>
+<li>异步执行</li>
+<li>不立即刷新布局</li>
+<li>自动调用layoutSubViews（重新定义子元素的位置和大小）
+
+<ul>
+<li>layoutSubViews方法优先于drawRect</li>
+<li>layoutSubViews被调用的情况：
+
+<ul>
+<li>init初始化不会调用layoutSubViews，但是当initWithFrame进行初始化的时候，rect的值不为CGRectZero，会触发调用layoutSubViews</li>
+<li>addSubView会触发layoutSubViews</li>
+<li>设置view的frame（frame的值设置前后发生了变化）会触发 layoutSubViews</li>
+<li>滚动UIScrollView触发layoutSubViews</li>
+<li>旋转Screen触发UIView上的layoutSubViews</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>layoutIfNeeded 立即刷新布局</li>
+</ul>
+</li>
+<li>setNeedsDisplay
+
+<ul>
+<li>异步执行</li>
+<li>重新绘制</li>
+<li>自动调用drawRect
+
+<ul>
+<li>drawRect被调用的情况
+
+<ul>
+<li>UIView初始化没有设置rect大小，导致drawRect不被调用</li>
+<li>UIViewController中的loadView、viewDidLoad两方法之后调用（可以设置一些值给View）</li>
+<li>sizeToFit之后触发drawRect</li>
+<li>设置contentMode属性值为UIViewContentModeRedraw，设置或更改frame时自动调用drawRect</li>
+<li>若要用CALayer绘图，只能在drawInContext中绘制，或是在delegate中的相应的方法中绘制，同样调用setNeedsDisplay触发</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-03-12T14:38:33+08:00" pubdate data-updated="true">Mar 12<span>th</span>, 2014</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/object-c/'>Object-C</a>, <a class='category' href='/blog/categories/study/'>Study</a>
+
+
+</div>
+	
+	<div class="comments"><a href="/blog/2014/03/12/setneedslayout-vs-setneedsdisplay/#disqus_thread">Comments</a></div>
+	
+</div>
+</article>
 
 
     <article class="post">
@@ -779,59 +862,6 @@ _activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:
 </div>
 	
 	<div class="comments"><a href="/blog/2013/07/28/newstart/#disqus_thread">Comments</a></div>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2012/04/24/shi-pin-xun-huan-bo-fang/">
-		
-			视频循环播放</a>
-	</h2>
-	<div class="entry-content">
-		
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>moviePlayer = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
-</span><span class='line'>
-</span><span class='line'>moviePlayer.moviePlayer.repeatMode = MPMovieRepeatModeOne;//循环播放
-</span><span class='line'>……</span></code></pre></td></tr></table></div></figure>
-
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-04-24T17:42:00+08:00" pubdate data-updated="true">Apr 24<span>th</span>, 2012</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/mpmovieplayerviewcontroller/'>MPMoviePlayerViewController</a>, <a class='category' href='/blog/categories/ios/'>iOS</a>
-
-
-</div>
-	
-	<div class="comments"><a href="/blog/2012/04/24/shi-pin-xun-huan-bo-fang/#disqus_thread">Comments</a></div>
 	
 </div>
 </article>

@@ -4,7 +4,7 @@
   <title><![CDATA[MosquitoLiu's Blog]]></title>
   <link href="http://blog.mosquitoliu.com/atom.xml" rel="self"/>
   <link href="http://blog.mosquitoliu.com/"/>
-  <updated>2014-03-11T18:54:50+08:00</updated>
+  <updated>2014-03-13T16:39:49+08:00</updated>
   <id>http://blog.mosquitoliu.com/</id>
   <author>
     <name><![CDATA[小文]]></name>
@@ -12,6 +12,63 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[setNeedsLayout VS setNeedsDisplay]]></title>
+    <link href="http://blog.mosquitoliu.com/blog/2014/03/12/setneedslayout-vs-setneedsdisplay/"/>
+    <updated>2014-03-12T14:38:33+08:00</updated>
+    <id>http://blog.mosquitoliu.com/blog/2014/03/12/setneedslayout-vs-setneedsdisplay</id>
+    <content type="html"><![CDATA[<ul>
+<li>setNeedsLayout
+
+<ul>
+<li>异步执行</li>
+<li>不立即刷新布局</li>
+<li>自动调用layoutSubViews（重新定义子元素的位置和大小）
+
+<ul>
+<li>layoutSubViews方法优先于drawRect</li>
+<li>layoutSubViews被调用的情况：
+
+<ul>
+<li>init初始化不会调用layoutSubViews，但是当initWithFrame进行初始化的时候，rect的值不为CGRectZero，会触发调用layoutSubViews</li>
+<li>addSubView会触发layoutSubViews</li>
+<li>设置view的frame（frame的值设置前后发生了变化）会触发 layoutSubViews</li>
+<li>滚动UIScrollView触发layoutSubViews</li>
+<li>旋转Screen触发UIView上的layoutSubViews</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>layoutIfNeeded 立即刷新布局</li>
+</ul>
+</li>
+<li>setNeedsDisplay
+
+<ul>
+<li>异步执行</li>
+<li>重新绘制</li>
+<li>自动调用drawRect
+
+<ul>
+<li>drawRect被调用的情况
+
+<ul>
+<li>UIView初始化没有设置rect大小，导致drawRect不被调用</li>
+<li>UIViewController中的loadView、viewDidLoad两方法之后调用（可以设置一些值给View）</li>
+<li>sizeToFit之后触发drawRect</li>
+<li>设置contentMode属性值为UIViewContentModeRedraw，设置或更改frame时自动调用drawRect</li>
+<li>若要用CALayer绘图，只能在drawInContext中绘制，或是在delegate中的相应的方法中绘制，同样调用setNeedsDisplay触发</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[设置菊花（UIActivityIndicatorView）大小]]></title>
@@ -1351,19 +1408,6 @@ sprint 中的故事应该比较清楚。</p>
 
 
 <p>狗狗发情了！！</p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[诞生]]></title>
-    <link href="http://blog.mosquitoliu.com/blog/2011/07/05/dan-sheng/"/>
-    <updated>2011-07-05T02:23:00+08:00</updated>
-    <id>http://blog.mosquitoliu.com/blog/2011/07/05/dan-sheng</id>
-    <content type="html"><![CDATA[<p>二零一一年七月四日，二十二点零七分，我发小儿的宝宝来到了这个世上，七斤四。不算胖，但个子还蛮大的。替他们感到非常的高兴。我也当干爹了。</p>
-
-
-<div>很想能自己也有一个自己的宝宝。想结婚，想要孩子。。。。。。。。</div>
 
 ]]></content>
   </entry>
