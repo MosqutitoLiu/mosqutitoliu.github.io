@@ -7,10 +7,19 @@
 	<meta name="author" content="小文">
 
 	
-	<meta name="description" content="setNeedsLayout 异步执行
-不立即刷新布局
-自动调用layoutSubViews（重新定义子元素的位置和大小） layoutSubViews方法优先于drawRect
-layoutSubViews被调用的情况： init初始化不会调用layoutSubViews， &hellip;">
+	<meta name="description" content="iOS 6以下UITapGestureRecognizer会屏蔽掉Button的点击事件,但是在iOS 7就不会。
+解决办法： 1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+#pragma mark - UIGestureRecognizerDelegate
+- (BOOL) &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -101,6 +110,73 @@ layoutSubViews被调用的情况： init初始化不会调用layoutSubViews， &
 
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2014/04/07/uitapgesturerecognizer/">
+		
+			UITapGestureRecognizer屏蔽掉Button的点击事件</a>
+	</h2>
+	<div class="entry-content">
+		<p>iOS 6以下UITapGestureRecognizer会屏蔽掉Button的点击事件,但是在iOS 7就不会。
+解决办法：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="cp">#pragma mark - UIGestureRecognizerDelegate</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">gestureRecognizer:</span><span class="p">(</span><span class="n">UIGestureRecognizer</span> <span class="o">*</span><span class="p">)</span><span class="nv">gestureRecognizer</span> <span class="nf">shouldReceiveTouch:</span><span class="p">(</span><span class="n">UITouch</span> <span class="o">*</span><span class="p">)</span><span class="nv">touch</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">([</span><span class="n">touch</span><span class="p">.</span><span class="n">view</span> <span class="nl">isKindOfClass:</span><span class="p">[</span><span class="n">UIButton</span> <span class="n">class</span><span class="p">]])</span> <span class="p">{</span>
+</span><span class='line'>        <span class="cm">/** iOS 6 以下UITapGestureRecognizer会屏蔽掉Button的点击事件 */</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">NO</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="n">YES</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-07T23:39:05+08:00" pubdate data-updated="true">Apr 7<span>th</span>, 2014</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/object-c/'>Object-C</a>, <a class='category' href='/blog/categories/study/'>Study</a>
+
+
+</div>
+	
+	<div class="comments"><a href="/blog/2014/04/07/uitapgesturerecognizer/#disqus_thread">Comments</a></div>
+	
+</div>
+</article>
 
 
     <article class="post">
@@ -817,51 +893,6 @@ layoutSubViews被调用的情况： init初始化不会调用layoutSubViews， &
 </div>
 	
 	<div class="comments"><a href="/blog/2014/01/21/arc-note/#disqus_thread">Comments</a></div>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2013/07/28/newstart/">
-		
-			新的开始</a>
-	</h2>
-	<div class="entry-content">
-		<p>很长时间没有更新Blog。主要是因为太懒了。</p>
-
-<p>新的开始，自己要好好的努力了。</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-28T23:39:00+08:00" pubdate data-updated="true">Jul 28<span>th</span>, 2013</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/life/'>Life</a>
-
-
-</div>
-	
-	<div class="comments"><a href="/blog/2013/07/28/newstart/#disqus_thread">Comments</a></div>
 	
 </div>
 </article>

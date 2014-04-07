@@ -4,7 +4,7 @@
   <title><![CDATA[MosquitoLiu's Blog]]></title>
   <link href="http://blog.mosquitoliu.com/atom.xml" rel="self"/>
   <link href="http://blog.mosquitoliu.com/"/>
-  <updated>2014-03-13T16:39:49+08:00</updated>
+  <updated>2014-04-07T23:53:43+08:00</updated>
   <id>http://blog.mosquitoliu.com/</id>
   <author>
     <name><![CDATA[小文]]></name>
@@ -12,6 +12,39 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[UITapGestureRecognizer屏蔽掉Button的点击事件]]></title>
+    <link href="http://blog.mosquitoliu.com/blog/2014/04/07/uitapgesturerecognizer/"/>
+    <updated>2014-04-07T23:39:05+08:00</updated>
+    <id>http://blog.mosquitoliu.com/blog/2014/04/07/uitapgesturerecognizer</id>
+    <content type="html"><![CDATA[<p>iOS 6以下UITapGestureRecognizer会屏蔽掉Button的点击事件,但是在iOS 7就不会。
+解决办法：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="cp">#pragma mark - UIGestureRecognizerDelegate</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">gestureRecognizer:</span><span class="p">(</span><span class="n">UIGestureRecognizer</span> <span class="o">*</span><span class="p">)</span><span class="nv">gestureRecognizer</span> <span class="nf">shouldReceiveTouch:</span><span class="p">(</span><span class="n">UITouch</span> <span class="o">*</span><span class="p">)</span><span class="nv">touch</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">([</span><span class="n">touch</span><span class="p">.</span><span class="n">view</span> <span class="nl">isKindOfClass:</span><span class="p">[</span><span class="n">UIButton</span> <span class="n">class</span><span class="p">]])</span> <span class="p">{</span>
+</span><span class='line'>        <span class="cm">/** iOS 6 以下UITapGestureRecognizer会屏蔽掉Button的点击事件 */</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">NO</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="n">YES</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[setNeedsLayout VS setNeedsDisplay]]></title>
@@ -1396,19 +1429,6 @@ sprint 中的故事应该比较清楚。</p>
 <p>PS：当Mac OS作为Server，Windows7作为Client时，没有设置成功。原因不详。</p>
 
 <p>&nbsp;</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Pet Diary six]]></title>
-    <link href="http://blog.mosquitoliu.com/blog/2011/08/16/pet-diary-six/"/>
-    <updated>2011-08-16T12:55:00+08:00</updated>
-    <id>http://blog.mosquitoliu.com/blog/2011/08/16/pet-diary-six</id>
-    <content type="html"><![CDATA[<p><embed type="application/x-shockwave-flash" width="480" height="400" src="http://player.youku.com/player.php/sid/XMjk1MTM4ODY0/v.swf" allowfullscreen="true" quality="high" align="middle" allowscriptaccess="always"></embed></p>
-
-
-<p>狗狗发情了！！</p>
-
 ]]></content>
   </entry>
   

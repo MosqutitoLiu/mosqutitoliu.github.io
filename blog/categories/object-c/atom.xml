@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Object-C | MosquitoLiu's Blog]]></title>
   <link href="http://blog.mosquitoliu.com/blog/categories/object-c/atom.xml" rel="self"/>
   <link href="http://blog.mosquitoliu.com/"/>
-  <updated>2014-03-13T16:39:49+08:00</updated>
+  <updated>2014-04-07T23:53:43+08:00</updated>
   <id>http://blog.mosquitoliu.com/</id>
   <author>
     <name><![CDATA[小文]]></name>
@@ -12,6 +12,33 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[UITapGestureRecognizer屏蔽掉Button的点击事件]]></title>
+    <link href="http://blog.mosquitoliu.com/blog/2014/04/07/uitapgesturerecognizer/"/>
+    <updated>2014-04-07T23:39:05+08:00</updated>
+    <id>http://blog.mosquitoliu.com/blog/2014/04/07/uitapgesturerecognizer</id>
+    <content type="html"><![CDATA[<p>iOS 6以下UITapGestureRecognizer会屏蔽掉Button的点击事件,但是在iOS 7就不会。
+解决办法：
+```objc</p>
+
+<h1>pragma mark &ndash; UIGestureRecognizerDelegate</h1>
+
+<ul>
+<li><p>(BOOL)gestureRecognizer:(UIGestureRecognizer <em>)gestureRecognizer shouldReceiveTouch:(UITouch </em>)touch
+{
+  if ([touch.view isKindOfClass:[UIButton class]]) {
+      /<em>* iOS 6 以下UITapGestureRecognizer会屏蔽掉Button的点击事件 </em>/
+      return NO;
+  }</p>
+
+<p>  return YES;
+}
+```</p></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[setNeedsLayout VS setNeedsDisplay]]></title>
@@ -227,93 +254,6 @@ dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, 0.3 * NSEC_PER_SEC);</p>
                 [self.activityView stopAnimating];
                 self.subscriptionButton.userInteractionEnabled = YES;
             });
-</code></pre>
-
-<p>```</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[UIButton-Image和Title共显]]></title>
-    <link href="http://blog.mosquitoliu.com/blog/2014/03/03/button-displayed-simultaneously-image-and-title/"/>
-    <updated>2014-03-03T16:45:22+08:00</updated>
-    <id>http://blog.mosquitoliu.com/blog/2014/03/03/button-displayed-simultaneously-image-and-title</id>
-    <content type="html"><![CDATA[<p>一般情况下设置button的setBackgroundImage，然后setTitle,这样button的image和title都能显示正常。
-有时候需要设置button的setImage，在这种情况下再设置setTitle会发现没有共同显示，只是看到image看不到title。其原因是title的位置出现了错误，title的坐标是相对image的坐标。</p>
-
-<p>如：image为下图所示</p>
-
-<iframe src="https://www.flickr.com/photos/mosquitoliu/12905710443/player/30106a7a12" height="48" width="120"  frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
-
-
-<p>添加显示title
-```objc
-……
-UIImage *isSubscriptionImage = [UIImage imageWithNameOnly:kIsSubscriptionImageName];</p>
-
-<pre><code>[self.subscriptionButton setTitle:kIsSubscriptionTitleNSString
-                         forState:UIControlStateNormal];
-[self.subscriptionButton setImage:isSubscriptionImage
-                         forState:UIControlStateNormal];
-[self.subscriptionButton setTitleColor:RGB(84, 185, 252)                                 
-                          forState:UIControlStateNormal];
-
-self.subscriptionButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-/** 设置title的坐标 */
-[self.subscriptionButton setTitleEdgeInsets:UIEdgeInsetsMake(0, -isSubscriptionImage.size.width - 10, 0, 10)];
-……
-</code></pre>
-
-<p>```
-效果如下所示：</p>
-
-<iframe src="https://www.flickr.com/photos/mosquitoliu/12905989023/player/1d4e627ca6" height="48" width="120"  frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
-
-
-
-
-<!--more-->
-
-
-<p>PS:</p>
-
-<ul>
-<li>默认，当按钮高亮的情况下，图像的颜色会被画深一点儿，取消设置如下：</li>
-</ul>
-
-
-<p><code>objc
-button.adjustsImageWhenHighlighted = NO;
-</code></p>
-
-<ul>
-<li>默认，当按钮禁用的时候，图像会被画的深一点儿，取消设置如下:</li>
-</ul>
-
-
-<p><code>objc
-button.adjustImageWhenDisabled = NO;
-</code></p>
-
-<ul>
-<li>按钮按下发光效果，设置如下</li>
-</ul>
-
-
-<p><code>objc
-button.showsTouchWhenHighlighted = YES;
-</code></p>
-
-<ul>
-<li>取消按钮已经添加的所有事件</li>
-</ul>
-
-
-<p>```objc
-[button removeTarget:nil</p>
-
-<pre><code>          action:nil
-forControlEvents:UIControlEventTouchUpInside];
 </code></pre>
 
 <p>```</p>
