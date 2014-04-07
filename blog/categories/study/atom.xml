@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Study | MosquitoLiu's Blog]]></title>
   <link href="http://blog.mosquitoliu.com/blog/categories/study/atom.xml" rel="self"/>
   <link href="http://blog.mosquitoliu.com/"/>
-  <updated>2014-04-07T23:53:43+08:00</updated>
+  <updated>2014-04-07T23:55:53+08:00</updated>
   <id>http://blog.mosquitoliu.com/</id>
   <author>
     <name><![CDATA[小文]]></name>
@@ -18,9 +18,11 @@
     <link href="http://blog.mosquitoliu.com/blog/2014/04/07/uitapgesturerecognizer/"/>
     <updated>2014-04-07T23:39:05+08:00</updated>
     <id>http://blog.mosquitoliu.com/blog/2014/04/07/uitapgesturerecognizer</id>
-    <content type="html"><![CDATA[<p>iOS 6以下UITapGestureRecognizer会屏蔽掉Button的点击事件,但是在iOS 7就不会。
-解决办法：
-```objc</p>
+    <content type="html"><![CDATA[<p>iOS 6以下UITapGestureRecognizer会屏蔽掉Button的点击事件,但是在iOS 7就不会。</p>
+
+<p>解决办法：</p>
+
+<p>```objc</p>
 
 <h1>pragma mark &ndash; UIGestureRecognizerDelegate</h1>
 
