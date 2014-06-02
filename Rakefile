@@ -267,6 +267,10 @@ multitask :push do
 end
 
 desc "Update configurations to support publishing to root or sub directory"
+
+system "git remote add gitcafe git@gitcafe.com:MosquitoLiu/MosquitoLiu.git >> /dev/null 2>&1"
+system "git push -u gitcafe master:gitcafe-pages"
+
 task :set_root_dir, :dir do |t, args|
   puts ">>> !! Please provide a directory, eg. rake config_dir[publishing/subdirectory]" unless args.dir
   if args.dir
