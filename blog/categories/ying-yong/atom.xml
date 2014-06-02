@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: 应用 | MosquitoLiu's Blog]]></title>
+  <link href="http://blog.mosquitoliu.com/blog/categories/ying-yong/atom.xml" rel="self"/>
+  <link href="http://blog.mosquitoliu.com/"/>
+  <updated>2014-04-07T23:55:53+08:00</updated>
+  <id>http://blog.mosquitoliu.com/</id>
+  <author>
+    <name><![CDATA[小文]]></name>
+    <email><![CDATA[freefishdss@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Synergy]]></title>
+    <link href="http://blog.mosquitoliu.com/blog/2011/09/19/synergy/"/>
+    <updated>2011-09-19T02:18:00+08:00</updated>
+    <id>http://blog.mosquitoliu.com/blog/2011/09/19/synergy</id>
+    <content type="html"><![CDATA[<p>Synergy 是一款能够让使用者仅用一套键盘鼠标，就同时操控多部计算机的免费工具软件。使用者能够在包括 Windows 、 Linux 、 Mac OS 等不同的系统上安装它，并且在设定好主从关系后，就能够透过一组键盘鼠标来进行多部计算机的操控。『官方网址：<a href="http://synergy-foss.org"><a href="http://synergy-foss.org">http://synergy-foss.org</a></a>/』<!--more-->下载对应系统的客户端。我的是Window7和Mac OS。Windows 1.4.4beta 32-bit;Mac OS X Universal。</p>
+
+<p>安装好后，开始进行配置。（Windows7作为server，Mac OS作为Cliernt）</p>
+
+<p>Windows7下的配置（如下图）</p>
+
+<p><a href="http://pic.mosquitoliu.com/wp-content/uploads/2011/09/3.png"><img class="aligncenter size-full wp-image-421" title="3" src="http://pic.mosquitoliu.com/wp-content/uploads/2011/09/3.png" alt="" width="517" height="375" /></a><a href="http://mosquitoliu.com/wp-content/uploads/2011/09/2.jpg"><img class="aligncenter size-full wp-image-422" title="2" src="http://mosquitoliu.com/wp-content/uploads/2011/09/2.jpg" alt="" width="517" height="371" /></a></p>
+
+<p>要正确的填写计算机的名称。</p>
+
+<p><a href="http://pic.mosquitoliu.com/wp-content/uploads/2011/09/1.jpg"><img class="aligncenter size-full wp-image-423" title="1" src="http://pic.mosquitoliu.com/wp-content/uploads/2011/09/1.jpg" alt="" width="520" height="372" /></a><a href="http://mosquitoliu.com/wp-content/uploads/2011/09/6.jpg"><img class="aligncenter size-full wp-image-424" title="6" src="http://pic.mosquitoliu.com/wp-content/uploads/2011/09/6.jpg" alt="" width="335" height="278" /></a></p>
+
+<p>这样windows7的配置就完成了。点击Start，运行。</p>
+
+<p>Mac OS下的配置（如下图）</p>
+
+<p><a href="http://pic.mosquitoliu.com/wp-content/uploads/2011/09/5.jpg"><img class="aligncenter size-full wp-image-425" title="5" src="http://pic.mosquitoliu.com/wp-content/uploads/2011/09/5.jpg" alt="" width="473" height="413" /></a></p>
+
+<p>点击Start运行。</p>
+
+<p>这时Windows7下的图标变成了如图所示</p>
+
+<p><img class="aligncenter size-full wp-image-426" title="4" src="http://pic.mosquitoliu.com/wp-content/uploads/2011/09/4.jpg" alt="" width="66" height="48" /></p>
+
+<p>这表示连接成功。滑动鼠标可以从Windows窗口滑到Mac OS的窗口了。</p>
+
+<p>&nbsp;</p>
+
+<p>PS：当Mac OS作为Server，Windows7作为Client时，没有设置成功。原因不详。</p>
+
+<p>&nbsp;</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Windows live writer连接wordpress]]></title>
+    <link href="http://blog.mosquitoliu.com/blog/2010/11/03/windows-live-writerlian-jie-wordpress/"/>
+    <updated>2010-11-03T15:04:00+08:00</updated>
+    <id>http://blog.mosquitoliu.com/blog/2010/11/03/windows-live-writerlian-jie-wordpress</id>
+    <content type="html"><![CDATA[<p style="text-align: center;"><a href="http://pic.mosquitoliu.com/wp-content/uploads/2010/11/writer-thumb.jpg"><img class="size-full wp-image-177  aligncenter" title="writer-thumb" src="http://pic.mosquitoliu.com/wp-content/uploads/2010/11/writer-thumb.jpg" alt="" width="420" height="261" /></a></p>
+
+
+<p>与插件无关</p>
+
+<p>进入后台的 设置-撰写 确保下边两项打上勾，保存</p>
+
+<p><a href="http://pic.mosquitoliu.com/wp-content/uploads/2010/11/298ecc1ac426.jpg"></a></p>
+
+<p>tp登陆，到root/wp-includes,下载文件class-IXR.php，然后再本地使用相关编辑器（我用EditPlus）打开，ctrl+F查找length，然后找到：</p>
+
+<!--more-->
+
+
+<p>$length = strlen($xml);
+变为
+$length = strlen($xml)+3;</p>
+
+<p>刷新，重新上传，问题解决，ok！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[GAE搭建Twitter API]]></title>
+    <link href="http://blog.mosquitoliu.com/blog/2010/09/02/gaeda-jian-twitter-api/"/>
+    <updated>2010-09-02T00:46:00+08:00</updated>
+    <id>http://blog.mosquitoliu.com/blog/2010/09/02/gaeda-jian-twitter-api</id>
+    <content type="html"><![CDATA[<p><strong>一、创建Application</strong></p>
+
+<p style="text-align: left;">1.登入<a title="查看 GAE 的全部文章" href="http://immmmm.com/tag/gae" target="_blank">GAE</a>创建Application：打开<a rel="nofollow" href="https://appengine.google.com/" target="_blank">https://appengine.google.com/</a>，点击“Create an Application”，填写两个输入框内容（<strong>记下Identifier</strong>），再点击“Create Application”，提示成功，OK；<a href="http://lh3.ggpht.com/_65ZfNm-tR48/TGubP6MMG4I/AAAAAAAAD3k/6aCekuhnoKQ/gae-1.jpg?imgmax=800"><img class="pie-img aligncenter" src="http://lh3.ggpht.com/_65ZfNm-tR48/TGubP6MMG4I/AAAAAAAAD3k/6aCekuhnoKQ/gae-1.jpg?imgmax=400" alt="gae-1.jpg" /></a></p>
+
+
+<p>2.登入<a title="查看 推特 的全部文章" href="http://immmmm.com/tag/%e6%8e%a8%e7%89%b9" target="_blank">推特</a>创建application获取key及secret：打开<a rel="nofollow" href="https://twitter.com/apps" target="_blank"><a href="https://twitter.com/apps">https://twitter.com/apps</a></a>（需翻墙），点击“Register a new application »”，按照下图进行填写后点击“Save”；<!--more--></p>
+
+<p>其中Callback URL是：<a href="http://xxxxxx.appspot.com/oauth/twitter/callback">http://xxxxxx.appspot.com/oauth/twitter/callback</a> （xxxxxx是第一步创建时的Identifier名称）</p>
+
+<p style="text-align: center;"><a href="http://lh6.ggpht.com/_65ZfNm-tR48/TGubRDnyE_I/AAAAAAAAD4s/oULmlmkrAE0/gae-3.jpg?imgmax=800"><img class="pie-img aligncenter" src="http://lh6.ggpht.com/_65ZfNm-tR48/TGubRDnyE_I/AAAAAAAAD4s/oULmlmkrAE0/gae-3.jpg?imgmax=800" alt="gae-3.jpg" /></a></p>
+
+
+<p style="text-align: left;">成功后出现以下页面，<strong>记下</strong><strong>key和secret</strong>，OK；</p>
+
+
+<p><strong>二、gtap程序下载及修改</strong></p>
+
+<p>1.下载并解压<a rel="nofollow" href="http://code.google.com/p/gtap/downloads/list" target="_blank">gtap-0.4</a>；</p>
+
+<p>2.修改代码并保存：</p>
+
+<p>(1)app.yaml</p>
+
+<p style="text-align: center;"><img class="pie-img aligncenter" src="http://lh6.ggpht.com/_65ZfNm-tR48/TGubTvQw9wI/AAAAAAAAD38/OI6bTNYflg4/gae-7.jpg?imgmax=800" alt="gae-7.jpg" /></p>
+
+
+<p style="text-align: left;">(2)main.py</p>
+
+
+<p style="text-align: center;"><img class="pie-img aligncenter" src="http://lh3.ggpht.com/_65ZfNm-tR48/TGubUD9fvrI/AAAAAAAAD4A/7Y29bYU0ZMI/gae-8.jpg?imgmax=800" alt="gae-8.jpg" /></p>
+
+
+<p><strong>三、本地部署配置<a title="查看 GAE 的全部文章" href="http://immmmm.com/tag/gae" target="_blank">GAE</a>并上传gtap</strong></p>
+
+<p>1.下载并安装<a rel="nofollow" href="http://www.python.org/download/" target="_blank">Python</a>和<a rel="nofollow" href="http://code.google.com/intl/zh-CN/appengine/downloads.html" target="_blank">Google App Engine SDK for Python</a>；</p>
+
+<p>2.配置Python：计算机—属性—高级系统设置—环境变量，修改“系统变量”中的“Path”值为Python的安装目录</p>
+
+<p style="text-align: center;"><a href="http://lh6.ggpht.com/_65ZfNm-tR48/TGubSkBc-gI/AAAAAAAAD30/1ErS4ipY6qE/gae-5.jpg?imgmax=800"><img class="pie-img aligncenter" src="http://lh6.ggpht.com/_65ZfNm-tR48/TGubSkBc-gI/AAAAAAAAD30/1ErS4ipY6qE/gae-5.jpg?imgmax=400" alt="gae-5.jpg" /></a></p>
+
+
+<p>然后win+r，输入cmd回车，输入python，有返回，说明Python配置成功，OK；</p>
+
+<p>3.上次gtar程序至GAE：启动Google App Engine Launcher，点击“File”，再点击“Add Existing Application”，选择指定到gtar程序所在文件夹的路径（需全英文路径），然后选中新项目，再点击主界面上的“Deploy”按钮输入 Google账户及密码，等待弹出窗口中显示“You can close this window now”，OK；</p>
+
+<p><strong>四、完成Ouath验证</strong></p>
+
+<p>访问<a href="http://xxxxxx.appspot.com/"><a href="http://xxxxxx.appspot.com/">http://xxxxxx.appspot.com/</a></a>，</p>
+
+<p style="text-align: center;"><a href="http://lh3.ggpht.com/_65ZfNm-tR48/TGubUy9YkvI/AAAAAAAAD4E/Y0w9kFbY00Q/gae-9.jpg?imgmax=800"><img class="pie-img aligncenter" src="http://lh3.ggpht.com/_65ZfNm-tR48/TGubUy9YkvI/AAAAAAAAD4E/Y0w9kFbY00Q/gae-9.jpg?imgmax=400" alt="gae-9.jpg" /></a></p>
+
+
+<p style="text-align: left;">点击“Allow”：</p>
+
+
+<p style="text-align: center;"><a href="http://lh5.ggpht.com/_65ZfNm-tR48/TGubVoQrhkI/AAAAAAAAD4I/uQglo_TqWsY/gae-10.jpg?imgmax=800"><img class="pie-img aligncenter" src="http://lh5.ggpht.com/_65ZfNm-tR48/TGubVoQrhkI/AAAAAAAAD4I/uQglo_TqWsY/gae-10.jpg?imgmax=400" alt="gae-10.jpg" /></a></p>
+
+
+<p style="text-align: left;">页面跳转回来：</p>
+
+
+<p style="text-align: center;"><a href="http://lh5.ggpht.com/_65ZfNm-tR48/TGubWF8BGlI/AAAAAAAAD4M/thiUcsZXi14/gae-11.jpg?imgmax=800"><img class="pie-img aligncenter" src="http://lh5.ggpht.com/_65ZfNm-tR48/TGubWF8BGlI/AAAAAAAAD4M/thiUcsZXi14/gae-11.jpg?imgmax=400" alt="gae-11.jpg" /></a></p>
+
+
+<p style="text-align: left;">最后点击“Change the Key”，OK！（页面会跳转上个界面不用管，直接关闭就行了）</p>
+
+
+<p style="text-align: left;"><strong>五、您的推特API出炉</strong>：http://xxxxxx.appspot.com/ （最后那个“/”不可省！）</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Dropbox登陆问题和使用小技巧]]></title>
+    <link href="http://blog.mosquitoliu.com/blog/2010/05/16/dropboxdeng-lu-wen-ti-he-shi-yong-xiao-ji-qiao/"/>
+    <updated>2010-05-16T13:40:00+08:00</updated>
+    <id>http://blog.mosquitoliu.com/blog/2010/05/16/dropboxdeng-lu-wen-ti-he-shi-yong-xiao-ji-qiao</id>
+    <content type="html"><![CDATA[<p style="text-align: center;"><a href="http://pic.mosquitoliu.com/wp-content/uploads/2010/05/CD83392C1AD5EFF44AE03A78E54D1B2015555CF9.jpg"><img class="aligncenter size-full wp-image-170" title="CD83392C1AD5EFF44AE03A78E54D1B2015555CF9" src="http://pic.mosquitoliu.com/wp-content/uploads/2010/05/CD83392C1AD5EFF44AE03A78E54D1B2015555CF9.jpg" alt="" width="405" height="258" /></a><a href="http://pic.mosquitoliu.com/wp-content/uploads/2010/05/CD83392C1AD5EFF44AE03A78E54D1B2015555CF9.jpg"></a></p>
+
+
+<p>Dropbox作为一个强大文件网络同步、备份、分享工具深受大家的喜爱，但是被和谐掉了。Dropbox无法登陆，其解决办法如下：</p>
+
+<p>在hosts文件中将dropbox对应的IP修改为174.36.30.71，hosts文件的目录一般是在C:WindowsSystem32 driversetc</p>
+
+<!--more-->
+
+
+<p>使用Dropbox同步收藏夹</p>
+
+<p>默认情况下IE的收藏夹路径为： C:Documents and SettingsAdministratorFavorites ，我们可以通过修改注册表的方式来修改收藏夹的路径，打开注册表： HKEY_USERsSoftwareMicrosoftWindowsCurrentVersionExplorerUser Shell Folders ，而后把“Favorites”键值修改成My Dropbox目录下的一个文件夹路径即可。在多台电脑都进行这样的操作，就可以实现多台电脑自动同步IE收藏夹的功能。</p>
+]]></content>
+  </entry>
+  
+</feed>

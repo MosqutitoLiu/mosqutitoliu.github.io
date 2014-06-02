@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Object-C | MosquitoLiu's Blog]]></title>
+  <link href="http://blog.mosquitoliu.com/blog/categories/object-c/atom.xml" rel="self"/>
+  <link href="http://blog.mosquitoliu.com/"/>
+  <updated>2014-04-07T23:55:53+08:00</updated>
+  <id>http://blog.mosquitoliu.com/</id>
+  <author>
+    <name><![CDATA[小文]]></name>
+    <email><![CDATA[freefishdss@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[UITapGestureRecognizer屏蔽掉Button的点击事件]]></title>
+    <link href="http://blog.mosquitoliu.com/blog/2014/04/07/uitapgesturerecognizer/"/>
+    <updated>2014-04-07T23:39:05+08:00</updated>
+    <id>http://blog.mosquitoliu.com/blog/2014/04/07/uitapgesturerecognizer</id>
+    <content type="html"><![CDATA[<p>iOS 6以下UITapGestureRecognizer会屏蔽掉Button的点击事件,但是在iOS 7就不会。</p>
+
+<p>解决办法：</p>
+
+<p>```objc</p>
+
+<h1>pragma mark &ndash; UIGestureRecognizerDelegate</h1>
+
+<ul>
+<li><p>(BOOL)gestureRecognizer:(UIGestureRecognizer <em>)gestureRecognizer shouldReceiveTouch:(UITouch </em>)touch
+{
+  if ([touch.view isKindOfClass:[UIButton class]]) {
+      /<em>* iOS 6 以下UITapGestureRecognizer会屏蔽掉Button的点击事件 </em>/
+      return NO;
+  }</p>
+
+<p>  return YES;
+}
+```</p></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[setNeedsLayout VS setNeedsDisplay]]></title>
+    <link href="http://blog.mosquitoliu.com/blog/2014/03/12/setneedslayout-vs-setneedsdisplay/"/>
+    <updated>2014-03-12T14:38:33+08:00</updated>
+    <id>http://blog.mosquitoliu.com/blog/2014/03/12/setneedslayout-vs-setneedsdisplay</id>
+    <content type="html"><![CDATA[<ul>
+<li>setNeedsLayout
+
+<ul>
+<li>异步执行</li>
+<li>不立即刷新布局</li>
+<li>自动调用layoutSubViews（重新定义子元素的位置和大小）
+
+<ul>
+<li>layoutSubViews方法优先于drawRect</li>
+<li>layoutSubViews被调用的情况：
+
+<ul>
+<li>init初始化不会调用layoutSubViews，但是当initWithFrame进行初始化的时候，rect的值不为CGRectZero，会触发调用layoutSubViews</li>
+<li>addSubView会触发layoutSubViews</li>
+<li>设置view的frame（frame的值设置前后发生了变化）会触发 layoutSubViews</li>
+<li>滚动UIScrollView触发layoutSubViews</li>
+<li>旋转Screen触发UIView上的layoutSubViews</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>layoutIfNeeded 立即刷新布局</li>
+</ul>
+</li>
+<li>setNeedsDisplay
+
+<ul>
+<li>异步执行</li>
+<li>重新绘制</li>
+<li>自动调用drawRect
+
+<ul>
+<li>drawRect被调用的情况
+
+<ul>
+<li>UIView初始化没有设置rect大小，导致drawRect不被调用</li>
+<li>UIViewController中的loadView、viewDidLoad两方法之后调用（可以设置一些值给View）</li>
+<li>sizeToFit之后触发drawRect</li>
+<li>设置contentMode属性值为UIViewContentModeRedraw，设置或更改frame时自动调用drawRect</li>
+<li>若要用CALayer绘图，只能在drawInContext中绘制，或是在delegate中的相应的方法中绘制，同样调用setNeedsDisplay触发</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[设置菊花（UIActivityIndicatorView）大小]]></title>
+    <link href="http://blog.mosquitoliu.com/blog/2014/03/11/set-uiactivityindicatorview-size/"/>
+    <updated>2014-03-11T18:37:10+08:00</updated>
+    <id>http://blog.mosquitoliu.com/blog/2014/03/11/set-uiactivityindicatorview-size</id>
+    <content type="html"><![CDATA[<p>```objc
+_activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];</p>
+
+<pre><code>      /** 设置中心 */
+    _activityView.center = CGPointMake(30, 12);
+      /** 设置菊花大小 */
+    [_activityView.layer setValue:[NSNumber numberWithFloat:0.6f]
+                       forKeyPath:@"transform.scale"];
+    /** 当旋转结束时隐藏 */
+    [_activityView setHidesWhenStopped:YES];
+    _activityView.userInteractionEnabled = NO;
+    _activityView.hidden = YES;
+    [_subscriptionButton addSubview:_activityView];
+</code></pre>
+
+<p>```</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Key-Value-Observing]]></title>
+    <link href="http://blog.mosquitoliu.com/blog/2014/03/11/key-value-observing/"/>
+    <updated>2014-03-11T15:59:28+08:00</updated>
+    <id>http://blog.mosquitoliu.com/blog/2014/03/11/key-value-observing</id>
+    <content type="html"><![CDATA[<p>Key-Value-Observing（简称KVO）：当指定的属性被修改，允许对象接受到通知的机制。每次指定的被观察对象的属性被修改的时候，KVO都会自动的去通知相应的观察者。</p>
+
+<ul>
+<li><p>优点</p>
+
+<ul>
+<li>当有属性改变时，KVO会提供自动的消息通知。不需要设计自己的观察者模型</li>
+<li>支持多个观察者观察同一个属性</li>
+</ul>
+</li>
+<li><p>使用</p>
+
+<ul>
+<li>是否有必要实现KVO</li>
+<li>注册成为观察者</li>
+<li>实现addObserver:forKeyPath:option:context:方法</li>
+</ul>
+</li>
+</ul>
+
+
+<p>```objc</p>
+
+<pre><code>    [self addObserver:observer
+           forKeyPath:@"edit"
+              options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld
+              context:NULL];     
+</code></pre>
+
+<p>```</p>
+
+<ul>
+<li><ul>
+<li><ul>
+<li>self : 被观察者</li>
+<li>observer ：观察者</li>
+<li>foreKeyPath ：property的name</li>
+<li>NSKeyValueObservingOptionNew 更改之前的值提供给处理方法；NSKeyValueObservingOptionOld 更改之后的值提供给处理方法；NSKeyValueObservingOptionInitial 把初始化的值提供给处理方法，一旦注册就会调用一次；NSKeyValueObservingOptionPrior 分两次调用，在值改变之前和改变之后</li>
+<li>context ：可以带一些参数</li>
+</ul>
+</li>
+<li>当观察者的属性变化的时候方法observeValueForKeyPath:ofObject:change:context:会自动调用</li>
+</ul>
+</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[延迟操作]]></title>
+    <link href="http://blog.mosquitoliu.com/blog/2014/03/10/delay-operation/"/>
+    <updated>2014-03-10T11:15:00+08:00</updated>
+    <id>http://blog.mosquitoliu.com/blog/2014/03/10/delay-operation</id>
+    <content type="html"><![CDATA[<ul>
+<li>performSelector
+
+<ul>
+<li>主线程执行，否则无效</li>
+<li>非阻塞的执行方法</li>
+<li>不能取消执行</li>
+</ul>
+</li>
+</ul>
+
+
+<p>```objc
+[self performSelector:@selector(showNextMessage)</p>
+
+<pre><code>               withObject:nil
+               afterDelay:kMinimumMessageVisibleTime];
+</code></pre>
+
+<p>```</p>
+
+<ul>
+<li>NSTimer 定时器
+
+<ul>
+<li>主线程执行，否则无效</li>
+<li>非阻塞执行方法</li>
+<li>invalidate 可取消执行</li>
+</ul>
+</li>
+</ul>
+
+
+<p>```objc
+ self.cancelSubscriotionTimer = [NSTimer scheduledTimerWithTimeInterval:3</p>
+
+<pre><code>                                                             target:self
+                                                           selector:@selector(backIsSubcribe)
+                                                           userInfo:nil
+                                                            repeats:NO];
+</code></pre>
+
+<p> /<em>* 取消 </em>/
+  if ([self.cancelSubscriotionTimer isValid]) {</p>
+
+<pre><code>    [self.cancelSubscriotionTimer invalidate];
+    self.cancelSubscriotionTimer = nil;
+}
+</code></pre>
+
+<p>```</p>
+
+<!--more-->
+
+
+<ul>
+<li>GCD方式
+
+<ul>
+<li>非阻塞执行方法</li>
+<li>github上有取消执行的方法，待测试</li>
+</ul>
+</li>
+</ul>
+
+
+<p>``` objc
+dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, 0.3 * NSEC_PER_SEC);</p>
+
+<pre><code>            dispatch_after(time,dispatch_get_main_queue(), ^(void){
+                self.subscribeBlock(self);
+                [self.activityView stopAnimating];
+                self.subscriptionButton.userInteractionEnabled = YES;
+            });
+</code></pre>
+
+<p>```</p>
+]]></content>
+  </entry>
+  
+</feed>

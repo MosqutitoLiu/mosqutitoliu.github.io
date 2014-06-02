@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: MPMoviePlayerViewController | MosquitoLiu's Blog]]></title>
+  <link href="http://blog.mosquitoliu.com/blog/categories/mpmovieplayerviewcontroller/atom.xml" rel="self"/>
+  <link href="http://blog.mosquitoliu.com/"/>
+  <updated>2014-04-07T23:55:53+08:00</updated>
+  <id>http://blog.mosquitoliu.com/</id>
+  <author>
+    <name><![CDATA[小文]]></name>
+    <email><![CDATA[freefishdss@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[视频循环播放]]></title>
+    <link href="http://blog.mosquitoliu.com/blog/2012/04/24/shi-pin-xun-huan-bo-fang/"/>
+    <updated>2012-04-24T17:42:00+08:00</updated>
+    <id>http://blog.mosquitoliu.com/blog/2012/04/24/shi-pin-xun-huan-bo-fang</id>
+    <content type="html"><![CDATA[<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>moviePlayer = [[MPMoviePlayerViewController alloc] initWithContentURL:url];&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>moviePlayer.moviePlayer.repeatMode = MPMovieRepeatModeOne;//循环播放
+</span><span class='line'>……</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+]]></content>
+  </entry>
+  
+</feed>

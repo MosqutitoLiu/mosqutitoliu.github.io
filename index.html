@@ -1,0 +1,951 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>MosquitoLiu's Blog</title>
+	<meta name="author" content="小文">
+
+	
+	<meta name="description" content="iOS 6以下UITapGestureRecognizer会屏蔽掉Button的点击事件,但是在iOS 7就不会。 解决办法： 1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+#pragma mark - UIGestureRecognizerDelegate
+- (BOOL) &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="MosquitoLiu's Blog" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script async="true" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">MosquitoLiu's Blog</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+	<li><a href="/about">About Me</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+	<li><a href="/about">About Me</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:blog.mosquitoliu.com">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		<a class="facebook" href="http://www.facebook.com/freefishdss" title="Facebook">Facebook</a>
+		
+		
+		<a class="google" href="https://plus.google.com/104655963617046039162?rel=author" title="Google+">Google+</a>
+		
+		
+		<a class="twitter" href="http://twitter.com/mosquitoliu8023" title="Twitter">Twitter</a>
+		
+		
+		<a class="github" href="https://github.com/MosqutitoLiu" title="GitHub">GitHub</a>
+		
+    
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+    
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:blog.mosquitoliu.com">
+	</form>
+</nav>
+
+</header>
+	
+		
+<div id="banner" class="inner">
+	<div class="container">
+		<ul class="feed"></ul>
+	</div>
+	<small><a href="http://twitter.com/mosquitoliu8023">mosquitoliu8023</a> @ <a href="http://twitter.com">Twitter</a></small>
+	<div class="loading">Loading...</div>
+</div>
+<script src="/javascripts/twitter.js"></script>
+<script type="text/javascript">
+	(function($){
+		$('#banner').getTwitterFeed('mosquitoliu8023', 4, true);
+	})(jQuery);
+</script>
+
+	
+	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2014/04/07/uitapgesturerecognizer/">
+		
+			UITapGestureRecognizer屏蔽掉Button的点击事件</a>
+	</h2>
+	<div class="entry-content">
+		<p>iOS 6以下UITapGestureRecognizer会屏蔽掉Button的点击事件,但是在iOS 7就不会。</p>
+
+<p>解决办法：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="cp">#pragma mark - UIGestureRecognizerDelegate</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">gestureRecognizer:</span><span class="p">(</span><span class="n">UIGestureRecognizer</span> <span class="o">*</span><span class="p">)</span><span class="nv">gestureRecognizer</span> <span class="nf">shouldReceiveTouch:</span><span class="p">(</span><span class="n">UITouch</span> <span class="o">*</span><span class="p">)</span><span class="nv">touch</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">([</span><span class="n">touch</span><span class="p">.</span><span class="n">view</span> <span class="nl">isKindOfClass:</span><span class="p">[</span><span class="n">UIButton</span> <span class="n">class</span><span class="p">]])</span> <span class="p">{</span>
+</span><span class='line'>        <span class="cm">/** iOS 6 以下UITapGestureRecognizer会屏蔽掉Button的点击事件 */</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">NO</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="n">YES</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-07T23:39:05+08:00" pubdate data-updated="true">Apr 7<span>th</span>, 2014</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/object-c/'>Object-C</a>, <a class='category' href='/blog/categories/study/'>Study</a>
+
+
+</div>
+	
+	<div class="comments"><a href="/blog/2014/04/07/uitapgesturerecognizer/#disqus_thread">Comments</a></div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2014/03/12/setneedslayout-vs-setneedsdisplay/">
+		
+			setNeedsLayout vs setNeedsDisplay</a>
+	</h2>
+	<div class="entry-content">
+		<ul>
+<li>setNeedsLayout
+
+<ul>
+<li>异步执行</li>
+<li>不立即刷新布局</li>
+<li>自动调用layoutSubViews（重新定义子元素的位置和大小）
+
+<ul>
+<li>layoutSubViews方法优先于drawRect</li>
+<li>layoutSubViews被调用的情况：
+
+<ul>
+<li>init初始化不会调用layoutSubViews，但是当initWithFrame进行初始化的时候，rect的值不为CGRectZero，会触发调用layoutSubViews</li>
+<li>addSubView会触发layoutSubViews</li>
+<li>设置view的frame（frame的值设置前后发生了变化）会触发 layoutSubViews</li>
+<li>滚动UIScrollView触发layoutSubViews</li>
+<li>旋转Screen触发UIView上的layoutSubViews</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>layoutIfNeeded 立即刷新布局</li>
+</ul>
+</li>
+<li>setNeedsDisplay
+
+<ul>
+<li>异步执行</li>
+<li>重新绘制</li>
+<li>自动调用drawRect
+
+<ul>
+<li>drawRect被调用的情况
+
+<ul>
+<li>UIView初始化没有设置rect大小，导致drawRect不被调用</li>
+<li>UIViewController中的loadView、viewDidLoad两方法之后调用（可以设置一些值给View）</li>
+<li>sizeToFit之后触发drawRect</li>
+<li>设置contentMode属性值为UIViewContentModeRedraw，设置或更改frame时自动调用drawRect</li>
+<li>若要用CALayer绘图，只能在drawInContext中绘制，或是在delegate中的相应的方法中绘制，同样调用setNeedsDisplay触发</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-03-12T14:38:33+08:00" pubdate data-updated="true">Mar 12<span>th</span>, 2014</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/object-c/'>Object-C</a>, <a class='category' href='/blog/categories/study/'>Study</a>
+
+
+</div>
+	
+	<div class="comments"><a href="/blog/2014/03/12/setneedslayout-vs-setneedsdisplay/#disqus_thread">Comments</a></div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2014/03/11/set-uiactivityindicatorview-size/">
+		
+			设置菊花（UIActivityIndicatorView）大小</a>
+	</h2>
+	<div class="entry-content">
+		<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">_activityView</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UIActivityIndicatorView</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithActivityIndicatorStyle:</span><span class="n">UIActivityIndicatorViewStyleWhite</span><span class="p">];</span>
+</span><span class='line'>        <span class="cm">/** 设置中心 */</span>
+</span><span class='line'>        <span class="n">_activityView</span><span class="p">.</span><span class="n">center</span> <span class="o">=</span> <span class="n">CGPointMake</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">12</span><span class="p">);</span>
+</span><span class='line'>        <span class="cm">/** 设置菊花大小 */</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">_activityView</span><span class="p">.</span><span class="n">layer</span> <span class="nl">setValue:</span><span class="p">[</span><span class="n">NSNumber</span> <span class="nl">numberWithFloat:</span><span class="mf">0.6f</span><span class="p">]</span>
+</span><span class='line'>                           <span class="nl">forKeyPath:</span><span class="s">@&quot;transform.scale&quot;</span><span class="p">];</span>
+</span><span class='line'>        <span class="cm">/** 当旋转结束时隐藏 */</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">_activityView</span> <span class="nl">setHidesWhenStopped:</span><span class="n">YES</span><span class="p">];</span>
+</span><span class='line'>        <span class="n">_activityView</span><span class="p">.</span><span class="n">userInteractionEnabled</span> <span class="o">=</span> <span class="n">NO</span><span class="p">;</span>
+</span><span class='line'>        <span class="n">_activityView</span><span class="p">.</span><span class="n">hidden</span> <span class="o">=</span> <span class="n">YES</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">_subscriptionButton</span> <span class="nl">addSubview:</span><span class="n">_activityView</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-03-11T18:37:10+08:00" pubdate data-updated="true">Mar 11<span>th</span>, 2014</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/object-c/'>Object-C</a>, <a class='category' href='/blog/categories/study/'>Study</a>
+
+
+</div>
+	
+	<div class="comments"><a href="/blog/2014/03/11/set-uiactivityindicatorview-size/#disqus_thread">Comments</a></div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2014/03/11/key-value-observing/">
+		
+			Key-Value-Observing</a>
+	</h2>
+	<div class="entry-content">
+		<p>Key-Value-Observing（简称KVO）：当指定的属性被修改，允许对象接受到通知的机制。每次指定的被观察对象的属性被修改的时候，KVO都会自动的去通知相应的观察者。</p>
+
+<ul>
+<li><p>优点</p>
+
+<ul>
+<li>当有属性改变时，KVO会提供自动的消息通知。不需要设计自己的观察者模型</li>
+<li>支持多个观察者观察同一个属性</li>
+</ul>
+</li>
+<li><p>使用</p>
+
+<ul>
+<li>是否有必要实现KVO</li>
+<li>注册成为观察者</li>
+<li>实现addObserver:forKeyPath:option:context:方法</li>
+</ul>
+</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'> <span class="p">[</span><span class="n">self</span> <span class="nl">addObserver:</span><span class="n">observer</span>
+</span><span class='line'>           <span class="nl">forKeyPath:</span><span class="s">@&quot;edit&quot;</span>
+</span><span class='line'>              <span class="nl">options:</span><span class="n">NSKeyValueObservingOptionNew</span><span class="o">|</span><span class="n">NSKeyValueObservingOptionOld</span>
+</span><span class='line'>              <span class="nl">context:</span><span class="nb">NULL</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<ul>
+<li><ul>
+<li><ul>
+<li>self : 被观察者</li>
+<li>observer ：观察者</li>
+<li>foreKeyPath ：property的name</li>
+<li>NSKeyValueObservingOptionNew 更改之前的值提供给处理方法；NSKeyValueObservingOptionOld 更改之后的值提供给处理方法；NSKeyValueObservingOptionInitial 把初始化的值提供给处理方法，一旦注册就会调用一次；NSKeyValueObservingOptionPrior 分两次调用，在值改变之前和改变之后</li>
+<li>context ：可以带一些参数</li>
+</ul>
+</li>
+<li>当观察者的属性变化的时候方法observeValueForKeyPath:ofObject:change:context:会自动调用</li>
+</ul>
+</li>
+</ul>
+
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-03-11T15:59:28+08:00" pubdate data-updated="true">Mar 11<span>th</span>, 2014</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/object-c/'>Object-C</a>, <a class='category' href='/blog/categories/study/'>Study</a>
+
+
+</div>
+	
+	<div class="comments"><a href="/blog/2014/03/11/key-value-observing/#disqus_thread">Comments</a></div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2014/03/10/delay-operation/">
+		
+			延迟操作</a>
+	</h2>
+	<div class="entry-content">
+		<ul>
+<li>performSelector
+
+<ul>
+<li>主线程执行，否则无效</li>
+<li>非阻塞的执行方法</li>
+<li>不能取消执行</li>
+</ul>
+</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">[</span><span class="n">self</span> <span class="nl">performSelector:</span><span class="k">@selector</span><span class="p">(</span><span class="n">showNextMessage</span><span class="p">)</span>
+</span><span class='line'>                   <span class="nl">withObject:</span><span class="nb">nil</span>
+</span><span class='line'>                   <span class="nl">afterDelay:</span><span class="n">kMinimumMessageVisibleTime</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>NSTimer 定时器
+
+<ul>
+<li>主线程执行，否则无效</li>
+<li>非阻塞执行方法</li>
+<li>invalidate 可取消执行</li>
+</ul>
+</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'> <span class="n">self</span><span class="p">.</span><span class="n">cancelSubscriotionTimer</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSTimer</span> <span class="nl">scheduledTimerWithTimeInterval:</span><span class="mi">3</span>
+</span><span class='line'>                                                                 <span class="nl">target:</span><span class="n">self</span>
+</span><span class='line'>                                                               <span class="nl">selector:</span><span class="k">@selector</span><span class="p">(</span><span class="n">backIsSubcribe</span><span class="p">)</span>
+</span><span class='line'>                                                               <span class="nl">userInfo:</span><span class="nb">nil</span>
+</span><span class='line'>                                                                <span class="nl">repeats:</span><span class="n">NO</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'> <span class="cm">/** 取消 */</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">([</span><span class="n">self</span><span class="p">.</span><span class="n">cancelSubscriotionTimer</span> <span class="n">isValid</span><span class="p">])</span> <span class="p">{</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">cancelSubscriotionTimer</span> <span class="n">invalidate</span><span class="p">];</span>
+</span><span class='line'>        <span class="n">self</span><span class="p">.</span><span class="n">cancelSubscriotionTimer</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+
+		
+		<a href="/blog/2014/03/10/delay-operation/" class="more-link">Read on &rarr;</a>
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-03-10T11:15:00+08:00" pubdate data-updated="true">Mar 10<span>th</span>, 2014</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/object-c/'>Object-C</a>, <a class='category' href='/blog/categories/study/'>Study</a>
+
+
+</div>
+	
+	<div class="comments"><a href="/blog/2014/03/10/delay-operation/#disqus_thread">Comments</a></div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2014/03/03/button-displayed-simultaneously-image-and-title/">
+		
+			UIButton-Image和Title共显</a>
+	</h2>
+	<div class="entry-content">
+		<p>一般情况下设置button的setBackgroundImage，然后setTitle,这样button的image和title都能显示正常。
+有时候需要设置button的setImage，在这种情况下再设置setTitle会发现没有共同显示，只是看到image看不到title。其原因是title的位置出现了错误，title的坐标是相对image的坐标。</p>
+
+<p>如：image为下图所示</p>
+
+<iframe src="https://www.flickr.com/photos/mosquitoliu/12905710443/player/30106a7a12" height="48" width="120"  frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+
+
+<p>添加显示title</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="err">……</span>
+</span><span class='line'><span class="n">UIImage</span> <span class="o">*</span><span class="n">isSubscriptionImage</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIImage</span> <span class="nl">imageWithNameOnly:</span><span class="n">kIsSubscriptionImageName</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">subscriptionButton</span> <span class="nl">setTitle:</span><span class="n">kIsSubscriptionTitleNSString</span>
+</span><span class='line'>                             <span class="nl">forState:</span><span class="n">UIControlStateNormal</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">subscriptionButton</span> <span class="nl">setImage:</span><span class="n">isSubscriptionImage</span>
+</span><span class='line'>                             <span class="nl">forState:</span><span class="n">UIControlStateNormal</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">subscriptionButton</span> <span class="nl">setTitleColor:</span><span class="n">RGB</span><span class="p">(</span><span class="mi">84</span><span class="p">,</span> <span class="mi">185</span><span class="p">,</span> <span class="mi">252</span><span class="p">)</span>
+</span><span class='line'>                            <span class="nl">forState:</span><span class="n">UIControlStateNormal</span><span class="p">];</span>
+</span><span class='line'>                          
+</span><span class='line'>    <span class="n">self</span><span class="p">.</span><span class="n">subscriptionButton</span><span class="p">.</span><span class="n">contentHorizontalAlignment</span> <span class="o">=</span> <span class="n">UIControlContentHorizontalAlignmentRight</span><span class="p">;</span>
+</span><span class='line'>    <span class="cm">/** 设置title的坐标 */</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">subscriptionButton</span> <span class="nl">setTitleEdgeInsets:</span><span class="n">UIEdgeInsetsMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">isSubscriptionImage</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span> <span class="o">-</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)];</span>
+</span><span class='line'>    <span class="err">……</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>效果如下所示：</p>
+
+<iframe src="https://www.flickr.com/photos/mosquitoliu/12905989023/player/1d4e627ca6" height="48" width="120"  frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+
+
+
+
+
+		
+		<a href="/blog/2014/03/03/button-displayed-simultaneously-image-and-title/" class="more-link">Read on &rarr;</a>
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-03-03T16:45:22+08:00" pubdate data-updated="true">Mar 3<span>rd</span>, 2014</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/object-c/'>Object-C</a>, <a class='category' href='/blog/categories/study/'>Study</a>
+
+
+</div>
+	
+	<div class="comments"><a href="/blog/2014/03/03/button-displayed-simultaneously-image-and-title/#disqus_thread">Comments</a></div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2014/03/03/label-different-color-and-font/">
+		
+			UILabel设置text显示不同颜色不同字体</a>
+	</h2>
+	<div class="entry-content">
+		<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="err">……</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">UILabel</span> <span class="o">*</span><span class="n">countLabel</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UILabel</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithFrame:</span><span class="n">CGRectMake</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">14</span><span class="p">)];</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="n">text</span> <span class="o">=</span><span class="p">[</span><span class="n">NSString</span> <span class="nl">stringWithFormat:</span><span class="s">@&quot;共有%d条评论&quot;</span><span class="p">,</span><span class="n">self</span><span class="p">.</span><span class="n">datasource</span><span class="p">.</span><span class="n">total</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">countLabel</span><span class="p">.</span><span class="n">attributedText</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span> <span class="nl">setCmtHeaderViewLabel:</span><span class="n">text</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">……</span>
+</span><span class='line'>
+</span><span class='line'><span class="cm">/**</span>
+</span><span class='line'><span class="cm"> * 设置label.text中的数字和文字的颜色</span>
+</span><span class='line'><span class="cm"> * 数字-RGB(51, 51, 51)</span>
+</span><span class='line'><span class="cm"> * 文字-RGB(102, 102, 102)</span>
+</span><span class='line'><span class="cm"> */</span>
+</span><span class='line'><span class="o">-</span> <span class="p">(</span><span class="n">NSAttributedString</span> <span class="o">*</span><span class="p">)</span><span class="nl">setCmtHeaderViewLabel:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="n">text</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="cm">/** 转为可变属性的字符串 */</span>
+</span><span class='line'>    <span class="n">NSMutableAttributedString</span> <span class="o">*</span><span class="n">attrText</span> <span class="o">=</span> <span class="p">[[[</span><span class="n">NSMutableAttributedString</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithString:</span><span class="n">text</span><span class="p">]</span> <span class="n">autorelease</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">attrText</span> <span class="nl">addAttribute:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="n">NSFontAttributeName</span>
+</span><span class='line'>                     <span class="nl">value:</span><span class="p">(</span><span class="kt">id</span><span class="p">)[[</span><span class="n">UIFont</span> <span class="nl">systemFontOfSize:</span><span class="mi">15</span><span class="p">]</span> <span class="n">CTFonter</span><span class="p">]</span>
+</span><span class='line'>                     <span class="nl">range:</span><span class="n">NSMakeRange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">text</span><span class="p">.</span><span class="n">length</span><span class="p">)];</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">attrText</span> <span class="nl">addAttribute:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="n">NSForegroundColorAttributeName</span>
+</span><span class='line'>                     <span class="nl">value:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="n">RGB</span><span class="p">(</span><span class="mi">102</span><span class="p">,</span> <span class="mi">102</span><span class="p">,</span> <span class="mi">102</span><span class="p">).</span><span class="n">CGColor</span>
+</span><span class='line'>                     <span class="nl">range:</span><span class="n">NSMakeRange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">text</span><span class="p">.</span><span class="n">length</span><span class="p">)];</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">attrText</span> <span class="nl">addAttribute:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="n">NSForegroundColorAttributeName</span>
+</span><span class='line'>                     <span class="nl">value:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="n">RGB</span><span class="p">(</span><span class="mi">51</span><span class="p">,</span> <span class="mi">51</span><span class="p">,</span> <span class="mi">51</span><span class="p">).</span><span class="n">CGColor</span>
+</span><span class='line'>                     <span class="nl">range:</span><span class="n">NSMakeRange</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">text</span><span class="p">.</span><span class="n">length</span> <span class="o">-</span> <span class="mi">5</span><span class="p">)];</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">attrText</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-03-03T14:43:10+08:00" pubdate data-updated="true">Mar 3<span>rd</span>, 2014</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/object-c/'>Object-C</a>, <a class='category' href='/blog/categories/study/'>Study</a>
+
+
+</div>
+	
+	<div class="comments"><a href="/blog/2014/03/03/label-different-color-and-font/#disqus_thread">Comments</a></div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2014/02/09/instancetype-keyword/">
+		
+			Instancetype关键字</a>
+	</h2>
+	<div class="entry-content">
+		<p>instancetype关键字，保证了编译器能够正确推断方法的返回的类型。</p>
+
+<p><a href="http://clang.llvm.org/docs/LanguageExtensions.html#objective-c-features">Clang</a>的文档里提到 &ldquo;instancetype is a contextual keyword that is only permitted in the result type of an Object-C method&rdquo; 也就是说,instancetype只能作为返回值，不能像id那样作为参数。</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-02-09T11:14:55+08:00" pubdate data-updated="true">Feb 9<span>th</span>, 2014</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/object-c/'>Object-C</a>, <a class='category' href='/blog/categories/study/'>Study</a>
+
+
+</div>
+	
+	<div class="comments"><a href="/blog/2014/02/09/instancetype-keyword/#disqus_thread">Comments</a></div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2014/02/07/target/">
+		
+			2014年「目标」</a>
+	</h2>
+	<div class="entry-content">
+		<p>节后上班第一天，迎来了入冬以来的第一场雪。</p>
+
+<p>在春节假期间，我和小娴的事情终于有了眉目。双方父母终于点了头，同意了。对于我俩来说真的是莫大的欣慰。接下来要考虑的就是领证结婚，希望一切能进展的顺利……</p>
+
+<p>2014年-目标：攒钱。尽可能多的攒钱！！！</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-02-07T23:23:04+08:00" pubdate data-updated="true">Feb 7<span>th</span>, 2014</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/life/'>Life</a>
+
+
+</div>
+	
+	<div class="comments"><a href="/blog/2014/02/07/target/#disqus_thread">Comments</a></div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2014/01/21/arc-note/">
+		
+			ARC_笔记</a>
+	</h2>
+	<div class="entry-content">
+		<ul>
+<li> dealloc
+
+<ul>
+<li>释放一些不在ARC控制下的资源。如Core Foundation对象中调用CFRelease()，对那些通过malloc()分配的内存调用free(),注销通知，停止Timer。</li>
+</ul>
+</li>
+<li> 归零弱引用
+
+<ul>
+<li>归零弱引用指针，当他指向的对象被销毁时，系统会自动设置为nil</li>
+</ul>
+</li>
+<li> 混合支持ARC与不支持ARC
+
+<ul>
+<li>-fno-objc-arc</li>
+<li>-fobjc-arc</li>
+</ul>
+</li>
+<li> 编译时支持ARC而文件的代码不支持ARC</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="cp">#if !__has__feature(objc_arc)</span>
+</span><span class='line'><span class="c1">//这里是不支持ARC的代码</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">dealloc</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'><span class="c1">//在这里释放</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="cp">#endif</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+		
+		<a href="/blog/2014/01/21/arc-note/" class="more-link">Read on &rarr;</a>
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-21T17:53:07+08:00" pubdate data-updated="true">Jan 21<span>st</span>, 2014</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/object-c/'>Object-C</a>, <a class='category' href='/blog/categories/study/'>Study</a>
+
+
+</div>
+	
+	<div class="comments"><a href="/blog/2014/01/21/arc-note/#disqus_thread">Comments</a></div>
+	
+</div>
+</article>
+
+<nav id="pagenavi">
+    
+    
+        <a href="/blog/page/2/" class="next">Next</a>
+    
+    <div class="center"><a href="/blog/archives">Blog Archives</a></div>
+</nav></div>
+	<footer id="footer" class="inner">Copyright &copy; 2014
+
+    小文
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'mosquitoliu';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//go.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-30763840-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+</body>
+</html>
