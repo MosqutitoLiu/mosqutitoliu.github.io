@@ -7,18 +7,7 @@
 	<meta name="author" content="小文">
 
 	
-	<meta name="description" content="iOS 6以下UITapGestureRecognizer会屏蔽掉Button的点击事件,但是在iOS 7就不会。 解决办法： 1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-#pragma mark - UIGestureRecognizerDelegate
-- (BOOL) &hellip;">
+	<meta name="description" content="周六，大学同学聚会。 两位同学辞职，准备回成都创业了，愿一切顺利。 和毕业前的聚会相比，没有了当初的不舍和留恋，更多的是回忆以前的学校生活。酒桌上，每个人带着醉意，互相的吹捧调侃，同时也寻找着发财致富的机遇，遇到有利于自己发展的人，跪舔之。 酒席散后，和我关系很要好的几个同学去打成都麻将，三点， &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -109,6 +98,55 @@
 
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2014/08/11/tong-xue-ju-hui/">
+		
+			「同学」聚会</a>
+	</h2>
+	<div class="entry-content">
+		<p>周六，大学同学聚会。</p>
+
+<p>两位同学辞职，准备回成都创业了，愿一切顺利。</p>
+
+<p>和毕业前的聚会相比，没有了当初的不舍和留恋，更多的是回忆以前的学校生活。酒桌上，每个人带着醉意，互相的吹捧调侃，同时也寻找着发财致富的机遇，遇到有利于自己发展的人，跪舔之。</p>
+
+<p>酒席散后，和我关系很要好的几个同学去打成都麻将，三点，归，然后，睡。</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-11T14:03:38+08:00" pubdate data-updated="true">Aug 11<span>th</span>, 2014</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/life/'>Life</a>
+
+
+</div>
+	
+	<div class="comments"><a href="/blog/2014/08/11/tong-xue-ju-hui/#disqus_thread">Comments</a></div>
+	
+</div>
+</article>
 
 
     <article class="post">
@@ -810,89 +848,6 @@
 </div>
 	
 	<div class="comments"><a href="/blog/2014/02/07/target/#disqus_thread">Comments</a></div>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2014/01/21/arc-note/">
-		
-			ARC_笔记</a>
-	</h2>
-	<div class="entry-content">
-		<ul>
-<li> dealloc
-
-<ul>
-<li>释放一些不在ARC控制下的资源。如Core Foundation对象中调用CFRelease()，对那些通过malloc()分配的内存调用free(),注销通知，停止Timer。</li>
-</ul>
-</li>
-<li> 归零弱引用
-
-<ul>
-<li>归零弱引用指针，当他指向的对象被销毁时，系统会自动设置为nil</li>
-</ul>
-</li>
-<li> 混合支持ARC与不支持ARC
-
-<ul>
-<li>-fno-objc-arc</li>
-<li>-fobjc-arc</li>
-</ul>
-</li>
-<li> 编译时支持ARC而文件的代码不支持ARC</li>
-</ul>
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="cp">#if !__has__feature(objc_arc)</span>
-</span><span class='line'><span class="c1">//这里是不支持ARC的代码</span>
-</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">dealloc</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'><span class="c1">//在这里释放</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="cp">#endif</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-		
-		<a href="/blog/2014/01/21/arc-note/" class="more-link">Read on &rarr;</a>
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-21T17:53:07+08:00" pubdate data-updated="true">Jan 21<span>st</span>, 2014</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/object-c/'>Object-C</a>, <a class='category' href='/blog/categories/study/'>Study</a>
-
-
-</div>
-	
-	<div class="comments"><a href="/blog/2014/01/21/arc-note/#disqus_thread">Comments</a></div>
 	
 </div>
 </article>

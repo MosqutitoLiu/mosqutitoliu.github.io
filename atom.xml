@@ -4,7 +4,7 @@
   <title><![CDATA[MosquitoLiu's Blog]]></title>
   <link href="http://blog.mosquitoliu.com/atom.xml" rel="self"/>
   <link href="http://blog.mosquitoliu.com/"/>
-  <updated>2014-07-19T21:57:07+08:00</updated>
+  <updated>2014-08-13T23:56:06+08:00</updated>
   <id>http://blog.mosquitoliu.com/</id>
   <author>
     <name><![CDATA[小文]]></name>
@@ -12,6 +12,21 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[「同学」聚会]]></title>
+    <link href="http://blog.mosquitoliu.com/blog/2014/08/11/tong-xue-ju-hui/"/>
+    <updated>2014-08-11T14:03:38+08:00</updated>
+    <id>http://blog.mosquitoliu.com/blog/2014/08/11/tong-xue-ju-hui</id>
+    <content type="html"><![CDATA[<p>周六，大学同学聚会。</p>
+
+<p>两位同学辞职，准备回成都创业了，愿一切顺利。</p>
+
+<p>和毕业前的聚会相比，没有了当初的不舍和留恋，更多的是回忆以前的学校生活。酒桌上，每个人带着醉意，互相的吹捧调侃，同时也寻找着发财致富的机遇，遇到有利于自己发展的人，跪舔之。</p>
+
+<p>酒席散后，和我关系很要好的几个同学去打成都麻将，三点，归，然后，睡。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[UITapGestureRecognizer屏蔽掉Button的点击事件]]></title>
@@ -1391,45 +1406,6 @@ sprint 中的故事应该比较清楚。</p>
 
 <p> 一切有为法,尽是因缘合和,缘起时起，缘尽还无，不外如是。只是那伤痕却永不痊愈了，一一成为胎记，在往生的路上，如莲花开落，使你可以辨认。荼蘼是花季最后盛放的花，开到荼蘼花事了，只剩下开在遗忘前生的彼岸的花。</p>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Synergy]]></title>
-    <link href="http://blog.mosquitoliu.com/blog/2011/09/19/synergy/"/>
-    <updated>2011-09-19T02:18:00+08:00</updated>
-    <id>http://blog.mosquitoliu.com/blog/2011/09/19/synergy</id>
-    <content type="html"><![CDATA[<p>Synergy 是一款能够让使用者仅用一套键盘鼠标，就同时操控多部计算机的免费工具软件。使用者能够在包括 Windows 、 Linux 、 Mac OS 等不同的系统上安装它，并且在设定好主从关系后，就能够透过一组键盘鼠标来进行多部计算机的操控。『官方网址：<a href="http://synergy-foss.org"><a href="http://synergy-foss.org">http://synergy-foss.org</a></a>/』<!--more-->下载对应系统的客户端。我的是Window7和Mac OS。Windows 1.4.4beta 32-bit;Mac OS X Universal。</p>
-
-<p>安装好后，开始进行配置。（Windows7作为server，Mac OS作为Cliernt）</p>
-
-<p>Windows7下的配置（如下图）</p>
-
-<p><a href="http://pic.mosquitoliu.com/wp-content/uploads/2011/09/3.png"><img class="aligncenter size-full wp-image-421" title="3" src="http://pic.mosquitoliu.com/wp-content/uploads/2011/09/3.png" alt="" width="517" height="375" /></a><a href="http://mosquitoliu.com/wp-content/uploads/2011/09/2.jpg"><img class="aligncenter size-full wp-image-422" title="2" src="http://mosquitoliu.com/wp-content/uploads/2011/09/2.jpg" alt="" width="517" height="371" /></a></p>
-
-<p>要正确的填写计算机的名称。</p>
-
-<p><a href="http://pic.mosquitoliu.com/wp-content/uploads/2011/09/1.jpg"><img class="aligncenter size-full wp-image-423" title="1" src="http://pic.mosquitoliu.com/wp-content/uploads/2011/09/1.jpg" alt="" width="520" height="372" /></a><a href="http://mosquitoliu.com/wp-content/uploads/2011/09/6.jpg"><img class="aligncenter size-full wp-image-424" title="6" src="http://pic.mosquitoliu.com/wp-content/uploads/2011/09/6.jpg" alt="" width="335" height="278" /></a></p>
-
-<p>这样windows7的配置就完成了。点击Start，运行。</p>
-
-<p>Mac OS下的配置（如下图）</p>
-
-<p><a href="http://pic.mosquitoliu.com/wp-content/uploads/2011/09/5.jpg"><img class="aligncenter size-full wp-image-425" title="5" src="http://pic.mosquitoliu.com/wp-content/uploads/2011/09/5.jpg" alt="" width="473" height="413" /></a></p>
-
-<p>点击Start运行。</p>
-
-<p>这时Windows7下的图标变成了如图所示</p>
-
-<p><img class="aligncenter size-full wp-image-426" title="4" src="http://pic.mosquitoliu.com/wp-content/uploads/2011/09/4.jpg" alt="" width="66" height="48" /></p>
-
-<p>这表示连接成功。滑动鼠标可以从Windows窗口滑到Mac OS的窗口了。</p>
-
-<p>&nbsp;</p>
-
-<p>PS：当Mac OS作为Server，Windows7作为Client时，没有设置成功。原因不详。</p>
-
-<p>&nbsp;</p>
 ]]></content>
   </entry>
   
